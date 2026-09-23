@@ -1059,7 +1059,14 @@ html&gt;body{padding:0}&lt;/style&gt;
         &lt;span class=&quot;text-small&quot; data-width-unit&gt;cm&lt;/span&gt;
       &lt;/div&gt;
     &lt;/div&gt;
-    &lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; data-new-question&gt;&lt;i data-lucide=&quot;shuffle&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; 電腦出新題&lt;/button&gt;
+    &lt;div class=&quot;gcd-question-controls&quot;&gt;
+      &lt;div class=&quot;card gcd-difficulty&quot; aria-live=&quot;polite&quot;&gt;
+        &lt;span&gt;難度&lt;/span&gt;
+        &lt;strong data-difficulty&gt;1&lt;/strong&gt;
+        &lt;span data-difficulty-label&gt;入門&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; data-new-question&gt;&lt;i data-lucide=&quot;shuffle&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; 電腦出新題&lt;/button&gt;
+    &lt;/div&gt;
   &lt;/div&gt;
 
   &lt;section data-example=&quot;cut&quot;&gt;
@@ -1158,6 +1165,10 @@ html&gt;body{padding:0}&lt;/style&gt;
   #gcd-cutting-challenge .gcd-example-picker .form-select { min-height:58px; font-size:1.22rem; font-weight:700; }
   #gcd-cutting-challenge .gcd-topline { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
   #gcd-cutting-challenge .gcd-given { display:grid; grid-template-columns:repeat(2,minmax(132px,1fr)); gap:10px; flex:1; }
+  #gcd-cutting-challenge .gcd-question-controls { display:flex; align-items:stretch; gap:10px; }
+  #gcd-cutting-challenge .gcd-difficulty { display:grid; grid-template-columns:auto auto; align-content:center; column-gap:8px; min-width:118px; padding:10px 14px; background:color-mix(in srgb,var(--card) 80%,var(--yellow)); }
+  #gcd-cutting-challenge .gcd-difficulty span { font-size:.9rem; font-weight:700; color:var(--muted-foreground); }
+  #gcd-cutting-challenge .gcd-difficulty strong { grid-row:1 / 3; grid-column:2; align-self:center; font-size:2rem; font-weight:700; color:var(--primary); }
   #gcd-cutting-challenge .gcd-challenge-grid { display:grid; grid-template-columns:minmax(320px,.9fr) minmax(0,1.1fr); align-items:start; gap:18px; margin-top:18px; }
   #gcd-cutting-challenge .gcd-task-panel { min-width:0; }
   #gcd-cutting-challenge .gcd-task-panel .gcd-choice-heading { margin-top:0; }
@@ -1235,7 +1246,8 @@ html&gt;body{padding:0}&lt;/style&gt;
     #gcd-cutting-challenge .gcd-example-picker { grid-template-columns:1fr; gap:8px; }
     #gcd-cutting-challenge .gcd-topline { align-items:stretch; }
     #gcd-cutting-challenge .gcd-given { width:100%; }
-    #gcd-cutting-challenge [data-new-question] { width:100%; }
+    #gcd-cutting-challenge .gcd-question-controls { width:100%; }
+    #gcd-cutting-challenge [data-new-question] { flex:1; }
     #gcd-cutting-challenge .gcd-number-options { display:grid; grid-template-columns:repeat(3,1fr); }
     #gcd-cutting-challenge .gcd-option { min-width:0; min-height:60px; font-size:1.2rem; }
     #gcd-cutting-challenge [data-board] { min-height:210px; }
@@ -1264,6 +1276,8 @@ html&gt;body{padding:0}&lt;/style&gt;
   const widthLabel = root.querySelector(&#x27;[data-width-label]&#x27;);
   const lengthUnit = root.querySelector(&#x27;[data-length-unit]&#x27;);
   const widthUnit = root.querySelector(&#x27;[data-width-unit]&#x27;);
+  const difficultyEl = root.querySelector(&#x27;[data-difficulty]&#x27;);
+  const difficultyLabel = root.querySelector(&#x27;[data-difficulty-label]&#x27;);
   const promptEl = root.querySelector(&#x27;[data-prompt]&#x27;);
   const optionsEl = root.querySelector(&#x27;[data-options]&#x27;);
   const board = root.querySelector(&#x27;[data-board]&#x27;);
@@ -1292,6 +1306,8 @@ html&gt;body{padding:0}&lt;/style&gt;
   let mode = &#x27;side&#x27;;
   let packMode = &#x27;count&#x27;;
   let postMode = &#x27;distance&#x27;;
+  let difficulty = 0;
+  let lastDimensions = {min:0,max:0};
   let selected = null;
   const celebrationTimers = new WeakMap();
   const gcd = (a,b) =&gt; b ? gcd(b,a % b) : a;
@@ -1757,11 +1773,38 @@ html&gt;body{padding:0}&lt;/style&gt;
     postSparkles.classList.remove(&#x27;is-visible&#x27;);
     postStage.classList.remove(&#x27;is-celebrating&#x27;);
     hidePostSolution();
-    const multipliers=[[2,3],[3,4],[3,5],[4,5],[5,6],[2,5]];
-    const pair=multipliers[Math.floor(Math.random()*multipliers.length)];
-    const factor=3+Math.floor(Math.random()*7);
+    const levels=[
+      {factor:[2,3],multiplier:[2,4],label:&#x27;入門&#x27;},
+      {factor:[3,4],multiplier:[3,5],label:&#x27;基礎&#x27;},
+      {factor:[4,6],multiplier:[4,7],label:&#x27;進階&#x27;},
+      {factor:[6,8],multiplier:[5,9],label:&#x27;挑戰&#x27;},
+      {factor:[8,10],multiplier:[6,11],label:&#x27;困難&#x27;},
+      {factor:[10,12],multiplier:[7,13],label:&#x27;高手&#x27;}
+    ];
+    difficulty=Math.min(difficulty+1,levels.length);
+    const level=levels[difficulty-1];
+    const multiplierPairs=[];
+    for (let first=level.multiplier[0];first&lt;=level.multiplier[1];first++) {
+      for (let second=first+1;second&lt;=level.multiplier[1];second++) {
+        if (gcd(first,second)===1) multiplierPairs.push([first,second]);
+      }
+    }
+    const candidates=[];
+    for (let factor=level.factor[0];factor&lt;=level.factor[1];factor++) {
+      multiplierPairs.forEach(pair=&gt;{
+        const dimensions=[factor*pair[0],factor*pair[1]];
+        candidates.push({factor,pair,dimensions,min:Math.min(...dimensions),max:Math.max(...dimensions)});
+      });
+    }
+    const harder=candidates.filter(candidate=&gt;candidate.min&gt;lastDimensions.min &amp;&amp; candidate.max&gt;lastDimensions.max);
+    const source=harder.length ? harder : candidates;
+    const selectedQuestion=source[Math.floor(Math.random()*source.length)];
+    const {factor,pair}=selectedQuestion;
     const swap=Math.random()&lt;.5;
     question={length:factor*pair[swap?1:0],width:factor*pair[swap?0:1],gcd:factor};
+    lastDimensions={min:Math.min(question.length,question.width),max:Math.max(question.length,question.width)};
+    difficultyEl.textContent=difficulty;
+    difficultyLabel.textContent=level.label;
     lengthEl.textContent=question.length;
     widthEl.textContent=question.width;
     lengthEl.animate?.([{transform:&#x27;translateY(-8px)&#x27;,opacity:.2},{transform:&#x27;translateY(0)&#x27;,opacity:1}],{duration:360,easing:&#x27;ease-out&#x27;});
