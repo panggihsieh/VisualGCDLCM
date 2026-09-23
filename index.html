@@ -1063,58 +1063,74 @@ html&gt;body{padding:0}&lt;/style&gt;
     &lt;button class=&quot;nav-link&quot; id=&quot;count-mode&quot; type=&quot;button&quot; role=&quot;tab&quot; aria-controls=&quot;gcd-options&quot; aria-selected=&quot;false&quot; data-mode=&quot;count&quot; hidden&gt;選正方形總數&lt;/button&gt;
   &lt;/div&gt;
   &lt;div id=&quot;gcd-options&quot; role=&quot;tabpanel&quot; aria-labelledby=&quot;side-mode&quot;&gt;
-    &lt;div class=&quot;gcd-number-options&quot; data-options aria-label=&quot;電腦提供的數字選項&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;card gcd-number-options&quot; data-options aria-label=&quot;電腦提供的數字選項&quot;&gt;&lt;/div&gt;
   &lt;/div&gt;
 
   &lt;div class=&quot;gcd-stage&quot;&gt;
     &lt;svg data-board role=&quot;img&quot; aria-labelledby=&quot;gcd-board-title gcd-board-desc&quot; preserveAspectRatio=&quot;xMidYMid meet&quot;&gt;&lt;/svg&gt;
-    &lt;div class=&quot;gcd-sparkles&quot; data-sparkles aria-hidden=&quot;true&quot;&gt;&lt;span&gt;✦&lt;/span&gt;&lt;span&gt;✦&lt;/span&gt;&lt;span&gt;✦&lt;/span&gt;&lt;span&gt;✦&lt;/span&gt;&lt;span&gt;✦&lt;/span&gt;&lt;/div&gt;
+    &lt;div class=&quot;gcd-celebration&quot; data-sparkles aria-hidden=&quot;true&quot;&gt;
+      &lt;strong&gt;答對了！&lt;/strong&gt;
+      &lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
+      &lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
+    &lt;/div&gt;
   &lt;/div&gt;
   &lt;div class=&quot;card gcd-feedback&quot; data-feedback aria-live=&quot;polite&quot;&gt;請先從上方選一個數字。&lt;/div&gt;
 &lt;/div&gt;
 
 &lt;style&gt;
-  #gcd-cutting-challenge { color:var(--foreground); container-type:inline-size; background:var(--background); font-size:calc(var(--font-size-base) + 3px); }
+  #gcd-cutting-challenge { color:var(--foreground); container-type:inline-size; padding:18px; border-radius:20px; background:linear-gradient(135deg,color-mix(in srgb,var(--blue) 10%,var(--background)),color-mix(in srgb,var(--purple) 8%,var(--background))); font-size:calc(var(--font-size-base) + 5px); }
   #gcd-cutting-challenge .gcd-topline { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
   #gcd-cutting-challenge .gcd-given { display:grid; grid-template-columns:repeat(2,minmax(132px,1fr)); gap:10px; flex:1; }
-  #gcd-cutting-challenge .gcd-number-card { display:grid; grid-template-columns:auto 1fr auto; grid-template-rows:auto auto; align-items:end; column-gap:8px; }
-  #gcd-cutting-challenge .gcd-number-card .viz-badge { grid-row:1 / 3; align-self:center; font-size:1rem; }
-  #gcd-cutting-challenge .gcd-number-card .text-small { font-size:1rem; }
-  #gcd-cutting-challenge .gcd-number { font-size:2rem; font-weight:500; }
-  #gcd-cutting-challenge .gcd-choice-heading { display:flex; align-items:center; gap:8px; margin-block:14px 8px; font-weight:500; }
-  #gcd-cutting-challenge .gcd-number-options { display:flex; flex-wrap:wrap; gap:8px; min-height:44px; margin-block:10px 4px; }
-  #gcd-cutting-challenge .gcd-option { min-width:84px; min-height:54px; font-size:1.25rem; font-variant-numeric:tabular-nums; }
-  #gcd-cutting-challenge [data-new-question] { min-height:54px; padding-inline:20px; font-size:1.08rem; }
-  #gcd-cutting-challenge .nav-link { min-height:50px; padding-inline:16px; font-size:1.08rem; }
+  #gcd-cutting-challenge .gcd-number-card { display:grid; grid-template-columns:auto 1fr auto; grid-template-rows:auto auto; align-items:end; column-gap:10px; background:color-mix(in srgb,var(--card) 84%,var(--blue)); box-shadow:0 6px 18px color-mix(in srgb,var(--foreground) 9%,transparent); }
+  #gcd-cutting-challenge .gcd-number-card .viz-badge { grid-row:1 / 3; align-self:center; font-size:1.1rem; font-weight:700; }
+  #gcd-cutting-challenge .gcd-number-card .text-small { font-size:1.08rem; font-weight:700; }
+  #gcd-cutting-challenge .gcd-number { font-size:2.4rem; font-weight:700; }
+  #gcd-cutting-challenge .gcd-choice-heading { display:flex; align-items:center; gap:10px; margin-block:18px 10px; font-size:1.28rem; font-weight:700; }
+  #gcd-cutting-challenge .gcd-number-options { display:flex; flex-wrap:wrap; gap:12px; min-height:68px; margin-block:12px 6px; padding:12px; background:color-mix(in srgb,var(--card) 90%,var(--blue)); }
+  #gcd-cutting-challenge .gcd-option { min-width:120px; min-height:68px; font-size:1.55rem; font-weight:700; font-variant-numeric:tabular-nums; box-shadow:0 5px 14px color-mix(in srgb,var(--foreground) 8%,transparent); }
+  #gcd-cutting-challenge [data-new-question] { min-height:60px; padding-inline:22px; font-size:1.18rem; font-weight:700; }
+  #gcd-cutting-challenge .nav-link { min-height:60px; padding-inline:20px; font-size:1.3rem; font-weight:700; }
   #gcd-cutting-challenge [hidden] { display:none !important; }
   #gcd-cutting-challenge .gcd-option[data-state=&quot;right&quot;] { background:var(--green); color:var(--primary-foreground); }
   #gcd-cutting-challenge .gcd-option[data-state=&quot;wrong&quot;] { background:var(--destructive); color:var(--primary-foreground); }
-  #gcd-cutting-challenge .gcd-stage { position:relative; margin-top:6px; }
+  #gcd-cutting-challenge .gcd-stage { position:relative; margin-top:10px; padding:8px; border-radius:18px; background:color-mix(in srgb,var(--card) 88%,var(--blue)); box-shadow:inset 0 0 0 1px var(--border),0 8px 22px color-mix(in srgb,var(--foreground) 8%,transparent); }
   #gcd-cutting-challenge [data-board] { display:block; width:100%; height:auto; min-height:250px; overflow:visible; }
-  #gcd-cutting-challenge [data-board] text { fill:var(--foreground); font-family:inherit; font-size:18px; }
+  #gcd-cutting-challenge [data-board] text { fill:var(--foreground); font-family:inherit; font-size:20px; font-weight:700; }
   #gcd-cutting-challenge .gcd-tile { animation:gcd-rise 500ms cubic-bezier(.2,.8,.2,1) both; transform-box:fill-box; transform-origin:center; }
   #gcd-cutting-challenge .gcd-cut-line { stroke:var(--foreground); stroke-width:1.2; vector-effect:non-scaling-stroke; animation:gcd-draw 520ms ease both; }
-  #gcd-cutting-challenge .gcd-sparkles { position:absolute; inset:15% 8% 16%; pointer-events:none; display:none; }
-  #gcd-cutting-challenge .gcd-sparkles.is-visible { display:block; }
-  #gcd-cutting-challenge .gcd-sparkles span { position:absolute; color:var(--yellow); font-size:28px; animation:gcd-spark 850ms ease-out both; }
-  #gcd-cutting-challenge .gcd-sparkles span:nth-child(1) { left:5%; top:48%; }
-  #gcd-cutting-challenge .gcd-sparkles span:nth-child(2) { left:22%; top:2%; animation-delay:80ms; }
-  #gcd-cutting-challenge .gcd-sparkles span:nth-child(3) { right:4%; top:30%; animation-delay:150ms; }
-  #gcd-cutting-challenge .gcd-sparkles span:nth-child(4) { right:24%; bottom:0; animation-delay:220ms; }
-  #gcd-cutting-challenge .gcd-sparkles span:nth-child(5) { left:45%; top:12%; animation-delay:300ms; }
-  #gcd-cutting-challenge .gcd-feedback { min-height:54px; display:flex; align-items:center; margin-top:4px; font-size:1.08rem; }
+  #gcd-cutting-challenge .gcd-celebration { position:absolute; inset:0; pointer-events:none; display:none; overflow:hidden; }
+  #gcd-cutting-challenge .gcd-celebration.is-visible { display:block; }
+  #gcd-cutting-challenge .gcd-celebration strong { position:absolute; z-index:2; left:50%; top:48%; padding:10px 18px; border-radius:999px; background:var(--green); color:var(--primary-foreground); box-shadow:0 8px 22px color-mix(in srgb,var(--green) 35%,transparent); transform:translate(-50%,-50%); animation:gcd-cheer 1000ms cubic-bezier(.2,.8,.2,1) both; }
+  #gcd-cutting-challenge .gcd-celebration span { position:absolute; left:50%; top:48%; width:10px; height:18px; border-radius:2px; background:var(--yellow); animation:gcd-confetti 1050ms cubic-bezier(.15,.75,.25,1) both; }
+  #gcd-cutting-challenge .gcd-celebration span:nth-of-type(1) { --dx:-250px; --dy:-120px; --turn:-220deg; background:var(--yellow); }
+  #gcd-cutting-challenge .gcd-celebration span:nth-of-type(2) { --dx:-195px; --dy:105px; --turn:180deg; background:var(--blue); animation-delay:45ms; }
+  #gcd-cutting-challenge .gcd-celebration span:nth-of-type(3) { --dx:-130px; --dy:-165px; --turn:300deg; background:var(--orange); animation-delay:90ms; }
+  #gcd-cutting-challenge .gcd-celebration span:nth-of-type(4) { --dx:-70px; --dy:145px; --turn:-260deg; background:var(--purple); animation-delay:135ms; }
+  #gcd-cutting-challenge .gcd-celebration span:nth-of-type(5) { --dx:-25px; --dy:-150px; --turn:240deg; background:var(--green); animation-delay:180ms; }
+  #gcd-cutting-challenge .gcd-celebration span:nth-of-type(6) { --dx:35px; --dy:150px; --turn:-200deg; background:var(--yellow); animation-delay:225ms; }
+  #gcd-cutting-challenge .gcd-celebration span:nth-of-type(7) { --dx:90px; --dy:-160px; --turn:260deg; background:var(--blue); animation-delay:55ms; }
+  #gcd-cutting-challenge .gcd-celebration span:nth-of-type(8) { --dx:140px; --dy:135px; --turn:-300deg; background:var(--orange); animation-delay:100ms; }
+  #gcd-cutting-challenge .gcd-celebration span:nth-of-type(9) { --dx:190px; --dy:-130px; --turn:210deg; background:var(--purple); animation-delay:145ms; }
+  #gcd-cutting-challenge .gcd-celebration span:nth-of-type(10) { --dx:245px; --dy:95px; --turn:-240deg; background:var(--green); animation-delay:190ms; }
+  #gcd-cutting-challenge .gcd-celebration span:nth-of-type(11) { --dx:270px; --dy:-50px; --turn:280deg; background:var(--yellow); animation-delay:235ms; }
+  #gcd-cutting-challenge .gcd-celebration span:nth-of-type(12) { --dx:-275px; --dy:30px; --turn:-280deg; background:var(--blue); animation-delay:280ms; }
+  #gcd-cutting-challenge .gcd-stage.is-celebrating [data-board] { animation:gcd-board-cheer 650ms ease-out both; }
+  #gcd-cutting-challenge .gcd-feedback { min-height:60px; display:flex; align-items:center; margin-top:8px; font-size:1.18rem; font-weight:700; background:color-mix(in srgb,var(--card) 88%,var(--green)); }
   @keyframes gcd-rise { from { opacity:.25; transform:scale(.94); } to { opacity:1; transform:scale(1); } }
   @keyframes gcd-draw { from { stroke-dasharray:600; stroke-dashoffset:600; } to { stroke-dasharray:600; stroke-dashoffset:0; } }
-  @keyframes gcd-spark { 0% { opacity:0; transform:translateY(12px) scale(.4) rotate(-18deg); } 45% { opacity:1; } 100% { opacity:0; transform:translateY(-28px) scale(1.25) rotate(18deg); } }
+  @keyframes gcd-cheer { 0% { opacity:0; transform:translate(-50%,-50%) scale(.35); } 35% { opacity:1; transform:translate(-50%,-50%) scale(1.12); } 75% { opacity:1; transform:translate(-50%,-50%) scale(1); } 100% { opacity:0; transform:translate(-50%,-65%) scale(.96); } }
+  @keyframes gcd-confetti { 0% { opacity:0; transform:translate(-50%,-50%) scale(.4) rotate(0); } 18% { opacity:1; } 100% { opacity:0; transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(1) rotate(var(--turn)); } }
+  @keyframes gcd-board-cheer { 0%,100% { transform:scale(1); } 45% { transform:scale(1.025); } }
   @media (prefers-reduced-motion:reduce) {
-    #gcd-cutting-challenge .gcd-tile, #gcd-cutting-challenge .gcd-cut-line, #gcd-cutting-challenge .gcd-sparkles span { animation:none; }
+    #gcd-cutting-challenge .gcd-tile, #gcd-cutting-challenge .gcd-cut-line, #gcd-cutting-challenge .gcd-celebration *, #gcd-cutting-challenge .gcd-stage.is-celebrating [data-board] { animation:none; }
   }
   @container (max-width:480px) {
+    #gcd-cutting-challenge { padding:12px; }
     #gcd-cutting-challenge .gcd-topline { align-items:stretch; }
     #gcd-cutting-challenge .gcd-given { width:100%; }
     #gcd-cutting-challenge [data-new-question] { width:100%; }
     #gcd-cutting-challenge .gcd-number-options { display:grid; grid-template-columns:repeat(3,1fr); }
-    #gcd-cutting-challenge .gcd-option { min-width:0; }
+    #gcd-cutting-challenge .gcd-option { min-width:0; min-height:60px; font-size:1.2rem; }
     #gcd-cutting-challenge [data-board] { min-height:210px; }
   }
 &lt;/style&gt;
@@ -1127,6 +1143,7 @@ html&gt;body{padding:0}&lt;/style&gt;
   const promptEl = root.querySelector(&#x27;[data-prompt]&#x27;);
   const optionsEl = root.querySelector(&#x27;[data-options]&#x27;);
   const board = root.querySelector(&#x27;[data-board]&#x27;);
+  const stage = root.querySelector(&#x27;.gcd-stage&#x27;);
   const feedback = root.querySelector(&#x27;[data-feedback]&#x27;);
   const sparkles = root.querySelector(&#x27;[data-sparkles]&#x27;);
   const tabs = [...root.querySelectorAll(&#x27;[data-mode]&#x27;)];
@@ -1202,6 +1219,39 @@ html&gt;body{padding:0}&lt;/style&gt;
     renderOptions({keepBoard});
   }
 
+  function playSuccessSound(finalStage) {
+    const AudioEngine=window.AudioContext || window.webkitAudioContext;
+    if (!AudioEngine) return;
+    const context=new AudioEngine();
+    const notes=finalStage ? [523.25,659.25,783.99,1046.5] : [523.25,659.25,783.99];
+    const start=context.currentTime;
+    notes.forEach((frequency,index)=&gt;{
+      const oscillator=context.createOscillator();
+      const gain=context.createGain();
+      const noteStart=start+index*.1;
+      oscillator.type=index===notes.length-1?&#x27;sine&#x27;:&#x27;triangle&#x27;;
+      oscillator.frequency.setValueAtTime(frequency,noteStart);
+      gain.gain.setValueAtTime(.0001,noteStart);
+      gain.gain.exponentialRampToValueAtTime(.16,noteStart+.025);
+      gain.gain.exponentialRampToValueAtTime(.0001,noteStart+.28);
+      oscillator.connect(gain);
+      gain.connect(context.destination);
+      oscillator.start(noteStart);
+      oscillator.stop(noteStart+.3);
+    });
+    context.resume?.();
+    setTimeout(()=&gt;context.close?.(),1000);
+  }
+
+  function celebrate(finalStage) {
+    sparkles.classList.remove(&#x27;is-visible&#x27;);
+    stage.classList.remove(&#x27;is-celebrating&#x27;);
+    void sparkles.offsetWidth;
+    sparkles.classList.add(&#x27;is-visible&#x27;);
+    stage.classList.add(&#x27;is-celebrating&#x27;);
+    playSuccessSound(finalStage);
+  }
+
   function choose(choice,button) {
     selected=choice;
     [...optionsEl.children].forEach(item=&gt;{
@@ -1217,14 +1267,15 @@ html&gt;body{padding:0}&lt;/style&gt;
     const columns=Math.floor(length/side), rows=Math.floor(width/side);
     const complete=length%side===0 &amp;&amp; width%side===0;
     sparkles.classList.remove(&#x27;is-visible&#x27;);
+    stage.classList.remove(&#x27;is-celebrating&#x27;);
     if (right) {
-      void sparkles.offsetWidth;
-      sparkles.classList.add(&#x27;is-visible&#x27;);
       if (mode===&#x27;side&#x27;) {
         setStage(&#x27;count&#x27;,{keepBoard:true});
         feedback.textContent=&#x27;第一關答對！請觀察切割結果，完成正方形總數。&#x27;;
+        celebrate(false);
       } else {
         feedback.textContent=`兩關都答對！GCD(${length}, ${width})＝${question.gcd}；長邊 ${columns} 塊 × 寬邊 ${rows} 塊＝共 ${columns*rows} 塊。`;
+        celebrate(true);
       }
     } else if (complete) {
       feedback.textContent=`這個切法能切完，但 ${side} cm 還不是最大的；找找看更大的共同因數。`;
@@ -1280,6 +1331,8 @@ html&gt;body{padding:0}&lt;/style&gt;
   }
 
   function newQuestion() {
+    sparkles.classList.remove(&#x27;is-visible&#x27;);
+    stage.classList.remove(&#x27;is-celebrating&#x27;);
     const multipliers=[[2,3],[3,4],[3,5],[4,5],[5,6],[2,5]];
     const pair=multipliers[Math.floor(Math.random()*multipliers.length)];
     const factor=3+Math.floor(Math.random()*7);
