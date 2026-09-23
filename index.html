@@ -1063,24 +1063,27 @@ html&gt;body{padding:0}&lt;/style&gt;
   &lt;/div&gt;
 
   &lt;section data-example=&quot;cut&quot;&gt;
-  &lt;div class=&quot;gcd-choice-heading&quot;&gt;
-    &lt;span class=&quot;viz-badge&quot;&gt;3&lt;/span&gt;
-    &lt;span data-prompt&gt;哪一個數字是最大正方形的邊長？&lt;/span&gt;
-  &lt;/div&gt;
-  &lt;div class=&quot;nav nav-pills&quot; role=&quot;tablist&quot; aria-label=&quot;目前關卡&quot;&gt;
-    &lt;button class=&quot;nav-link active&quot; id=&quot;side-mode&quot; type=&quot;button&quot; role=&quot;tab&quot; aria-controls=&quot;gcd-options&quot; aria-selected=&quot;true&quot; data-mode=&quot;side&quot;&gt;選邊長&lt;/button&gt;
-    &lt;button class=&quot;nav-link&quot; id=&quot;count-mode&quot; type=&quot;button&quot; role=&quot;tab&quot; aria-controls=&quot;gcd-options&quot; aria-selected=&quot;false&quot; data-mode=&quot;count&quot; hidden&gt;選正方形總數&lt;/button&gt;
-  &lt;/div&gt;
-  &lt;div id=&quot;gcd-options&quot; role=&quot;tabpanel&quot; aria-labelledby=&quot;side-mode&quot;&gt;
-    &lt;div class=&quot;card gcd-number-options&quot; data-options aria-label=&quot;電腦提供的數字選項&quot;&gt;&lt;/div&gt;
-  &lt;/div&gt;
-
-  &lt;div class=&quot;gcd-stage&quot;&gt;
-    &lt;svg data-board role=&quot;img&quot; aria-labelledby=&quot;gcd-board-title gcd-board-desc&quot; preserveAspectRatio=&quot;xMidYMid meet&quot;&gt;&lt;/svg&gt;
-    &lt;div class=&quot;gcd-celebration&quot; data-sparkles aria-hidden=&quot;true&quot;&gt;
-      &lt;strong&gt;答對了！&lt;/strong&gt;
-      &lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
-      &lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
+  &lt;div class=&quot;gcd-challenge-grid&quot;&gt;
+    &lt;div class=&quot;gcd-task-panel&quot;&gt;
+      &lt;div class=&quot;gcd-choice-heading&quot;&gt;
+        &lt;span class=&quot;viz-badge&quot;&gt;3&lt;/span&gt;
+        &lt;span data-prompt&gt;哪一個數字是最大正方形的邊長？&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;nav nav-pills&quot; role=&quot;tablist&quot; aria-label=&quot;目前關卡&quot;&gt;
+        &lt;button class=&quot;nav-link active&quot; id=&quot;side-mode&quot; type=&quot;button&quot; role=&quot;tab&quot; aria-controls=&quot;gcd-options&quot; aria-selected=&quot;true&quot; data-mode=&quot;side&quot;&gt;選邊長&lt;/button&gt;
+        &lt;button class=&quot;nav-link&quot; id=&quot;count-mode&quot; type=&quot;button&quot; role=&quot;tab&quot; aria-controls=&quot;gcd-options&quot; aria-selected=&quot;false&quot; data-mode=&quot;count&quot; hidden&gt;選正方形總數&lt;/button&gt;
+      &lt;/div&gt;
+      &lt;div id=&quot;gcd-options&quot; role=&quot;tabpanel&quot; aria-labelledby=&quot;side-mode&quot;&gt;
+        &lt;div class=&quot;card gcd-number-options&quot; data-options aria-label=&quot;電腦提供的數字選項&quot;&gt;&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;gcd-stage&quot;&gt;
+      &lt;svg data-board role=&quot;img&quot; aria-labelledby=&quot;gcd-board-title gcd-board-desc&quot; preserveAspectRatio=&quot;xMidYMid meet&quot;&gt;&lt;/svg&gt;
+      &lt;div class=&quot;gcd-celebration&quot; data-sparkles aria-hidden=&quot;true&quot;&gt;
+        &lt;strong&gt;答對了！&lt;/strong&gt;
+        &lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
+        &lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
+      &lt;/div&gt;
     &lt;/div&gt;
   &lt;/div&gt;
   &lt;div class=&quot;card gcd-feedback&quot; data-feedback aria-live=&quot;polite&quot;&gt;請先從上方選一個數字。&lt;/div&gt;
@@ -1089,23 +1092,27 @@ html&gt;body{padding:0}&lt;/style&gt;
   &lt;section class=&quot;card gcd-application&quot; data-example=&quot;pack&quot; hidden&gt;
     &lt;h2&gt;相同物品平均分裝&lt;/h2&gt;
     &lt;p class=&quot;gcd-application-summary&quot; data-pack-summary&gt;把兩種物品平均分裝，每包的內容都要完全相同，而且不能剩下。&lt;/p&gt;
-    &lt;div class=&quot;gcd-choice-heading&quot;&gt;
-      &lt;span class=&quot;viz-badge&quot;&gt;3&lt;/span&gt;
-      &lt;span data-pack-prompt&gt;最多可以平均分成幾包？&lt;/span&gt;
-    &lt;/div&gt;
-    &lt;div class=&quot;nav nav-pills&quot; role=&quot;tablist&quot; aria-label=&quot;物品平均分裝目前關卡&quot;&gt;
-      &lt;button class=&quot;nav-link active&quot; id=&quot;pack-count-mode&quot; type=&quot;button&quot; role=&quot;tab&quot; aria-controls=&quot;gcd-pack-options&quot; aria-selected=&quot;true&quot; data-pack-mode=&quot;count&quot;&gt;選最多包數&lt;/button&gt;
-      &lt;button class=&quot;nav-link&quot; id=&quot;pack-each-mode&quot; type=&quot;button&quot; role=&quot;tab&quot; aria-controls=&quot;gcd-pack-options&quot; aria-selected=&quot;false&quot; data-pack-mode=&quot;each&quot; hidden&gt;選每包內容&lt;/button&gt;
-    &lt;/div&gt;
-    &lt;div id=&quot;gcd-pack-options&quot; role=&quot;tabpanel&quot; aria-labelledby=&quot;pack-count-mode&quot;&gt;
-      &lt;div class=&quot;card gcd-number-options&quot; data-pack-options aria-label=&quot;電腦提供的平均分裝答案選項&quot;&gt;&lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class=&quot;gcd-stage&quot; data-pack-stage&gt;
-      &lt;div class=&quot;gcd-packs&quot; data-packs aria-label=&quot;平均分裝示意圖&quot;&gt;&lt;/div&gt;
-      &lt;div class=&quot;gcd-celebration&quot; data-pack-sparkles aria-hidden=&quot;true&quot;&gt;
-        &lt;strong&gt;答對了！&lt;/strong&gt;
-        &lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
-        &lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
+    &lt;div class=&quot;gcd-challenge-grid&quot;&gt;
+      &lt;div class=&quot;gcd-task-panel&quot;&gt;
+        &lt;div class=&quot;gcd-choice-heading&quot;&gt;
+          &lt;span class=&quot;viz-badge&quot;&gt;3&lt;/span&gt;
+          &lt;span data-pack-prompt&gt;最多可以平均分成幾包？&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;nav nav-pills&quot; role=&quot;tablist&quot; aria-label=&quot;物品平均分裝目前關卡&quot;&gt;
+          &lt;button class=&quot;nav-link active&quot; id=&quot;pack-count-mode&quot; type=&quot;button&quot; role=&quot;tab&quot; aria-controls=&quot;gcd-pack-options&quot; aria-selected=&quot;true&quot; data-pack-mode=&quot;count&quot;&gt;選最多包數&lt;/button&gt;
+          &lt;button class=&quot;nav-link&quot; id=&quot;pack-each-mode&quot; type=&quot;button&quot; role=&quot;tab&quot; aria-controls=&quot;gcd-pack-options&quot; aria-selected=&quot;false&quot; data-pack-mode=&quot;each&quot; hidden&gt;選每包內容&lt;/button&gt;
+        &lt;/div&gt;
+        &lt;div id=&quot;gcd-pack-options&quot; role=&quot;tabpanel&quot; aria-labelledby=&quot;pack-count-mode&quot;&gt;
+          &lt;div class=&quot;card gcd-number-options&quot; data-pack-options aria-label=&quot;電腦提供的平均分裝答案選項&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;gcd-stage&quot; data-pack-stage&gt;
+        &lt;div class=&quot;gcd-packs&quot; data-packs aria-label=&quot;平均分裝示意圖&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;gcd-celebration&quot; data-pack-sparkles aria-hidden=&quot;true&quot;&gt;
+          &lt;strong&gt;答對了！&lt;/strong&gt;
+          &lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
+          &lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
+        &lt;/div&gt;
       &lt;/div&gt;
     &lt;/div&gt;
     &lt;div class=&quot;card gcd-feedback&quot; data-pack-feedback aria-live=&quot;polite&quot;&gt;請先選出最多可以分成幾包。&lt;/div&gt;
@@ -1114,26 +1121,30 @@ html&gt;body{padding:0}&lt;/style&gt;
   &lt;section class=&quot;card gcd-application&quot; data-example=&quot;posts&quot; hidden&gt;
     &lt;h2&gt;場地等距設柱&lt;/h2&gt;
     &lt;p class=&quot;gcd-application-summary&quot; data-post-summary&gt;沿著長方形場地四周，以相同距離設柱，轉角也要有柱子。&lt;/p&gt;
-    &lt;div class=&quot;gcd-choice-heading&quot;&gt;
-      &lt;span class=&quot;viz-badge&quot;&gt;3&lt;/span&gt;
-      &lt;span data-post-prompt&gt;哪一個數字是最大的柱距？&lt;/span&gt;
-    &lt;/div&gt;
-    &lt;div class=&quot;nav nav-pills&quot; role=&quot;tablist&quot; aria-label=&quot;場地等距設柱目前關卡&quot;&gt;
-      &lt;button class=&quot;nav-link active&quot; id=&quot;post-distance-mode&quot; type=&quot;button&quot; role=&quot;tab&quot; aria-controls=&quot;gcd-post-options&quot; aria-selected=&quot;true&quot; data-post-mode=&quot;distance&quot;&gt;選最大柱距&lt;/button&gt;
-      &lt;button class=&quot;nav-link&quot; id=&quot;post-count-mode&quot; type=&quot;button&quot; role=&quot;tab&quot; aria-controls=&quot;gcd-post-options&quot; aria-selected=&quot;false&quot; data-post-mode=&quot;count&quot; hidden&gt;選柱子總數&lt;/button&gt;
-    &lt;/div&gt;
-    &lt;div id=&quot;gcd-post-options&quot; role=&quot;tabpanel&quot; aria-labelledby=&quot;post-distance-mode&quot;&gt;
-      &lt;div class=&quot;card gcd-number-options&quot; data-post-options aria-label=&quot;電腦提供的設柱答案選項&quot;&gt;&lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class=&quot;gcd-stage&quot; data-post-stage&gt;
-      &lt;div class=&quot;gcd-post-layout&quot;&gt;
-        &lt;svg class=&quot;gcd-posts&quot; data-posts role=&quot;img&quot; aria-label=&quot;長方形場地等距設柱示意圖&quot;&gt;&lt;/svg&gt;
-        &lt;div class=&quot;card gcd-solution&quot; data-post-solution hidden aria-live=&quot;polite&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;gcd-challenge-grid&quot;&gt;
+      &lt;div class=&quot;gcd-task-panel&quot;&gt;
+        &lt;div class=&quot;gcd-choice-heading&quot;&gt;
+          &lt;span class=&quot;viz-badge&quot;&gt;3&lt;/span&gt;
+          &lt;span data-post-prompt&gt;哪一個數字是最大的柱距？&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;nav nav-pills&quot; role=&quot;tablist&quot; aria-label=&quot;場地等距設柱目前關卡&quot;&gt;
+          &lt;button class=&quot;nav-link active&quot; id=&quot;post-distance-mode&quot; type=&quot;button&quot; role=&quot;tab&quot; aria-controls=&quot;gcd-post-options&quot; aria-selected=&quot;true&quot; data-post-mode=&quot;distance&quot;&gt;選最大柱距&lt;/button&gt;
+          &lt;button class=&quot;nav-link&quot; id=&quot;post-count-mode&quot; type=&quot;button&quot; role=&quot;tab&quot; aria-controls=&quot;gcd-post-options&quot; aria-selected=&quot;false&quot; data-post-mode=&quot;count&quot; hidden&gt;選柱子總數&lt;/button&gt;
+        &lt;/div&gt;
+        &lt;div id=&quot;gcd-post-options&quot; role=&quot;tabpanel&quot; aria-labelledby=&quot;post-distance-mode&quot;&gt;
+          &lt;div class=&quot;card gcd-number-options&quot; data-post-options aria-label=&quot;電腦提供的設柱答案選項&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
       &lt;/div&gt;
-      &lt;div class=&quot;gcd-celebration&quot; data-post-sparkles aria-hidden=&quot;true&quot;&gt;
-        &lt;strong&gt;答對了！&lt;/strong&gt;
-        &lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
-        &lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
+      &lt;div class=&quot;gcd-stage&quot; data-post-stage&gt;
+        &lt;div class=&quot;gcd-post-layout&quot;&gt;
+          &lt;svg class=&quot;gcd-posts&quot; data-posts role=&quot;img&quot; aria-label=&quot;長方形場地等距設柱示意圖&quot;&gt;&lt;/svg&gt;
+          &lt;div class=&quot;card gcd-solution&quot; data-post-solution hidden aria-live=&quot;polite&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;gcd-celebration&quot; data-post-sparkles aria-hidden=&quot;true&quot;&gt;
+          &lt;strong&gt;答對了！&lt;/strong&gt;
+          &lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
+          &lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
+        &lt;/div&gt;
       &lt;/div&gt;
     &lt;/div&gt;
     &lt;div class=&quot;card gcd-feedback&quot; data-post-feedback aria-live=&quot;polite&quot;&gt;請先選出最大的柱距。&lt;/div&gt;
@@ -1147,6 +1158,12 @@ html&gt;body{padding:0}&lt;/style&gt;
   #gcd-cutting-challenge .gcd-example-picker .form-select { min-height:58px; font-size:1.22rem; font-weight:700; }
   #gcd-cutting-challenge .gcd-topline { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
   #gcd-cutting-challenge .gcd-given { display:grid; grid-template-columns:repeat(2,minmax(132px,1fr)); gap:10px; flex:1; }
+  #gcd-cutting-challenge .gcd-challenge-grid { display:grid; grid-template-columns:minmax(320px,.9fr) minmax(0,1.1fr); align-items:start; gap:18px; margin-top:18px; }
+  #gcd-cutting-challenge .gcd-task-panel { min-width:0; }
+  #gcd-cutting-challenge .gcd-task-panel .gcd-choice-heading { margin-top:0; }
+  #gcd-cutting-challenge .gcd-task-panel .gcd-number-options { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); }
+  #gcd-cutting-challenge .gcd-task-panel .gcd-option { min-width:0; padding-inline:8px; }
+  #gcd-cutting-challenge .gcd-challenge-grid &gt; .gcd-stage { min-width:0; margin-top:0; }
   #gcd-cutting-challenge .gcd-number-card { display:grid; grid-template-columns:auto 1fr auto; grid-template-rows:auto auto; align-items:end; column-gap:10px; background:color-mix(in srgb,var(--card) 84%,var(--blue)); box-shadow:0 6px 18px color-mix(in srgb,var(--foreground) 9%,transparent); }
   #gcd-cutting-challenge .gcd-number-card .viz-badge { grid-row:1 / 3; align-self:center; font-size:1.1rem; font-weight:700; }
   #gcd-cutting-challenge .gcd-number-card .text-small { font-size:1.08rem; font-weight:700; }
@@ -1191,13 +1208,13 @@ html&gt;body{padding:0}&lt;/style&gt;
   #gcd-cutting-challenge .gcd-pack-dots { display:flex; justify-content:center; flex-wrap:wrap; gap:5px; min-height:38px; align-content:center; }
   #gcd-cutting-challenge .gcd-dot { width:14px; height:14px; border-radius:50%; background:var(--blue); }
   #gcd-cutting-challenge .gcd-dot.is-second { background:var(--orange); }
-  #gcd-cutting-challenge [data-pack-stage] { min-height:150px; margin-top:12px; }
+  #gcd-cutting-challenge [data-pack-stage] { min-height:150px; margin-top:0; }
   #gcd-cutting-challenge [data-pack-stage] .gcd-packs:empty::before { content:&#x27;先選出最多包數&#x27;; display:grid; place-items:center; min-height:130px; color:var(--muted-foreground); font-weight:700; }
   #gcd-cutting-challenge .gcd-posts { display:block; width:100%; height:auto; }
   #gcd-cutting-challenge .gcd-posts text { fill:var(--foreground); font-family:inherit; font-size:16px; font-weight:700; }
-  #gcd-cutting-challenge [data-post-stage] { margin-top:12px; }
+  #gcd-cutting-challenge [data-post-stage] { margin-top:0; }
   #gcd-cutting-challenge .gcd-post-layout { display:grid; grid-template-columns:1fr; align-items:center; gap:16px; }
-  #gcd-cutting-challenge [data-post-stage].has-solution .gcd-post-layout { grid-template-columns:minmax(0,1.25fr) minmax(300px,.75fr); }
+  #gcd-cutting-challenge [data-post-stage].has-solution .gcd-post-layout { grid-template-columns:minmax(120px,.9fr) minmax(220px,1.1fr); }
   #gcd-cutting-challenge .gcd-solution { height:100%; margin:0; border-left:6px solid var(--green); background:color-mix(in srgb,var(--card) 82%,var(--green)); }
   #gcd-cutting-challenge .gcd-solution strong { display:block; margin-bottom:8px; font-size:1.25rem; font-weight:700; }
   #gcd-cutting-challenge .gcd-solution ol { margin:0; padding-left:1.6em; }
@@ -1220,7 +1237,15 @@ html&gt;body{padding:0}&lt;/style&gt;
     #gcd-cutting-challenge .gcd-option { min-width:0; min-height:60px; font-size:1.2rem; }
     #gcd-cutting-challenge [data-board] { min-height:210px; }
   }
+  @container (max-width:900px) {
+    #gcd-cutting-challenge .gcd-challenge-grid { grid-template-columns:minmax(260px,.72fr) minmax(0,1.28fr); }
+    #gcd-cutting-challenge [data-post-stage].has-solution .gcd-post-layout { grid-template-columns:minmax(150px,1.1fr) minmax(190px,.9fr); }
+    #gcd-cutting-challenge .gcd-solution { font-size:.92rem; padding:12px; }
+    #gcd-cutting-challenge .gcd-solution strong { font-size:1.08rem; }
+    #gcd-cutting-challenge .gcd-solution li { margin-block:2px; }
+  }
   @container (max-width:560px) {
+    #gcd-cutting-challenge .gcd-challenge-grid { grid-template-columns:1fr; }
     #gcd-cutting-challenge [data-post-stage].has-solution .gcd-post-layout { grid-template-columns:1fr; }
   }
 &lt;/style&gt;
