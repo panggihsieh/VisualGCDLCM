@@ -1499,7 +1499,7 @@ html&gt;body{padding:0}&lt;/style&gt;
       drawPacks(choice.value);
       if (right) {
         setPackStage(&#x27;each&#x27;,{keepBoard:true});
-        packFeedback.textContent=`第一關答對！最多分成 ${question.gcd} 包。現在請觀察每包內容。`;
+        packFeedback.textContent=`第一關答對！最多分成 ${question.gcd} 包。物品顏色尚未揭曉，請先計算每包內容。`;
         celebrate(false,packStage,packSparkles);
       } else if (question.length%choice.value===0 &amp;&amp; question.width%choice.value===0) {
         packFeedback.textContent=`${choice.value} 包可以平均分裝，但還不是最多包。`;
@@ -1527,14 +1527,15 @@ html&gt;body{padding:0}&lt;/style&gt;
     const perFirst=Math.floor(question.length/packageCount);
     const perSecond=Math.floor(question.width/packageCount);
     const complete=question.length%packageCount===0 &amp;&amp; question.width%packageCount===0;
-    const concealedClass=revealColors?&#x27;&#x27;:&#x27; is-concealed&#x27;;
+    const firstClass=revealColors?&#x27;gcd-dot&#x27;:&#x27;gcd-dot is-concealed&#x27;;
+    const secondClass=revealColors?&#x27;gcd-dot is-second&#x27;:&#x27;gcd-dot is-concealed&#x27;;
     packs.innerHTML=Array.from({length:packageCount},(_,index)=&gt;{
-      const firstDots=`&lt;span class=&quot;gcd-dot${concealedClass}&quot;&gt;&lt;/span&gt;`.repeat(perFirst);
-      const secondDots=`&lt;span class=&quot;gcd-dot is-second${concealedClass}&quot;&gt;&lt;/span&gt;`.repeat(perSecond);
+      const firstDots=`&lt;span class=&quot;${firstClass}&quot;&gt;&lt;/span&gt;`.repeat(perFirst);
+      const secondDots=`&lt;span class=&quot;${secondClass}&quot;&gt;&lt;/span&gt;`.repeat(perSecond);
       const label=revealColors ? `第 ${index+1} 包：${perFirst} 個藍色物品、${perSecond} 個橘色物品` : `第 ${index+1} 包：內容顏色尚未揭曉`;
       return `&lt;div class=&quot;gcd-pack&quot; role=&quot;img&quot; aria-label=&quot;${label}&quot;&gt;&lt;strong&gt;第 ${index+1} 包&lt;/strong&gt;&lt;div class=&quot;gcd-pack-dots&quot;&gt;${firstDots}${secondDots}&lt;/div&gt;&lt;/div&gt;`;
     }).join(&#x27;&#x27;);
-    if (!complete) packs.insertAdjacentHTML(&#x27;beforeend&#x27;,`&lt;div class=&quot;gcd-pack&quot; role=&quot;note&quot;&gt;&lt;strong&gt;有剩餘物品&lt;/strong&gt;&lt;div class=&quot;gcd-pack-dots&quot;&gt;&lt;span class=&quot;gcd-dot${concealedClass}&quot;&gt;&lt;/span&gt;&lt;span class=&quot;gcd-dot is-second${concealedClass}&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;`);
+    if (!complete) packs.insertAdjacentHTML(&#x27;beforeend&#x27;,`&lt;div class=&quot;gcd-pack&quot; role=&quot;note&quot;&gt;&lt;strong&gt;有剩餘物品&lt;/strong&gt;&lt;div class=&quot;gcd-pack-dots&quot;&gt;&lt;span class=&quot;${firstClass}&quot;&gt;&lt;/span&gt;&lt;span class=&quot;${secondClass}&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;`);
   }
 
   function postCount(distance=question.gcd) {
