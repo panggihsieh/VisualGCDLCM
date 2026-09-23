@@ -1061,9 +1061,9 @@ html&gt;body{padding:0}&lt;/style&gt;
     &lt;/div&gt;
     &lt;div class=&quot;gcd-question-controls&quot;&gt;
       &lt;div class=&quot;card gcd-difficulty&quot; aria-live=&quot;polite&quot;&gt;
-        &lt;span&gt;難度&lt;/span&gt;
-        &lt;strong data-difficulty&gt;1&lt;/strong&gt;
-        &lt;span data-difficulty-label&gt;入門&lt;/span&gt;
+        &lt;span&gt;難度等級&lt;/span&gt;
+        &lt;strong data-difficulty&gt;★&lt;/strong&gt;
+        &lt;span data-difficulty-label&gt;第 1 級／10&lt;/span&gt;
       &lt;/div&gt;
       &lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; data-new-question&gt;&lt;i data-lucide=&quot;shuffle&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; 電腦出新題&lt;/button&gt;
     &lt;/div&gt;
@@ -1166,9 +1166,9 @@ html&gt;body{padding:0}&lt;/style&gt;
   #gcd-cutting-challenge .gcd-topline { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
   #gcd-cutting-challenge .gcd-given { display:grid; grid-template-columns:repeat(2,minmax(132px,1fr)); gap:10px; flex:1; }
   #gcd-cutting-challenge .gcd-question-controls { display:flex; align-items:stretch; gap:10px; }
-  #gcd-cutting-challenge .gcd-difficulty { display:grid; grid-template-columns:auto auto; align-content:center; column-gap:8px; min-width:118px; padding:10px 14px; background:color-mix(in srgb,var(--card) 80%,var(--yellow)); }
+  #gcd-cutting-challenge .gcd-difficulty { display:flex; flex-direction:column; justify-content:center; min-width:190px; padding:9px 14px; background:color-mix(in srgb,var(--card) 80%,var(--yellow)); }
   #gcd-cutting-challenge .gcd-difficulty span { font-size:.9rem; font-weight:700; color:var(--muted-foreground); }
-  #gcd-cutting-challenge .gcd-difficulty strong { grid-row:1 / 3; grid-column:2; align-self:center; font-size:2rem; font-weight:700; color:var(--primary); }
+  #gcd-cutting-challenge .gcd-difficulty strong { min-height:24px; font-size:1.06rem; line-height:1.15; letter-spacing:1px; font-weight:700; color:var(--orange); white-space:nowrap; }
   #gcd-cutting-challenge .gcd-challenge-grid { display:grid; grid-template-columns:minmax(320px,.9fr) minmax(0,1.1fr); align-items:start; gap:18px; margin-top:18px; }
   #gcd-cutting-challenge .gcd-task-panel { min-width:0; }
   #gcd-cutting-challenge .gcd-task-panel .gcd-choice-heading { margin-top:0; }
@@ -1774,38 +1774,33 @@ html&gt;body{padding:0}&lt;/style&gt;
     postStage.classList.remove(&#x27;is-celebrating&#x27;);
     hidePostSolution();
     const levels=[
-      {factor:[2,3],multiplier:[2,4],label:&#x27;入門&#x27;},
-      {factor:[3,4],multiplier:[3,5],label:&#x27;基礎&#x27;},
-      {factor:[4,5],multiplier:[4,7],label:&#x27;進階&#x27;},
-      {factor:[5,7],multiplier:[5,9],label:&#x27;挑戰&#x27;},
-      {factor:[7,9],multiplier:[7,10],label:&#x27;困難&#x27;},
-      {factor:[9,10],multiplier:[9,10],label:&#x27;高手&#x27;}
+      {questions:[[4,6],[6,8],[6,9]],label:&#x27;啟蒙&#x27;},
+      {questions:[[12,15],[12,16],[14,18]],label:&#x27;入門&#x27;},
+      {questions:[[20,24],[21,28],[24,30]],label:&#x27;基礎&#x27;},
+      {questions:[[30,36],[32,40],[35,42]],label:&#x27;熟練&#x27;},
+      {questions:[[40,48],[42,49],[45,50]],label:&#x27;進階&#x27;},
+      {questions:[[50,60],[54,63],[56,64]],label:&#x27;應用&#x27;},
+      {questions:[[63,70],[64,72],[66,78]],label:&#x27;挑戰&#x27;},
+      {questions:[[70,80],[72,81],[75,90]],label:&#x27;困難&#x27;},
+      {questions:[[80,90],[84,98],[81,99]],label:&#x27;菁英&#x27;},
+      {questions:[[90,100],[91,98],[96,100]],label:&#x27;高手&#x27;}
     ];
     difficulty=Math.min(difficulty+1,levels.length);
     const level=levels[difficulty-1];
-    const multiplierPairs=[];
-    for (let first=level.multiplier[0];first&lt;=level.multiplier[1];first++) {
-      for (let second=first+1;second&lt;=level.multiplier[1];second++) {
-        if (gcd(first,second)===1) multiplierPairs.push([first,second]);
-      }
-    }
-    const candidates=[];
-    for (let factor=level.factor[0];factor&lt;=level.factor[1];factor++) {
-      multiplierPairs.forEach(pair=&gt;{
-        const dimensions=[factor*pair[0],factor*pair[1]];
-        const max=Math.max(...dimensions);
-        if (max&lt;=100) candidates.push({factor,pair,dimensions,min:Math.min(...dimensions),max});
-      });
-    }
+    const candidates=level.questions.map(dimensions=&gt;({
+      dimensions,
+      min:Math.min(...dimensions),
+      max:Math.max(...dimensions)
+    }));
     const harder=candidates.filter(candidate=&gt;candidate.min&gt;lastDimensions.min &amp;&amp; candidate.max&gt;lastDimensions.max);
     const source=harder.length ? harder : candidates;
     const selectedQuestion=source[Math.floor(Math.random()*source.length)];
-    const {factor,pair}=selectedQuestion;
+    const pair=selectedQuestion.dimensions;
     const swap=Math.random()&lt;.5;
-    question={length:factor*pair[swap?1:0],width:factor*pair[swap?0:1],gcd:factor};
+    question={length:pair[swap?1:0],width:pair[swap?0:1],gcd:gcd(pair[0],pair[1])};
     lastDimensions={min:Math.min(question.length,question.width),max:Math.max(question.length,question.width)};
-    difficultyEl.textContent=difficulty;
-    difficultyLabel.textContent=level.label;
+    difficultyEl.textContent=&#x27;★&#x27;.repeat(difficulty);
+    difficultyLabel.textContent=`第 ${difficulty} 級／10・${level.label}`;
     lengthEl.textContent=question.length;
     widthEl.textContent=question.width;
     lengthEl.animate?.([{transform:&#x27;translateY(-8px)&#x27;,opacity:.2},{transform:&#x27;translateY(0)&#x27;,opacity:1}],{duration:360,easing:&#x27;ease-out&#x27;});
