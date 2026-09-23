@@ -1185,7 +1185,9 @@ html&gt;body{padding:0}&lt;/style&gt;
   #gcd-cutting-challenge .gcd-number-options { display:flex; flex-wrap:wrap; gap:12px; min-height:68px; margin-block:12px 6px; padding:12px; background:color-mix(in srgb,var(--card) 90%,var(--blue)); }
   #gcd-cutting-challenge .gcd-option { min-width:120px; min-height:68px; font-size:1.55rem; font-weight:700; font-variant-numeric:tabular-nums; box-shadow:0 5px 14px color-mix(in srgb,var(--foreground) 8%,transparent); }
   #gcd-cutting-challenge [data-new-question] { min-height:60px; padding-inline:22px; font-size:1.18rem; font-weight:700; }
-  #gcd-cutting-challenge .nav-link { min-height:60px; padding-inline:20px; font-size:1.3rem; font-weight:700; }
+  #gcd-cutting-challenge .nav-link { min-height:60px; padding-inline:20px; border:2px solid color-mix(in srgb,var(--blue) 72%,#000); background:color-mix(in srgb,var(--blue) 48%,#fff); color:#000; font-size:1.3rem; font-weight:900; box-shadow:0 5px 14px color-mix(in srgb,var(--blue) 22%,transparent); }
+  #gcd-cutting-challenge .nav-link.active { background:color-mix(in srgb,var(--blue) 62%,#fff); color:#000; }
+  #gcd-cutting-challenge .nav-link:focus-visible { outline:4px solid color-mix(in srgb,var(--blue) 42%,transparent); outline-offset:3px; }
   #gcd-cutting-challenge [hidden] { display:none !important; }
   #gcd-cutting-challenge .gcd-option[data-state=&quot;right&quot;] { background:var(--green); color:var(--primary-foreground); }
   #gcd-cutting-challenge .gcd-option[data-state=&quot;wrong&quot;] { background:var(--destructive); color:var(--primary-foreground); }
