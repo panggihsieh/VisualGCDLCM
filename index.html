@@ -1088,8 +1088,27 @@ html&gt;body{padding:0}&lt;/style&gt;
 
   &lt;section class=&quot;card gcd-application&quot; data-example=&quot;pack&quot; hidden&gt;
     &lt;h2&gt;相同物品平均分裝&lt;/h2&gt;
-    &lt;p class=&quot;gcd-application-summary&quot; data-pack-summary&gt;&lt;/p&gt;
-    &lt;div class=&quot;gcd-packs&quot; data-packs aria-label=&quot;平均分裝示意圖&quot;&gt;&lt;/div&gt;
+    &lt;p class=&quot;gcd-application-summary&quot; data-pack-summary&gt;把兩種物品平均分裝，每包的內容都要完全相同，而且不能剩下。&lt;/p&gt;
+    &lt;div class=&quot;gcd-choice-heading&quot;&gt;
+      &lt;span class=&quot;viz-badge&quot;&gt;3&lt;/span&gt;
+      &lt;span data-pack-prompt&gt;最多可以平均分成幾包？&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;nav nav-pills&quot; role=&quot;tablist&quot; aria-label=&quot;物品平均分裝目前關卡&quot;&gt;
+      &lt;button class=&quot;nav-link active&quot; id=&quot;pack-count-mode&quot; type=&quot;button&quot; role=&quot;tab&quot; aria-controls=&quot;gcd-pack-options&quot; aria-selected=&quot;true&quot; data-pack-mode=&quot;count&quot;&gt;選最多包數&lt;/button&gt;
+      &lt;button class=&quot;nav-link&quot; id=&quot;pack-each-mode&quot; type=&quot;button&quot; role=&quot;tab&quot; aria-controls=&quot;gcd-pack-options&quot; aria-selected=&quot;false&quot; data-pack-mode=&quot;each&quot; hidden&gt;選每包內容&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div id=&quot;gcd-pack-options&quot; role=&quot;tabpanel&quot; aria-labelledby=&quot;pack-count-mode&quot;&gt;
+      &lt;div class=&quot;card gcd-number-options&quot; data-pack-options aria-label=&quot;電腦提供的平均分裝答案選項&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;gcd-stage&quot; data-pack-stage&gt;
+      &lt;div class=&quot;gcd-packs&quot; data-packs aria-label=&quot;平均分裝示意圖&quot;&gt;&lt;/div&gt;
+      &lt;div class=&quot;gcd-celebration&quot; data-pack-sparkles aria-hidden=&quot;true&quot;&gt;
+        &lt;strong&gt;答對了！&lt;/strong&gt;
+        &lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
+        &lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;card gcd-feedback&quot; data-pack-feedback aria-live=&quot;polite&quot;&gt;請先選出最多可以分成幾包。&lt;/div&gt;
   &lt;/section&gt;
 
   &lt;section class=&quot;card gcd-application&quot; data-example=&quot;posts&quot; hidden&gt;
@@ -1158,7 +1177,7 @@ html&gt;body{padding:0}&lt;/style&gt;
   #gcd-cutting-challenge .gcd-celebration span:nth-of-type(10) { --dx:245px; --dy:95px; --turn:-240deg; background:var(--green); animation-delay:190ms; }
   #gcd-cutting-challenge .gcd-celebration span:nth-of-type(11) { --dx:270px; --dy:-50px; --turn:280deg; background:var(--yellow); animation-delay:235ms; }
   #gcd-cutting-challenge .gcd-celebration span:nth-of-type(12) { --dx:-275px; --dy:30px; --turn:-280deg; background:var(--blue); animation-delay:280ms; }
-  #gcd-cutting-challenge .gcd-stage.is-celebrating [data-board], #gcd-cutting-challenge .gcd-stage.is-celebrating [data-posts] { animation:gcd-board-cheer 650ms ease-out both; }
+  #gcd-cutting-challenge .gcd-stage.is-celebrating [data-board], #gcd-cutting-challenge .gcd-stage.is-celebrating [data-posts], #gcd-cutting-challenge .gcd-stage.is-celebrating [data-packs] { animation:gcd-board-cheer 650ms ease-out both; }
   #gcd-cutting-challenge .gcd-feedback { min-height:60px; display:flex; align-items:center; margin-top:8px; font-size:1.18rem; font-weight:700; background:color-mix(in srgb,var(--card) 88%,var(--green)); }
   #gcd-cutting-challenge .gcd-application { margin-top:18px; background:color-mix(in srgb,var(--card) 90%,var(--blue)); }
   #gcd-cutting-challenge .gcd-application h2 { margin:0 0 8px; font-size:1.45rem; font-weight:700; }
@@ -1169,6 +1188,8 @@ html&gt;body{padding:0}&lt;/style&gt;
   #gcd-cutting-challenge .gcd-pack-dots { display:flex; justify-content:center; flex-wrap:wrap; gap:5px; min-height:38px; align-content:center; }
   #gcd-cutting-challenge .gcd-dot { width:14px; height:14px; border-radius:50%; background:var(--blue); }
   #gcd-cutting-challenge .gcd-dot.is-second { background:var(--orange); }
+  #gcd-cutting-challenge [data-pack-stage] { min-height:150px; margin-top:12px; }
+  #gcd-cutting-challenge [data-pack-stage] .gcd-packs:empty::before { content:&#x27;先選出最多包數&#x27;; display:grid; place-items:center; min-height:130px; color:var(--muted-foreground); font-weight:700; }
   #gcd-cutting-challenge .gcd-posts { display:block; width:100%; height:auto; }
   #gcd-cutting-challenge .gcd-posts text { fill:var(--foreground); font-family:inherit; font-size:16px; font-weight:700; }
   #gcd-cutting-challenge [data-post-stage] { margin-top:12px; }
@@ -1211,6 +1232,12 @@ html&gt;body{padding:0}&lt;/style&gt;
   const sparkles = root.querySelector(&#x27;[data-sparkles]&#x27;);
   const packSummary = root.querySelector(&#x27;[data-pack-summary]&#x27;);
   const packs = root.querySelector(&#x27;[data-packs]&#x27;);
+  const packPrompt = root.querySelector(&#x27;[data-pack-prompt]&#x27;);
+  const packOptions = root.querySelector(&#x27;[data-pack-options]&#x27;);
+  const packStage = root.querySelector(&#x27;[data-pack-stage]&#x27;);
+  const packFeedback = root.querySelector(&#x27;[data-pack-feedback]&#x27;);
+  const packSparkles = root.querySelector(&#x27;[data-pack-sparkles]&#x27;);
+  const packTabs = [...root.querySelectorAll(&#x27;[data-pack-mode]&#x27;)];
   const postSummary = root.querySelector(&#x27;[data-post-summary]&#x27;);
   const posts = root.querySelector(&#x27;[data-posts]&#x27;);
   const postPrompt = root.querySelector(&#x27;[data-post-prompt]&#x27;);
@@ -1222,6 +1249,7 @@ html&gt;body{padding:0}&lt;/style&gt;
   const tabs = [...root.querySelectorAll(&#x27;[data-mode]&#x27;)];
   let question = { length:24, width:18, gcd:6 };
   let mode = &#x27;side&#x27;;
+  let packMode = &#x27;count&#x27;;
   let postMode = &#x27;distance&#x27;;
   let selected = null;
   const gcd = (a,b) =&gt; b ? gcd(b,a % b) : a;
@@ -1340,6 +1368,118 @@ html&gt;body{padding:0}&lt;/style&gt;
     widthUnit.textContent=unit;
   }
 
+  function packEachKey(first,second) {
+    return `${first}x${second}`;
+  }
+
+  function buildPackChoices() {
+    if (packMode===&#x27;each&#x27;) {
+      const first=question.length/question.gcd;
+      const second=question.width/question.gcd;
+      const correct=packEachKey(first,second);
+      const candidates=[
+        [first+1,second],[first,second+1],[Math.max(1,first-1),second],
+        [first,Math.max(1,second-1)],[second,first]
+      ];
+      const seen=new Set([correct]);
+      const choices=[{value:correct,first,second,label:`${first} 藍 × ${second} 橘`}];
+      shuffle(candidates).forEach(([candidateFirst,candidateSecond])=&gt;{
+        const value=packEachKey(candidateFirst,candidateSecond);
+        if (!seen.has(value) &amp;&amp; choices.length&lt;3) {
+          seen.add(value);
+          choices.push({value,first:candidateFirst,second:candidateSecond,label:`${candidateFirst} 藍 × ${candidateSecond} 橘`});
+        }
+      });
+      return shuffle(choices);
+    }
+    const limit=Math.min(12,question.length,question.width);
+    const candidates=[];
+    for (let value=2;value&lt;=limit;value++) if (value!==question.gcd) candidates.push(value);
+    return shuffle([question.gcd,...shuffle(candidates).slice(0,2)]).map(value=&gt;({value,label:`${value} 包`}));
+  }
+
+  function renderPackOptions({keepBoard=false}={}) {
+    packPrompt.textContent=packMode===&#x27;count&#x27; ? &#x27;最多可以平均分成幾包？&#x27; : &#x27;每包應該放幾個藍色物品 × 幾個橘色物品？&#x27;;
+    packOptions.innerHTML=&#x27;&#x27;;
+    buildPackChoices().forEach(choice=&gt;{
+      const button=document.createElement(&#x27;button&#x27;);
+      button.type=&#x27;button&#x27;;
+      button.className=&#x27;btn gcd-option&#x27;;
+      button.textContent=choice.label;
+      button.dataset.value=choice.value;
+      button.addEventListener(&#x27;click&#x27;,()=&gt;choosePack(choice,button));
+      packOptions.appendChild(button);
+    });
+    packFeedback.textContent=packMode===&#x27;count&#x27; ? &#x27;先找出能同時整除兩種物品數量的最大包數。&#x27; : &#x27;第一關已通過！請觀察每包的圓點，再選每包內容。&#x27;;
+    if (!keepBoard) drawPacks(null);
+  }
+
+  function setPackStage(nextMode,{keepBoard=false}={}) {
+    packMode=nextMode;
+    packTabs.forEach(tab=&gt;{
+      const active=tab.dataset.packMode===packMode;
+      tab.hidden=!active;
+      tab.classList.toggle(&#x27;active&#x27;,active);
+      tab.setAttribute(&#x27;aria-selected&#x27;,String(active));
+    });
+    const activeTab=packTabs.find(tab=&gt;tab.dataset.packMode===packMode);
+    root.querySelector(&#x27;#gcd-pack-options&#x27;).setAttribute(&#x27;aria-labelledby&#x27;,activeTab.id);
+    renderPackOptions({keepBoard});
+  }
+
+  function choosePack(choice,button) {
+    [...packOptions.children].forEach(item=&gt;{
+      item.dataset.state=&#x27;&#x27;;
+      item.removeAttribute(&#x27;aria-pressed&#x27;);
+    });
+    const correct=packMode===&#x27;count&#x27;
+      ? question.gcd
+      : packEachKey(question.length/question.gcd,question.width/question.gcd);
+    const right=choice.value===correct;
+    button.dataset.state=right?&#x27;right&#x27;:&#x27;wrong&#x27;;
+    button.setAttribute(&#x27;aria-pressed&#x27;,&#x27;true&#x27;);
+    packSparkles.classList.remove(&#x27;is-visible&#x27;);
+    packStage.classList.remove(&#x27;is-celebrating&#x27;);
+    if (packMode===&#x27;count&#x27;) {
+      drawPacks(choice.value);
+      if (right) {
+        setPackStage(&#x27;each&#x27;,{keepBoard:true});
+        packFeedback.textContent=`第一關答對！最多分成 ${question.gcd} 包。現在請觀察每包內容。`;
+        celebrate(false,packStage,packSparkles);
+      } else if (question.length%choice.value===0 &amp;&amp; question.width%choice.value===0) {
+        packFeedback.textContent=`${choice.value} 包可以平均分裝，但還不是最多包。`;
+      } else {
+        packFeedback.textContent=`分成 ${choice.value} 包會有物品剩下，無法讓每包完全相同。`;
+      }
+      return;
+    }
+    drawPacks(question.gcd);
+    if (right) {
+      const first=question.length/question.gcd, second=question.width/question.gcd;
+      packSummary.textContent=`${question.length} 個藍色和 ${question.width} 個橘色，最多分成 ${question.gcd} 包。`;
+      packFeedback.textContent=`兩關都答對！每包 ${first} 個藍色 × ${second} 個橘色，共 ${question.gcd} 包。`;
+      celebrate(true,packStage,packSparkles);
+    } else {
+      packFeedback.textContent=&#x27;再算一次：每包數量＝物品總數 ÷ 最多包數，兩種物品都要剛好分完。&#x27;;
+    }
+  }
+
+  function drawPacks(packageCount=null) {
+    if (!packageCount) {
+      packs.innerHTML=&#x27;&#x27;;
+      return;
+    }
+    const perFirst=Math.floor(question.length/packageCount);
+    const perSecond=Math.floor(question.width/packageCount);
+    const complete=question.length%packageCount===0 &amp;&amp; question.width%packageCount===0;
+    packs.innerHTML=Array.from({length:packageCount},(_,index)=&gt;{
+      const firstDots=&#x27;&lt;span class=&quot;gcd-dot&quot;&gt;&lt;/span&gt;&#x27;.repeat(perFirst);
+      const secondDots=&#x27;&lt;span class=&quot;gcd-dot is-second&quot;&gt;&lt;/span&gt;&#x27;.repeat(perSecond);
+      return `&lt;div class=&quot;gcd-pack&quot; role=&quot;img&quot; aria-label=&quot;第 ${index+1} 包：${perFirst} 個藍色物品、${perSecond} 個橘色物品&quot;&gt;&lt;strong&gt;第 ${index+1} 包&lt;/strong&gt;&lt;div class=&quot;gcd-pack-dots&quot;&gt;${firstDots}${secondDots}&lt;/div&gt;&lt;/div&gt;`;
+    }).join(&#x27;&#x27;);
+    if (!complete) packs.insertAdjacentHTML(&#x27;beforeend&#x27;,&#x27;&lt;div class=&quot;gcd-pack&quot; role=&quot;note&quot;&gt;&lt;strong&gt;有剩餘物品&lt;/strong&gt;&lt;div class=&quot;gcd-pack-dots&quot;&gt;&lt;span class=&quot;gcd-dot&quot;&gt;&lt;/span&gt;&lt;span class=&quot;gcd-dot is-second&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&#x27;);
+  }
+
   function postCount(distance=question.gcd) {
     return 2*(question.length/distance+question.width/distance);
   }
@@ -1348,7 +1488,7 @@ html&gt;body{padding:0}&lt;/style&gt;
     if (postMode===&#x27;count&#x27;) {
       const correct=postCount();
       const candidates=[correct-4,correct+4,correct-2,correct+2,correct-6,correct+6].filter(value=&gt;value&gt;4 &amp;&amp; value!==correct);
-      return shuffle([correct,...shuffle(candidates).slice(0,2)]).map(value=&gt;({value,label:`${value} 根`}));
+      return shuffle([correct,...shuffle(candidates).slice(0,2)]).map(value=&gt;({value,label:`2 × ${value/2}`}));
     }
     const limit=Math.min(question.length,question.width);
     const candidates=[];
@@ -1357,7 +1497,7 @@ html&gt;body{padding:0}&lt;/style&gt;
   }
 
   function renderPostOptions({keepBoard=false}={}) {
-    postPrompt.textContent=postMode===&#x27;distance&#x27; ? &#x27;哪一個數字是最大的柱距？&#x27; : &#x27;沿著場地四周，一共需要幾根柱子？&#x27;;
+    postPrompt.textContent=postMode===&#x27;distance&#x27; ? &#x27;哪一個數字是最大的柱距？&#x27; : &#x27;哪一組乘法可以算出四周的柱子總數？&#x27;;
     postOptions.innerHTML=&#x27;&#x27;;
     buildPostChoices().forEach(choice=&gt;{
       const button=document.createElement(&#x27;button&#x27;);
@@ -1421,15 +1561,8 @@ html&gt;body{padding:0}&lt;/style&gt;
   }
 
   function renderApplications() {
-    const {length,width,gcd:divisor}=question;
-    const perFirst=length/divisor, perSecond=width/divisor;
-    packSummary.textContent=`${length} 個藍色物品和 ${width} 個橘色物品，最多分成 ${divisor} 包；每包 ${perFirst} 個藍色、${perSecond} 個橘色。`;
-    packs.innerHTML=Array.from({length:divisor},(_,index)=&gt;{
-      const firstDots=&#x27;&lt;span class=&quot;gcd-dot&quot;&gt;&lt;/span&gt;&#x27;.repeat(perFirst);
-      const secondDots=&#x27;&lt;span class=&quot;gcd-dot is-second&quot;&gt;&lt;/span&gt;&#x27;.repeat(perSecond);
-      return `&lt;div class=&quot;gcd-pack&quot; role=&quot;img&quot; aria-label=&quot;第 ${index+1} 包：${perFirst} 個藍色物品、${perSecond} 個橘色物品&quot;&gt;&lt;strong&gt;第 ${index+1} 包&lt;/strong&gt;&lt;div class=&quot;gcd-pack-dots&quot;&gt;${firstDots}${secondDots}&lt;/div&gt;&lt;/div&gt;`;
-    }).join(&#x27;&#x27;);
-
+    packSummary.textContent=&#x27;把兩種物品平均分裝，每包的內容都要完全相同，而且不能剩下。&#x27;;
+    drawPacks(null);
     postSummary.textContent=&#x27;沿著長方形場地四周，以相同距離設柱，轉角也要有柱子。&#x27;;
     drawPosts(null);
   }
@@ -1550,6 +1683,8 @@ html&gt;body{padding:0}&lt;/style&gt;
   function newQuestion() {
     sparkles.classList.remove(&#x27;is-visible&#x27;);
     stage.classList.remove(&#x27;is-celebrating&#x27;);
+    packSparkles.classList.remove(&#x27;is-visible&#x27;);
+    packStage.classList.remove(&#x27;is-celebrating&#x27;);
     postSparkles.classList.remove(&#x27;is-visible&#x27;);
     postStage.classList.remove(&#x27;is-celebrating&#x27;);
     const multipliers=[[2,3],[3,4],[3,5],[4,5],[5,6],[2,5]];
@@ -1563,6 +1698,7 @@ html&gt;body{padding:0}&lt;/style&gt;
     widthEl.animate?.([{transform:&#x27;translateY(8px)&#x27;,opacity:.2},{transform:&#x27;translateY(0)&#x27;,opacity:1}],{duration:360,easing:&#x27;ease-out&#x27;});
     renderApplications();
     setStage(&#x27;side&#x27;);
+    setPackStage(&#x27;count&#x27;);
     setPostStage(&#x27;distance&#x27;);
   }
 
