@@ -1126,7 +1126,10 @@ html&gt;body{padding:0}&lt;/style&gt;
       &lt;div class=&quot;card gcd-number-options&quot; data-post-options aria-label=&quot;電腦提供的設柱答案選項&quot;&gt;&lt;/div&gt;
     &lt;/div&gt;
     &lt;div class=&quot;gcd-stage&quot; data-post-stage&gt;
-      &lt;svg class=&quot;gcd-posts&quot; data-posts role=&quot;img&quot; aria-label=&quot;長方形場地等距設柱示意圖&quot;&gt;&lt;/svg&gt;
+      &lt;div class=&quot;gcd-post-layout&quot;&gt;
+        &lt;svg class=&quot;gcd-posts&quot; data-posts role=&quot;img&quot; aria-label=&quot;長方形場地等距設柱示意圖&quot;&gt;&lt;/svg&gt;
+        &lt;div class=&quot;card gcd-solution&quot; data-post-solution hidden aria-live=&quot;polite&quot;&gt;&lt;/div&gt;
+      &lt;/div&gt;
       &lt;div class=&quot;gcd-celebration&quot; data-post-sparkles aria-hidden=&quot;true&quot;&gt;
         &lt;strong&gt;答對了！&lt;/strong&gt;
         &lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
@@ -1134,7 +1137,6 @@ html&gt;body{padding:0}&lt;/style&gt;
       &lt;/div&gt;
     &lt;/div&gt;
     &lt;div class=&quot;card gcd-feedback&quot; data-post-feedback aria-live=&quot;polite&quot;&gt;請先選出最大的柱距。&lt;/div&gt;
-    &lt;div class=&quot;card gcd-solution&quot; data-post-solution hidden aria-live=&quot;polite&quot;&gt;&lt;/div&gt;
   &lt;/section&gt;
 &lt;/div&gt;
 
@@ -1194,7 +1196,9 @@ html&gt;body{padding:0}&lt;/style&gt;
   #gcd-cutting-challenge .gcd-posts { display:block; width:100%; height:auto; }
   #gcd-cutting-challenge .gcd-posts text { fill:var(--foreground); font-family:inherit; font-size:16px; font-weight:700; }
   #gcd-cutting-challenge [data-post-stage] { margin-top:12px; }
-  #gcd-cutting-challenge .gcd-solution { margin-top:10px; border-left:6px solid var(--green); background:color-mix(in srgb,var(--card) 82%,var(--green)); }
+  #gcd-cutting-challenge .gcd-post-layout { display:grid; grid-template-columns:1fr; align-items:center; gap:16px; }
+  #gcd-cutting-challenge [data-post-stage].has-solution .gcd-post-layout { grid-template-columns:minmax(0,1.25fr) minmax(300px,.75fr); }
+  #gcd-cutting-challenge .gcd-solution { height:100%; margin:0; border-left:6px solid var(--green); background:color-mix(in srgb,var(--card) 82%,var(--green)); }
   #gcd-cutting-challenge .gcd-solution strong { display:block; margin-bottom:8px; font-size:1.25rem; font-weight:700; }
   #gcd-cutting-challenge .gcd-solution ol { margin:0; padding-left:1.6em; }
   #gcd-cutting-challenge .gcd-solution li { margin-block:5px; font-weight:700; }
@@ -1215,6 +1219,9 @@ html&gt;body{padding:0}&lt;/style&gt;
     #gcd-cutting-challenge .gcd-number-options { display:grid; grid-template-columns:repeat(3,1fr); }
     #gcd-cutting-challenge .gcd-option { min-width:0; min-height:60px; font-size:1.2rem; }
     #gcd-cutting-challenge [data-board] { min-height:210px; }
+  }
+  @container (max-width:560px) {
+    #gcd-cutting-challenge [data-post-stage].has-solution .gcd-post-layout { grid-template-columns:1fr; }
   }
 &lt;/style&gt;
 
@@ -1258,6 +1265,7 @@ html&gt;body{padding:0}&lt;/style&gt;
   let packMode = &#x27;count&#x27;;
   let postMode = &#x27;distance&#x27;;
   let selected = null;
+  const celebrationTimers = new WeakMap();
   const gcd = (a,b) =&gt; b ? gcd(b,a % b) : a;
   const shuffle = values =&gt; {
     const copy = [...values];
@@ -1351,13 +1359,22 @@ html&gt;body{padding:0}&lt;/style&gt;
     setTimeout(()=&gt;context.close?.(),1000);
   }
 
-  function celebrate(finalStage,targetStage=stage,targetSparkles=sparkles) {
+  function clearCelebration(targetStage,targetSparkles) {
+    const timer=celebrationTimers.get(targetSparkles);
+    if (timer) clearTimeout(timer);
+    celebrationTimers.delete(targetSparkles);
     targetSparkles.classList.remove(&#x27;is-visible&#x27;);
     targetStage.classList.remove(&#x27;is-celebrating&#x27;);
+  }
+
+  function celebrate(finalStage,targetStage=stage,targetSparkles=sparkles) {
+    clearCelebration(targetStage,targetSparkles);
     void targetSparkles.offsetWidth;
     targetSparkles.classList.add(&#x27;is-visible&#x27;);
     targetStage.classList.add(&#x27;is-celebrating&#x27;);
     playSuccessSound(finalStage);
+    const timer=setTimeout(()=&gt;clearCelebration(targetStage,targetSparkles),1150);
+    celebrationTimers.set(targetSparkles,timer);
   }
 
   function showExample(name) {
@@ -1366,6 +1383,9 @@ html&gt;body{padding:0}&lt;/style&gt;
       pack:[&#x27;藍色物品&#x27;,&#x27;橘色物品&#x27;,&#x27;個&#x27;],
       posts:[&#x27;場地長&#x27;,&#x27;場地寬&#x27;,&#x27;m&#x27;]
     };
+    clearCelebration(stage,sparkles);
+    clearCelebration(packStage,packSparkles);
+    clearCelebration(postStage,postSparkles);
     exampleViews.forEach(view=&gt;view.hidden=view.dataset.example!==name);
     const [first,second,unit]=labels[name];
     lengthLabel.textContent=first;
@@ -1518,10 +1538,15 @@ html&gt;body{padding:0}&lt;/style&gt;
     if (!keepBoard) drawPosts(null);
   }
 
-  function setPostStage(nextMode,{keepBoard=false}={}) {
-    postMode=nextMode;
+  function hidePostSolution() {
     postSolution.hidden=true;
     postSolution.innerHTML=&#x27;&#x27;;
+    postStage.classList.remove(&#x27;has-solution&#x27;);
+  }
+
+  function setPostStage(nextMode,{keepBoard=false}={}) {
+    postMode=nextMode;
+    hidePostSolution();
     postTabs.forEach(tab=&gt;{
       const active=tab.dataset.postMode===postMode;
       tab.hidden=!active;
@@ -1544,8 +1569,7 @@ html&gt;body{padding:0}&lt;/style&gt;
     button.setAttribute(&#x27;aria-pressed&#x27;,&#x27;true&#x27;);
     postSparkles.classList.remove(&#x27;is-visible&#x27;);
     postStage.classList.remove(&#x27;is-celebrating&#x27;);
-    postSolution.hidden=true;
-    postSolution.innerHTML=&#x27;&#x27;;
+    hidePostSolution();
     if (postMode===&#x27;distance&#x27;) {
       drawPosts(choice.value);
       if (right) {
@@ -1566,6 +1590,7 @@ html&gt;body{padding:0}&lt;/style&gt;
       postFeedback.textContent=`兩關都答對！四周共設 ${postCount()} 根柱。`;
       postSolution.innerHTML=`&lt;strong&gt;解法&lt;/strong&gt;&lt;ol&gt;&lt;li&gt;長邊間隔數：${question.length} ÷ ${question.gcd}＝${columns}&lt;/li&gt;&lt;li&gt;寬邊間隔數：${question.width} ÷ ${question.gcd}＝${rows}&lt;/li&gt;&lt;li&gt;兩條長邊：${columns}＋${columns}＝${columns*2}&lt;/li&gt;&lt;li&gt;兩條寬邊：${rows}＋${rows}＝${rows*2}&lt;/li&gt;&lt;li&gt;柱子總數：${columns*2}＋${rows*2}＝${postCount()} 根&lt;/li&gt;&lt;/ol&gt;`;
       postSolution.hidden=false;
+      postStage.classList.add(&#x27;has-solution&#x27;);
       celebrate(true,postStage,postSparkles);
     } else {
       postFeedback.textContent=&#x27;再數一次：四個轉角只各算一根，可以用「長邊段數＋寬邊段數」乘以 2。&#x27;;
@@ -1699,8 +1724,7 @@ html&gt;body{padding:0}&lt;/style&gt;
     packStage.classList.remove(&#x27;is-celebrating&#x27;);
     postSparkles.classList.remove(&#x27;is-visible&#x27;);
     postStage.classList.remove(&#x27;is-celebrating&#x27;);
-    postSolution.hidden=true;
-    postSolution.innerHTML=&#x27;&#x27;;
+    hidePostSolution();
     const multipliers=[[2,3],[3,4],[3,5],[4,5],[5,6],[2,5]];
     const pair=multipliers[Math.floor(Math.random()*multipliers.length)];
     const factor=3+Math.floor(Math.random()*7);
