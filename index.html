@@ -1037,7 +1037,6 @@ html&gt;body{padding:0}&lt;/style&gt;
 &lt;body&gt;
 &lt;div id=&quot;gcd-cutting-challenge&quot;&gt;
   &lt;div class=&quot;card gcd-example-picker&quot;&gt;
-    &lt;strong data-topic-title&gt;最大公因數&lt;/strong&gt;
     &lt;label class=&quot;gcd-select-field&quot; for=&quot;gcd-topic-select&quot;&gt;
       &lt;span&gt;選擇單元&lt;/span&gt;
       &lt;select class=&quot;form-select&quot; id=&quot;gcd-topic-select&quot; data-topic-select&gt;
@@ -1053,6 +1052,7 @@ html&gt;body{padding:0}&lt;/style&gt;
         &lt;option value=&quot;posts&quot;&gt;場地等距設柱&lt;/option&gt;
       &lt;/select&gt;
     &lt;/label&gt;
+    &lt;div class=&quot;gcd-lcm-header&quot; data-lcm-header hidden&gt;拼成最小正方形&lt;/div&gt;
   &lt;/div&gt;
   &lt;div class=&quot;gcd-topline&quot;&gt;
     &lt;div class=&quot;gcd-given&quot; aria-label=&quot;本題電腦給定的兩個數字&quot;&gt;
@@ -1199,11 +1199,11 @@ html&gt;body{padding:0}&lt;/style&gt;
 
 &lt;style&gt;
   #gcd-cutting-challenge { color:var(--foreground); container-type:inline-size; padding:18px; border-radius:20px; background:linear-gradient(135deg,color-mix(in srgb,var(--blue) 10%,var(--background)),color-mix(in srgb,var(--purple) 8%,var(--background))); font-size:calc(var(--font-size-base) + 5px); }
-  #gcd-cutting-challenge .gcd-example-picker { display:grid; grid-template-columns:auto minmax(210px,.8fr) minmax(240px,1fr); align-items:end; gap:16px; margin-bottom:16px; background:color-mix(in srgb,var(--card) 84%,var(--purple)); box-shadow:0 6px 18px color-mix(in srgb,var(--foreground) 9%,transparent); }
-  #gcd-cutting-challenge .gcd-example-picker strong { font-size:1.4rem; font-weight:700; }
+  #gcd-cutting-challenge .gcd-example-picker { display:grid; grid-template-columns:repeat(2,minmax(240px,1fr)); align-items:end; gap:16px; margin-bottom:16px; background:color-mix(in srgb,var(--card) 84%,var(--purple)); box-shadow:0 6px 18px color-mix(in srgb,var(--foreground) 9%,transparent); }
   #gcd-cutting-challenge .gcd-example-picker .form-select { min-height:58px; font-size:1.22rem; font-weight:700; }
   #gcd-cutting-challenge .gcd-select-field { display:grid; gap:4px; }
   #gcd-cutting-challenge .gcd-select-field &gt; span { font-size:.86rem; font-weight:800; color:var(--muted-foreground); }
+  #gcd-cutting-challenge .gcd-lcm-header { display:flex; align-items:center; justify-content:center; min-height:58px; padding-inline:18px; color:#d7261e; font-size:1.7rem; line-height:1.15; font-weight:900; text-align:center; text-shadow:0 2px 0 #fff,0 4px 8px color-mix(in srgb,#000 28%,transparent); }
   #gcd-cutting-challenge .gcd-topline { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
   #gcd-cutting-challenge .gcd-given { display:grid; grid-template-columns:repeat(2,minmax(132px,1fr)); gap:10px; flex:1; }
   #gcd-cutting-challenge .gcd-question-controls { display:flex; align-items:stretch; gap:10px; }
@@ -1314,7 +1314,7 @@ html&gt;body{padding:0}&lt;/style&gt;
 (() =&gt; {
   const root = document.getElementById(&#x27;gcd-cutting-challenge&#x27;);
   const topicSelect = root.querySelector(&#x27;[data-topic-select]&#x27;);
-  const topicTitle = root.querySelector(&#x27;[data-topic-title]&#x27;);
+  const lcmHeader = root.querySelector(&#x27;[data-lcm-header]&#x27;);
   const exampleControl = root.querySelector(&#x27;[data-example-control]&#x27;);
   const exampleSelect = root.querySelector(&#x27;[data-example-select]&#x27;);
   const exampleViews = [...root.querySelectorAll(&#x27;[data-example]&#x27;)];
@@ -1497,8 +1497,8 @@ html&gt;body{padding:0}&lt;/style&gt;
 
   function showTopic(topic) {
     const isLcm=topic===&#x27;lcm&#x27;;
-    topicTitle.textContent=isLcm?&#x27;最小公倍數&#x27;:&#x27;最大公因數&#x27;;
     exampleControl.hidden=isLcm;
+    lcmHeader.hidden=!isLcm;
     exampleViews.forEach(view=&gt;view.hidden=isLcm || view.dataset.example!==exampleSelect.value);
     lcmView.hidden=!isLcm;
     root.querySelector(&#x27;.gcd-difficulty&#x27;).hidden=isLcm;
