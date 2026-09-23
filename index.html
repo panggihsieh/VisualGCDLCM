@@ -1094,8 +1094,27 @@ html&gt;body{padding:0}&lt;/style&gt;
 
   &lt;section class=&quot;card gcd-application&quot; data-example=&quot;posts&quot; hidden&gt;
     &lt;h2&gt;場地等距設柱&lt;/h2&gt;
-    &lt;p class=&quot;gcd-application-summary&quot; data-post-summary&gt;&lt;/p&gt;
-    &lt;svg class=&quot;gcd-posts&quot; data-posts role=&quot;img&quot; aria-label=&quot;長方形場地等距設柱示意圖&quot;&gt;&lt;/svg&gt;
+    &lt;p class=&quot;gcd-application-summary&quot; data-post-summary&gt;沿著長方形場地四周，以相同距離設柱，轉角也要有柱子。&lt;/p&gt;
+    &lt;div class=&quot;gcd-choice-heading&quot;&gt;
+      &lt;span class=&quot;viz-badge&quot;&gt;3&lt;/span&gt;
+      &lt;span data-post-prompt&gt;哪一個數字是最大的柱距？&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;nav nav-pills&quot; role=&quot;tablist&quot; aria-label=&quot;場地等距設柱目前關卡&quot;&gt;
+      &lt;button class=&quot;nav-link active&quot; id=&quot;post-distance-mode&quot; type=&quot;button&quot; role=&quot;tab&quot; aria-controls=&quot;gcd-post-options&quot; aria-selected=&quot;true&quot; data-post-mode=&quot;distance&quot;&gt;選最大柱距&lt;/button&gt;
+      &lt;button class=&quot;nav-link&quot; id=&quot;post-count-mode&quot; type=&quot;button&quot; role=&quot;tab&quot; aria-controls=&quot;gcd-post-options&quot; aria-selected=&quot;false&quot; data-post-mode=&quot;count&quot; hidden&gt;選柱子總數&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div id=&quot;gcd-post-options&quot; role=&quot;tabpanel&quot; aria-labelledby=&quot;post-distance-mode&quot;&gt;
+      &lt;div class=&quot;card gcd-number-options&quot; data-post-options aria-label=&quot;電腦提供的設柱答案選項&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;gcd-stage&quot; data-post-stage&gt;
+      &lt;svg class=&quot;gcd-posts&quot; data-posts role=&quot;img&quot; aria-label=&quot;長方形場地等距設柱示意圖&quot;&gt;&lt;/svg&gt;
+      &lt;div class=&quot;gcd-celebration&quot; data-post-sparkles aria-hidden=&quot;true&quot;&gt;
+        &lt;strong&gt;答對了！&lt;/strong&gt;
+        &lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
+        &lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;card gcd-feedback&quot; data-post-feedback aria-live=&quot;polite&quot;&gt;請先選出最大的柱距。&lt;/div&gt;
   &lt;/section&gt;
 &lt;/div&gt;
 
@@ -1139,7 +1158,7 @@ html&gt;body{padding:0}&lt;/style&gt;
   #gcd-cutting-challenge .gcd-celebration span:nth-of-type(10) { --dx:245px; --dy:95px; --turn:-240deg; background:var(--green); animation-delay:190ms; }
   #gcd-cutting-challenge .gcd-celebration span:nth-of-type(11) { --dx:270px; --dy:-50px; --turn:280deg; background:var(--yellow); animation-delay:235ms; }
   #gcd-cutting-challenge .gcd-celebration span:nth-of-type(12) { --dx:-275px; --dy:30px; --turn:-280deg; background:var(--blue); animation-delay:280ms; }
-  #gcd-cutting-challenge .gcd-stage.is-celebrating [data-board] { animation:gcd-board-cheer 650ms ease-out both; }
+  #gcd-cutting-challenge .gcd-stage.is-celebrating [data-board], #gcd-cutting-challenge .gcd-stage.is-celebrating [data-posts] { animation:gcd-board-cheer 650ms ease-out both; }
   #gcd-cutting-challenge .gcd-feedback { min-height:60px; display:flex; align-items:center; margin-top:8px; font-size:1.18rem; font-weight:700; background:color-mix(in srgb,var(--card) 88%,var(--green)); }
   #gcd-cutting-challenge .gcd-application { margin-top:18px; background:color-mix(in srgb,var(--card) 90%,var(--blue)); }
   #gcd-cutting-challenge .gcd-application h2 { margin:0 0 8px; font-size:1.45rem; font-weight:700; }
@@ -1152,6 +1171,7 @@ html&gt;body{padding:0}&lt;/style&gt;
   #gcd-cutting-challenge .gcd-dot.is-second { background:var(--orange); }
   #gcd-cutting-challenge .gcd-posts { display:block; width:100%; height:auto; }
   #gcd-cutting-challenge .gcd-posts text { fill:var(--foreground); font-family:inherit; font-size:16px; font-weight:700; }
+  #gcd-cutting-challenge [data-post-stage] { margin-top:12px; }
   @keyframes gcd-rise { from { opacity:.25; transform:scale(.94); } to { opacity:1; transform:scale(1); } }
   @keyframes gcd-draw { from { stroke-dasharray:600; stroke-dashoffset:600; } to { stroke-dasharray:600; stroke-dashoffset:0; } }
   @keyframes gcd-cheer { 0% { opacity:0; transform:translate(-50%,-50%) scale(.35); } 35% { opacity:1; transform:translate(-50%,-50%) scale(1.12); } 75% { opacity:1; transform:translate(-50%,-50%) scale(1); } 100% { opacity:0; transform:translate(-50%,-65%) scale(.96); } }
@@ -1186,16 +1206,23 @@ html&gt;body{padding:0}&lt;/style&gt;
   const promptEl = root.querySelector(&#x27;[data-prompt]&#x27;);
   const optionsEl = root.querySelector(&#x27;[data-options]&#x27;);
   const board = root.querySelector(&#x27;[data-board]&#x27;);
-  const stage = root.querySelector(&#x27;.gcd-stage&#x27;);
+  const stage = root.querySelector(&#x27;[data-example=&quot;cut&quot;] .gcd-stage&#x27;);
   const feedback = root.querySelector(&#x27;[data-feedback]&#x27;);
   const sparkles = root.querySelector(&#x27;[data-sparkles]&#x27;);
   const packSummary = root.querySelector(&#x27;[data-pack-summary]&#x27;);
   const packs = root.querySelector(&#x27;[data-packs]&#x27;);
   const postSummary = root.querySelector(&#x27;[data-post-summary]&#x27;);
   const posts = root.querySelector(&#x27;[data-posts]&#x27;);
+  const postPrompt = root.querySelector(&#x27;[data-post-prompt]&#x27;);
+  const postOptions = root.querySelector(&#x27;[data-post-options]&#x27;);
+  const postStage = root.querySelector(&#x27;[data-post-stage]&#x27;);
+  const postFeedback = root.querySelector(&#x27;[data-post-feedback]&#x27;);
+  const postSparkles = root.querySelector(&#x27;[data-post-sparkles]&#x27;);
+  const postTabs = [...root.querySelectorAll(&#x27;[data-post-mode]&#x27;)];
   const tabs = [...root.querySelectorAll(&#x27;[data-mode]&#x27;)];
   let question = { length:24, width:18, gcd:6 };
   let mode = &#x27;side&#x27;;
+  let postMode = &#x27;distance&#x27;;
   let selected = null;
   const gcd = (a,b) =&gt; b ? gcd(b,a % b) : a;
   const shuffle = values =&gt; {
@@ -1290,12 +1317,12 @@ html&gt;body{padding:0}&lt;/style&gt;
     setTimeout(()=&gt;context.close?.(),1000);
   }
 
-  function celebrate(finalStage) {
-    sparkles.classList.remove(&#x27;is-visible&#x27;);
-    stage.classList.remove(&#x27;is-celebrating&#x27;);
-    void sparkles.offsetWidth;
-    sparkles.classList.add(&#x27;is-visible&#x27;);
-    stage.classList.add(&#x27;is-celebrating&#x27;);
+  function celebrate(finalStage,targetStage=stage,targetSparkles=sparkles) {
+    targetSparkles.classList.remove(&#x27;is-visible&#x27;);
+    targetStage.classList.remove(&#x27;is-celebrating&#x27;);
+    void targetSparkles.offsetWidth;
+    targetSparkles.classList.add(&#x27;is-visible&#x27;);
+    targetStage.classList.add(&#x27;is-celebrating&#x27;);
     playSuccessSound(finalStage);
   }
 
@@ -1313,6 +1340,86 @@ html&gt;body{padding:0}&lt;/style&gt;
     widthUnit.textContent=unit;
   }
 
+  function postCount(distance=question.gcd) {
+    return 2*(question.length/distance+question.width/distance);
+  }
+
+  function buildPostChoices() {
+    if (postMode===&#x27;count&#x27;) {
+      const correct=postCount();
+      const candidates=[correct-4,correct+4,correct-2,correct+2,correct-6,correct+6].filter(value=&gt;value&gt;4 &amp;&amp; value!==correct);
+      return shuffle([correct,...shuffle(candidates).slice(0,2)]).map(value=&gt;({value,label:`${value} 根`}));
+    }
+    const limit=Math.min(question.length,question.width);
+    const candidates=[];
+    for (let value=2;value&lt;=limit;value++) if (value!==question.gcd) candidates.push(value);
+    return shuffle([question.gcd,...shuffle(candidates).slice(0,2)]).map(value=&gt;({value,label:`${value} m`}));
+  }
+
+  function renderPostOptions({keepBoard=false}={}) {
+    postPrompt.textContent=postMode===&#x27;distance&#x27; ? &#x27;哪一個數字是最大的柱距？&#x27; : &#x27;沿著場地四周，一共需要幾根柱子？&#x27;;
+    postOptions.innerHTML=&#x27;&#x27;;
+    buildPostChoices().forEach(choice=&gt;{
+      const button=document.createElement(&#x27;button&#x27;);
+      button.type=&#x27;button&#x27;;
+      button.className=&#x27;btn gcd-option&#x27;;
+      button.textContent=choice.label;
+      button.dataset.value=choice.value;
+      button.addEventListener(&#x27;click&#x27;,()=&gt;choosePost(choice,button));
+      postOptions.appendChild(button);
+    });
+    postFeedback.textContent=postMode===&#x27;distance&#x27; ? &#x27;先找出能同時整除場地長與寬的最大柱距。&#x27; : &#x27;第一關已通過！請觀察圖上的柱子，再選柱子總數。&#x27;;
+    if (!keepBoard) drawPosts(null);
+  }
+
+  function setPostStage(nextMode,{keepBoard=false}={}) {
+    postMode=nextMode;
+    postTabs.forEach(tab=&gt;{
+      const active=tab.dataset.postMode===postMode;
+      tab.hidden=!active;
+      tab.classList.toggle(&#x27;active&#x27;,active);
+      tab.setAttribute(&#x27;aria-selected&#x27;,String(active));
+    });
+    const activeTab=postTabs.find(tab=&gt;tab.dataset.postMode===postMode);
+    root.querySelector(&#x27;#gcd-post-options&#x27;).setAttribute(&#x27;aria-labelledby&#x27;,activeTab.id);
+    renderPostOptions({keepBoard});
+  }
+
+  function choosePost(choice,button) {
+    [...postOptions.children].forEach(item=&gt;{
+      item.dataset.state=&#x27;&#x27;;
+      item.removeAttribute(&#x27;aria-pressed&#x27;);
+    });
+    const correct=postMode===&#x27;distance&#x27; ? question.gcd : postCount();
+    const right=choice.value===correct;
+    button.dataset.state=right?&#x27;right&#x27;:&#x27;wrong&#x27;;
+    button.setAttribute(&#x27;aria-pressed&#x27;,&#x27;true&#x27;);
+    postSparkles.classList.remove(&#x27;is-visible&#x27;);
+    postStage.classList.remove(&#x27;is-celebrating&#x27;);
+    if (postMode===&#x27;distance&#x27;) {
+      drawPosts(choice.value);
+      if (right) {
+        setPostStage(&#x27;count&#x27;,{keepBoard:true});
+        postFeedback.textContent=`第一關答對！最大柱距是 ${question.gcd} m。現在請數出四周的柱子總數。`;
+        celebrate(false,postStage,postSparkles);
+      } else if (question.length%choice.value===0 &amp;&amp; question.width%choice.value===0) {
+        postFeedback.textContent=`${choice.value} m 可以等距設柱，但還不是最大的共同距離。`;
+      } else {
+        postFeedback.textContent=`${choice.value} m 不能同時整除 ${question.length} m 和 ${question.width} m，邊尾會剩下一段。`;
+      }
+      return;
+    }
+    drawPosts(question.gcd,true);
+    if (right) {
+      const columns=question.length/question.gcd, rows=question.width/question.gcd;
+      postSummary.textContent=`最大柱距 ${question.gcd} m；長邊各 ${columns} 段、寬邊各 ${rows} 段。`;
+      postFeedback.textContent=`兩關都答對！2 ×（${columns}＋${rows}）＝${postCount()}，四周共設 ${postCount()} 根柱。`;
+      celebrate(true,postStage,postSparkles);
+    } else {
+      postFeedback.textContent=&#x27;再數一次：四個轉角只各算一根，可以用「長邊段數＋寬邊段數」乘以 2。&#x27;;
+    }
+  }
+
   function renderApplications() {
     const {length,width,gcd:divisor}=question;
     const perFirst=length/divisor, perSecond=width/divisor;
@@ -1323,25 +1430,41 @@ html&gt;body{padding:0}&lt;/style&gt;
       return `&lt;div class=&quot;gcd-pack&quot; role=&quot;img&quot; aria-label=&quot;第 ${index+1} 包：${perFirst} 個藍色物品、${perSecond} 個橘色物品&quot;&gt;&lt;strong&gt;第 ${index+1} 包&lt;/strong&gt;&lt;div class=&quot;gcd-pack-dots&quot;&gt;${firstDots}${secondDots}&lt;/div&gt;&lt;/div&gt;`;
     }).join(&#x27;&#x27;);
 
-    const columns=length/divisor, rows=width/divisor;
-    const postCount=2*(columns+rows);
-    postSummary.textContent=`長 ${length} m、寬 ${width} m 的場地，最大柱距是 ${divisor} m；四周共設 ${postCount} 根柱。`;
+    postSummary.textContent=&#x27;沿著長方形場地四周，以相同距離設柱，轉角也要有柱子。&#x27;;
+    drawPosts(null);
+  }
+
+  function drawPosts(distance=null,showCount=false) {
+    const {length,width}=question;
+    const columns=distance ? Math.floor(length/distance) : 0;
+    const rows=distance ? Math.floor(width/distance) : 0;
+    const complete=distance &amp;&amp; length%distance===0 &amp;&amp; width%distance===0;
+    const total=complete ? 2*(columns+rows) : null;
     const viewW=520, viewH=270, maxW=350, maxH=150;
     const scale=Math.min(maxW/length,maxH/width);
     const w=length*scale, h=width*scale, x0=(viewW-w)/2, y0=58;
-    let marks=`&lt;title&gt;場地等距設柱&lt;/title&gt;&lt;desc&gt;長 ${length} 公尺、寬 ${width} 公尺，每隔 ${divisor} 公尺設一根柱，共 ${postCount} 根。&lt;/desc&gt;`;
+    let marks=`&lt;title&gt;場地等距設柱&lt;/title&gt;&lt;desc&gt;長 ${length} 公尺、寬 ${width} 公尺${distance?`，嘗試每隔 ${distance} 公尺設一根柱`:&#x27;，等待選擇柱距&#x27;}。&lt;/desc&gt;`;
     marks+=`&lt;rect x=&quot;${x0}&quot; y=&quot;${y0}&quot; width=&quot;${w}&quot; height=&quot;${h}&quot; rx=&quot;6&quot; fill=&quot;var(--accent)&quot; stroke=&quot;var(--foreground)&quot; stroke-width=&quot;2&quot;/&gt;`;
-    marks+=`&lt;text x=&quot;${x0+w/2}&quot; y=&quot;${y0-22}&quot; text-anchor=&quot;middle&quot;&gt;長 ${length} m｜柱距 ${divisor} m&lt;/text&gt;`;
+    marks+=`&lt;text x=&quot;${x0+w/2}&quot; y=&quot;${y0-22}&quot; text-anchor=&quot;middle&quot;&gt;長 ${length} m${distance?`｜試設柱距 ${distance} m`:&#x27;&#x27;}&lt;/text&gt;`;
     marks+=`&lt;text x=&quot;${x0-26}&quot; y=&quot;${y0+h/2}&quot; text-anchor=&quot;middle&quot; transform=&quot;rotate(-90 ${x0-26} ${y0+h/2})&quot;&gt;寬 ${width} m&lt;/text&gt;`;
-    for (let i=0;i&lt;=columns;i++) {
-      const x=x0+i*divisor*scale;
-      marks+=`&lt;circle cx=&quot;${x}&quot; cy=&quot;${y0}&quot; r=&quot;6&quot; fill=&quot;var(--green)&quot;/&gt;&lt;circle cx=&quot;${x}&quot; cy=&quot;${y0+h}&quot; r=&quot;6&quot; fill=&quot;var(--green)&quot;/&gt;`;
+    if (distance) {
+      for (let i=0;i&lt;=columns;i++) {
+        const x=x0+i*distance*scale;
+        marks+=`&lt;circle cx=&quot;${x}&quot; cy=&quot;${y0}&quot; r=&quot;6&quot; fill=&quot;${complete?&#x27;var(--green)&#x27;:&#x27;var(--destructive)&#x27;}&quot;/&gt;&lt;circle cx=&quot;${x}&quot; cy=&quot;${y0+h}&quot; r=&quot;6&quot; fill=&quot;${complete?&#x27;var(--green)&#x27;:&#x27;var(--destructive)&#x27;}&quot;/&gt;`;
+      }
+      for (let i=1;i&lt;rows;i++) {
+        const y=y0+i*distance*scale;
+        marks+=`&lt;circle cx=&quot;${x0}&quot; cy=&quot;${y}&quot; r=&quot;6&quot; fill=&quot;${complete?&#x27;var(--green)&#x27;:&#x27;var(--destructive)&#x27;}&quot;/&gt;&lt;circle cx=&quot;${x0+w}&quot; cy=&quot;${y}&quot; r=&quot;6&quot; fill=&quot;${complete?&#x27;var(--green)&#x27;:&#x27;var(--destructive)&#x27;}&quot;/&gt;`;
+      }
+      if (!complete) marks+=`&lt;text x=&quot;${viewW/2}&quot; y=&quot;${viewH-18}&quot; text-anchor=&quot;middle&quot; fill=&quot;var(--destructive)&quot;&gt;邊尾會剩下一段，無法保持等距&lt;/text&gt;`;
+      else if (showCount) marks+=`&lt;text x=&quot;${viewW/2}&quot; y=&quot;${viewH-18}&quot; text-anchor=&quot;middle&quot;&gt;四周共有 ${total} 根柱&lt;/text&gt;`;
+      else marks+=`&lt;text x=&quot;${viewW/2}&quot; y=&quot;${viewH-18}&quot; text-anchor=&quot;middle&quot;&gt;柱距 ${distance} m 可以繞完整個場地&lt;/text&gt;`;
+    } else {
+      [[x0,y0],[x0+w,y0],[x0,y0+h],[x0+w,y0+h]].forEach(([x,y])=&gt;{
+        marks+=`&lt;circle cx=&quot;${x}&quot; cy=&quot;${y}&quot; r=&quot;6&quot; fill=&quot;var(--muted-foreground)&quot;/&gt;`;
+      });
+      marks+=`&lt;text x=&quot;${viewW/2}&quot; y=&quot;${viewH-18}&quot; text-anchor=&quot;middle&quot;&gt;先選出最大的等距柱距&lt;/text&gt;`;
     }
-    for (let i=1;i&lt;rows;i++) {
-      const y=y0+i*divisor*scale;
-      marks+=`&lt;circle cx=&quot;${x0}&quot; cy=&quot;${y}&quot; r=&quot;6&quot; fill=&quot;var(--green)&quot;/&gt;&lt;circle cx=&quot;${x0+w}&quot; cy=&quot;${y}&quot; r=&quot;6&quot; fill=&quot;var(--green)&quot;/&gt;`;
-    }
-    marks+=`&lt;text x=&quot;${viewW/2}&quot; y=&quot;${viewH-18}&quot; text-anchor=&quot;middle&quot;&gt;GCD(${length}, ${width})＝${divisor}&lt;/text&gt;`;
     posts.setAttribute(&#x27;viewBox&#x27;,`0 0 ${viewW} ${viewH}`);
     posts.innerHTML=marks;
   }
@@ -1427,6 +1550,8 @@ html&gt;body{padding:0}&lt;/style&gt;
   function newQuestion() {
     sparkles.classList.remove(&#x27;is-visible&#x27;);
     stage.classList.remove(&#x27;is-celebrating&#x27;);
+    postSparkles.classList.remove(&#x27;is-visible&#x27;);
+    postStage.classList.remove(&#x27;is-celebrating&#x27;);
     const multipliers=[[2,3],[3,4],[3,5],[4,5],[5,6],[2,5]];
     const pair=multipliers[Math.floor(Math.random()*multipliers.length)];
     const factor=3+Math.floor(Math.random()*7);
@@ -1438,6 +1563,7 @@ html&gt;body{padding:0}&lt;/style&gt;
     widthEl.animate?.([{transform:&#x27;translateY(8px)&#x27;,opacity:.2},{transform:&#x27;translateY(0)&#x27;,opacity:1}],{duration:360,easing:&#x27;ease-out&#x27;});
     renderApplications();
     setStage(&#x27;side&#x27;);
+    setPostStage(&#x27;distance&#x27;);
   }
 
   exampleSelect.addEventListener(&#x27;change&#x27;,()=&gt;showExample(exampleSelect.value));
