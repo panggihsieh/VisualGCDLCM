@@ -1134,6 +1134,7 @@ html&gt;body{padding:0}&lt;/style&gt;
       &lt;/div&gt;
     &lt;/div&gt;
     &lt;div class=&quot;card gcd-feedback&quot; data-post-feedback aria-live=&quot;polite&quot;&gt;請先選出最大的柱距。&lt;/div&gt;
+    &lt;div class=&quot;card gcd-solution&quot; data-post-solution hidden aria-live=&quot;polite&quot;&gt;&lt;/div&gt;
   &lt;/section&gt;
 &lt;/div&gt;
 
@@ -1193,6 +1194,10 @@ html&gt;body{padding:0}&lt;/style&gt;
   #gcd-cutting-challenge .gcd-posts { display:block; width:100%; height:auto; }
   #gcd-cutting-challenge .gcd-posts text { fill:var(--foreground); font-family:inherit; font-size:16px; font-weight:700; }
   #gcd-cutting-challenge [data-post-stage] { margin-top:12px; }
+  #gcd-cutting-challenge .gcd-solution { margin-top:10px; border-left:6px solid var(--green); background:color-mix(in srgb,var(--card) 82%,var(--green)); }
+  #gcd-cutting-challenge .gcd-solution strong { display:block; margin-bottom:8px; font-size:1.25rem; font-weight:700; }
+  #gcd-cutting-challenge .gcd-solution ol { margin:0; padding-left:1.6em; }
+  #gcd-cutting-challenge .gcd-solution li { margin-block:5px; font-weight:700; }
   @keyframes gcd-rise { from { opacity:.25; transform:scale(.94); } to { opacity:1; transform:scale(1); } }
   @keyframes gcd-draw { from { stroke-dasharray:600; stroke-dashoffset:600; } to { stroke-dasharray:600; stroke-dashoffset:0; } }
   @keyframes gcd-cheer { 0% { opacity:0; transform:translate(-50%,-50%) scale(.35); } 35% { opacity:1; transform:translate(-50%,-50%) scale(1.12); } 75% { opacity:1; transform:translate(-50%,-50%) scale(1); } 100% { opacity:0; transform:translate(-50%,-65%) scale(.96); } }
@@ -1244,6 +1249,7 @@ html&gt;body{padding:0}&lt;/style&gt;
   const postOptions = root.querySelector(&#x27;[data-post-options]&#x27;);
   const postStage = root.querySelector(&#x27;[data-post-stage]&#x27;);
   const postFeedback = root.querySelector(&#x27;[data-post-feedback]&#x27;);
+  const postSolution = root.querySelector(&#x27;[data-post-solution]&#x27;);
   const postSparkles = root.querySelector(&#x27;[data-post-sparkles]&#x27;);
   const postTabs = [...root.querySelectorAll(&#x27;[data-post-mode]&#x27;)];
   const tabs = [...root.querySelectorAll(&#x27;[data-mode]&#x27;)];
@@ -1488,7 +1494,7 @@ html&gt;body{padding:0}&lt;/style&gt;
     if (postMode===&#x27;count&#x27;) {
       const correct=postCount();
       const candidates=[correct-4,correct+4,correct-2,correct+2,correct-6,correct+6].filter(value=&gt;value&gt;4 &amp;&amp; value!==correct);
-      return shuffle([correct,...shuffle(candidates).slice(0,2)]).map(value=&gt;({value,label:`2 × ${value/2}`}));
+      return shuffle([correct,...shuffle(candidates).slice(0,2)]).map(value=&gt;({value,label:`${value} 根`}));
     }
     const limit=Math.min(question.length,question.width);
     const candidates=[];
@@ -1497,7 +1503,7 @@ html&gt;body{padding:0}&lt;/style&gt;
   }
 
   function renderPostOptions({keepBoard=false}={}) {
-    postPrompt.textContent=postMode===&#x27;distance&#x27; ? &#x27;哪一個數字是最大的柱距？&#x27; : &#x27;哪一組乘法可以算出四周的柱子總數？&#x27;;
+    postPrompt.textContent=postMode===&#x27;distance&#x27; ? &#x27;哪一個數字是最大的柱距？&#x27; : &#x27;沿著場地四周，一共需要幾根柱子？&#x27;;
     postOptions.innerHTML=&#x27;&#x27;;
     buildPostChoices().forEach(choice=&gt;{
       const button=document.createElement(&#x27;button&#x27;);
@@ -1514,6 +1520,8 @@ html&gt;body{padding:0}&lt;/style&gt;
 
   function setPostStage(nextMode,{keepBoard=false}={}) {
     postMode=nextMode;
+    postSolution.hidden=true;
+    postSolution.innerHTML=&#x27;&#x27;;
     postTabs.forEach(tab=&gt;{
       const active=tab.dataset.postMode===postMode;
       tab.hidden=!active;
@@ -1536,6 +1544,8 @@ html&gt;body{padding:0}&lt;/style&gt;
     button.setAttribute(&#x27;aria-pressed&#x27;,&#x27;true&#x27;);
     postSparkles.classList.remove(&#x27;is-visible&#x27;);
     postStage.classList.remove(&#x27;is-celebrating&#x27;);
+    postSolution.hidden=true;
+    postSolution.innerHTML=&#x27;&#x27;;
     if (postMode===&#x27;distance&#x27;) {
       drawPosts(choice.value);
       if (right) {
@@ -1553,7 +1563,9 @@ html&gt;body{padding:0}&lt;/style&gt;
     if (right) {
       const columns=question.length/question.gcd, rows=question.width/question.gcd;
       postSummary.textContent=`最大柱距 ${question.gcd} m；長邊各 ${columns} 段、寬邊各 ${rows} 段。`;
-      postFeedback.textContent=`兩關都答對！2 ×（${columns}＋${rows}）＝${postCount()}，四周共設 ${postCount()} 根柱。`;
+      postFeedback.textContent=`兩關都答對！四周共設 ${postCount()} 根柱。`;
+      postSolution.innerHTML=`&lt;strong&gt;解法&lt;/strong&gt;&lt;ol&gt;&lt;li&gt;長邊間隔數：${question.length} ÷ ${question.gcd}＝${columns}&lt;/li&gt;&lt;li&gt;寬邊間隔數：${question.width} ÷ ${question.gcd}＝${rows}&lt;/li&gt;&lt;li&gt;兩條長邊：${columns}＋${columns}＝${columns*2}&lt;/li&gt;&lt;li&gt;兩條寬邊：${rows}＋${rows}＝${rows*2}&lt;/li&gt;&lt;li&gt;柱子總數：${columns*2}＋${rows*2}＝${postCount()} 根&lt;/li&gt;&lt;/ol&gt;`;
+      postSolution.hidden=false;
       celebrate(true,postStage,postSparkles);
     } else {
       postFeedback.textContent=&#x27;再數一次：四個轉角只各算一根，可以用「長邊段數＋寬邊段數」乘以 2。&#x27;;
@@ -1687,6 +1699,8 @@ html&gt;body{padding:0}&lt;/style&gt;
     packStage.classList.remove(&#x27;is-celebrating&#x27;);
     postSparkles.classList.remove(&#x27;is-visible&#x27;);
     postStage.classList.remove(&#x27;is-celebrating&#x27;);
+    postSolution.hidden=true;
+    postSolution.innerHTML=&#x27;&#x27;;
     const multipliers=[[2,3],[3,4],[3,5],[4,5],[5,6],[2,5]];
     const pair=multipliers[Math.floor(Math.random()*multipliers.length)];
     const factor=3+Math.floor(Math.random()*7);
