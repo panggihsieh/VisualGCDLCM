@@ -1776,10 +1776,10 @@ html&gt;body{padding:0}&lt;/style&gt;
     const levels=[
       {factor:[2,3],multiplier:[2,4],label:&#x27;入門&#x27;},
       {factor:[3,4],multiplier:[3,5],label:&#x27;基礎&#x27;},
-      {factor:[4,6],multiplier:[4,7],label:&#x27;進階&#x27;},
-      {factor:[6,8],multiplier:[5,9],label:&#x27;挑戰&#x27;},
-      {factor:[8,10],multiplier:[6,11],label:&#x27;困難&#x27;},
-      {factor:[10,12],multiplier:[7,13],label:&#x27;高手&#x27;}
+      {factor:[4,5],multiplier:[4,7],label:&#x27;進階&#x27;},
+      {factor:[5,7],multiplier:[5,9],label:&#x27;挑戰&#x27;},
+      {factor:[7,9],multiplier:[7,10],label:&#x27;困難&#x27;},
+      {factor:[9,10],multiplier:[9,10],label:&#x27;高手&#x27;}
     ];
     difficulty=Math.min(difficulty+1,levels.length);
     const level=levels[difficulty-1];
@@ -1793,7 +1793,8 @@ html&gt;body{padding:0}&lt;/style&gt;
     for (let factor=level.factor[0];factor&lt;=level.factor[1];factor++) {
       multiplierPairs.forEach(pair=&gt;{
         const dimensions=[factor*pair[0],factor*pair[1]];
-        candidates.push({factor,pair,dimensions,min:Math.min(...dimensions),max:Math.max(...dimensions)});
+        const max=Math.max(...dimensions);
+        if (max&lt;=100) candidates.push({factor,pair,dimensions,min:Math.min(...dimensions),max});
       });
     }
     const harder=candidates.filter(candidate=&gt;candidate.min&gt;lastDimensions.min &amp;&amp; candidate.max&gt;lastDimensions.max);
