@@ -1259,7 +1259,7 @@ html&gt;body{padding:0}&lt;/style&gt;
     &lt;div class=&quot;gcd-quiz-intro&quot;&gt;
       &lt;div&gt;
         &lt;h2&gt;第二版：限時測驗&lt;/h2&gt;
-        &lt;p&gt;三題依序練習最大公因數、最小公倍數與生活應用；每題作答最多 35 秒，整場作答時間 105 秒。解答閱讀時暫停計時。&lt;/p&gt;
+        &lt;p&gt;三題數字與生活情境挑戰；每題作答最多 35 秒，整場作答時間 105 秒。解答閱讀時暫停計時。&lt;/p&gt;
       &lt;/div&gt;
       &lt;button class=&quot;btn btn-primary&quot; type=&quot;button&quot; data-quiz-start&gt;開始測驗&lt;/button&gt;
     &lt;/div&gt;
@@ -1275,6 +1275,7 @@ html&gt;body{padding:0}&lt;/style&gt;
       &lt;h3 data-quiz-prompt&gt;按「開始測驗」後，從三個答案中選出正確的一個。&lt;/h3&gt;
       &lt;div class=&quot;gcd-quiz-options&quot; data-quiz-options aria-label=&quot;測驗答案選項&quot;&gt;&lt;/div&gt;
       &lt;p class=&quot;gcd-quiz-feedback&quot; data-quiz-feedback role=&quot;status&quot; aria-live=&quot;polite&quot;&gt;準備好再開始計時。&lt;/p&gt;
+      &lt;div class=&quot;card gcd-quiz-visual&quot; data-quiz-visual hidden&gt;&lt;/div&gt;
       &lt;div class=&quot;card gcd-solution gcd-method&quot; data-quiz-solution hidden aria-live=&quot;polite&quot;&gt;&lt;/div&gt;
       &lt;button class=&quot;btn btn-primary gcd-quiz-next&quot; type=&quot;button&quot; data-quiz-next hidden&gt;下一題&lt;/button&gt;
     &lt;/div&gt;
@@ -1302,6 +1303,13 @@ html&gt;body{padding:0}&lt;/style&gt;
   #gcd-cutting-challenge .gcd-quiz-options { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
   #gcd-cutting-challenge .gcd-quiz-options .gcd-option { min-width:0; }
   #gcd-cutting-challenge .gcd-quiz-feedback { min-height:1.5em; margin:18px 0 0; font-weight:700; }
+  #gcd-cutting-challenge .gcd-quiz-visual { margin-top:12px; padding:12px; background:var(--card); animation:gcd-visual-reveal .4s ease-out both; }
+  #gcd-cutting-challenge .gcd-quiz-visual svg { display:block; width:100%; height:auto; max-height:270px; }
+  #gcd-cutting-challenge .gcd-quiz-visual text { fill:var(--foreground); font:700 16px sans-serif; }
+  #gcd-cutting-challenge .gcd-quiz-visual .gcd-visual-mark { transform-box:fill-box; transform-origin:center; animation:gcd-visual-pop .4s ease-out both; animation-delay:calc(var(--order) * 60ms); }
+  #gcd-cutting-challenge .gcd-quiz-visual .gcd-visual-final { stroke:var(--green); stroke-width:4; }
+  @keyframes gcd-visual-reveal { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes gcd-visual-pop { from { opacity:0; transform:scale(.4); } to { opacity:1; transform:scale(1); } }
   #gcd-cutting-challenge .gcd-quiz-next { display:block; margin-top:14px; min-height:48px; font-weight:800; }
   #gcd-cutting-challenge .gcd-quiz-next[hidden] { display:none; }
   #gcd-cutting-challenge .gcd-example-picker { display:grid; grid-template-columns:repeat(2,minmax(240px,1fr)); align-items:end; gap:16px; margin-bottom:16px; background:color-mix(in srgb,var(--card) 84%,var(--purple)); box-shadow:0 6px 18px color-mix(in srgb,var(--foreground) 9%,transparent); }
@@ -1396,12 +1404,15 @@ html&gt;body{padding:0}&lt;/style&gt;
   #gcd-cutting-challenge .gcd-ladder-divisor { display:grid; place-items:center; width:38px; flex:none; }
   #gcd-cutting-challenge .gcd-ladder-pair { display:grid; grid-template-columns:repeat(2,64px); gap:12px; padding:2px 8px; text-align:center; }
   #gcd-cutting-challenge .gcd-ladder-row:not(.is-final) .gcd-ladder-pair { border-left:3px solid var(--foreground); border-bottom:3px solid var(--foreground); }
+  #gcd-cutting-challenge .gcd-ladder-row { animation:gcd-visual-reveal .4s ease-out both; animation-delay:calc(var(--depth) * 350ms); }
+  #gcd-cutting-challenge .gcd-ladder-result { animation:gcd-visual-reveal .4s ease-out both; animation-delay:calc(var(--step-count) * 350ms); }
   @keyframes gcd-rise { from { opacity:.25; transform:scale(.94); } to { opacity:1; transform:scale(1); } }
   @keyframes gcd-draw { from { stroke-dasharray:600; stroke-dashoffset:600; } to { stroke-dasharray:600; stroke-dashoffset:0; } }
   @keyframes gcd-cheer { 0% { opacity:0; transform:translate(-50%,-50%) scale(.35); } 35% { opacity:1; transform:translate(-50%,-50%) scale(1.12); } 75% { opacity:1; transform:translate(-50%,-50%) scale(1); } 100% { opacity:0; transform:translate(-50%,-65%) scale(.96); } }
   @keyframes gcd-confetti { 0% { opacity:0; transform:translate(-50%,-50%) scale(.4) rotate(0); } 18% { opacity:1; } 100% { opacity:0; transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(1) rotate(var(--turn)); } }
   @keyframes gcd-board-cheer { 0%,100% { transform:scale(1); } 45% { transform:scale(1.025); } }
   @media (prefers-reduced-motion:reduce) {
+    #gcd-cutting-challenge .gcd-quiz-visual, #gcd-cutting-challenge .gcd-quiz-visual .gcd-visual-mark, #gcd-cutting-challenge .gcd-ladder-row, #gcd-cutting-challenge .gcd-ladder-result { animation:none; }
     #gcd-cutting-challenge .gcd-tile, #gcd-cutting-challenge .gcd-cut-line, #gcd-cutting-challenge .gcd-celebration *, #gcd-cutting-challenge .gcd-stage.is-celebrating [data-board] { animation:none; }
   }
   @container (max-width:480px) {
@@ -1513,6 +1524,7 @@ html&gt;body{padding:0}&lt;/style&gt;
   const quizPrompt = root.querySelector(&#x27;[data-quiz-prompt]&#x27;);
   const quizOptions = root.querySelector(&#x27;[data-quiz-options]&#x27;);
   const quizFeedback = root.querySelector(&#x27;[data-quiz-feedback]&#x27;);
+  const quizVisual = root.querySelector(&#x27;[data-quiz-visual]&#x27;);
   const quizSolution = root.querySelector(&#x27;[data-quiz-solution]&#x27;);
   const quizNext = root.querySelector(&#x27;[data-quiz-next]&#x27;);
   const tabs = [...root.querySelectorAll(&#x27;[data-mode]&#x27;)];
@@ -1553,8 +1565,8 @@ html&gt;body{padding:0}&lt;/style&gt;
     }
     rows.push([&#x27;&#x27;,a,b]);
     const drawing=rows.map(([divisor,left,right],index)=&gt;`&lt;div class=&quot;gcd-ladder-row${divisor===&#x27;&#x27;?&#x27; is-final&#x27;:&#x27;&#x27;}&quot; style=&quot;--depth:${index}&quot;&gt;&lt;span class=&quot;gcd-ladder-divisor&quot;&gt;${divisor}&lt;/span&gt;&lt;span class=&quot;gcd-ladder-pair&quot;&gt;&lt;span&gt;${left}&lt;/span&gt;&lt;span&gt;${right}&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;`).join(&#x27;&#x27;);
-    const product=factors.length?`${factors.join(&#x27; × &#x27;)}＝${gcd(first,second)}`:&#x27;沒有大於 1 的共同除數，最大公因數是 1&#x27;;
-    return `&lt;strong&gt;短除法圖解&lt;/strong&gt;&lt;div class=&quot;gcd-ladder&quot;&gt;${drawing}&lt;/div&gt;&lt;p&gt;共同除數：${product}。&lt;/p&gt;`;
+    const conclusion=factors.length&gt;1?`共同除數相乘：${factors.join(&#x27; × &#x27;)}＝${gcd(first,second)}`:factors.length===1?`最大公因數：${factors[0]}`:&#x27;兩數互質，最大公因數是 1&#x27;;
+    return `&lt;strong&gt;短除法圖解&lt;/strong&gt;&lt;div class=&quot;gcd-ladder&quot;&gt;${drawing}&lt;/div&gt;&lt;p class=&quot;gcd-ladder-result&quot; style=&quot;--step-count:${rows.length}&quot;&gt;${conclusion}。&lt;/p&gt;`;
   }
   function showGcdMethod(target) {
     target.innerHTML=ladderMarkup(question.length,question.width);
@@ -2377,19 +2389,19 @@ html&gt;body{padding:0}&lt;/style&gt;
 
   const quizBanks = [
     [
-      {topic:&#x27;最大公因數&#x27;,prompt:&#x27;長 24 cm、寬 18 cm 的紙要切成最大的正方形，邊長是多少？&#x27;,choices:[3,6,12],answer:6,unit:&#x27;cm&#x27;,numbers:[24,18],kind:&#x27;gcd&#x27;,explanation:&#x27;GCD(24, 18)＝6。&#x27;},
-      {topic:&#x27;最大公因數&#x27;,prompt:&#x27;30 顆糖與 45 塊餅乾平均分裝成最多包，每包內容相同。最多幾包？&#x27;,choices:[5,10,15],answer:15,unit:&#x27;包&#x27;,numbers:[30,45],kind:&#x27;gcd&#x27;,explanation:&#x27;GCD(30, 45)＝15。&#x27;},
-      {topic:&#x27;最大公因數&#x27;,prompt:&#x27;長 36 m、寬 48 m 的場地四周等距設柱，最大柱距是多少？&#x27;,choices:[6,8,12],answer:12,unit:&#x27;m&#x27;,numbers:[36,48],kind:&#x27;gcd&#x27;,explanation:&#x27;GCD(36, 48)＝12。&#x27;}
+      {topic:&#x27;最大公因數&#x27;,prompt:&#x27;長 24 cm、寬 18 cm 的紙要切成最大的正方形，邊長是多少？&#x27;,choices:[3,6,12],answer:6,unit:&#x27;cm&#x27;,numbers:[24,18],kind:&#x27;gcd&#x27;,visual:&#x27;cut&#x27;,explanation:&#x27;GCD(24, 18)＝6。&#x27;},
+      {topic:&#x27;最大公因數&#x27;,prompt:&#x27;30 顆糖與 45 塊餅乾平均分裝成最多包，每包內容相同。最多幾包？&#x27;,choices:[5,10,15],answer:15,unit:&#x27;包&#x27;,numbers:[30,45],kind:&#x27;gcd&#x27;,visual:&#x27;pack&#x27;,explanation:&#x27;GCD(30, 45)＝15。&#x27;},
+      {topic:&#x27;最大公因數&#x27;,prompt:&#x27;長 36 m、寬 48 m 的場地四周等距設柱，最大柱距是多少？&#x27;,choices:[6,8,12],answer:12,unit:&#x27;m&#x27;,numbers:[36,48],kind:&#x27;gcd&#x27;,visual:&#x27;posts&#x27;,explanation:&#x27;GCD(36, 48)＝12。&#x27;}
     ],
     [
-      {topic:&#x27;最小公倍數&#x27;,prompt:&#x27;6 和 8 的最小公倍數是多少？&#x27;,choices:[12,16,24],answer:24,unit:&#x27;&#x27;,numbers:[6,8],kind:&#x27;lcm&#x27;,explanation:&#x27;6 的倍數與 8 的倍數第一次相同是 24。&#x27;},
-      {topic:&#x27;最小公倍數&#x27;,prompt:&#x27;4 和 10 的最小公倍數是多少？&#x27;,choices:[10,20,40],answer:20,unit:&#x27;&#x27;,numbers:[4,10],kind:&#x27;lcm&#x27;,explanation:&#x27;4 的倍數與 10 的倍數第一次相同是 20。&#x27;},
-      {topic:&#x27;最小公倍數&#x27;,prompt:&#x27;9 和 12 的最小公倍數是多少？&#x27;,choices:[18,27,36],answer:36,unit:&#x27;&#x27;,numbers:[9,12],kind:&#x27;lcm&#x27;,explanation:&#x27;9 的倍數與 12 的倍數第一次相同是 36。&#x27;}
+      {topic:&#x27;最小公倍數&#x27;,prompt:&#x27;兩盞燈分別每 6 秒與每 8 秒亮一次，現在同時亮，幾秒後再次同時亮？&#x27;,choices:[12,16,24],answer:24,unit:&#x27;秒&#x27;,numbers:[6,8],kind:&#x27;lcm&#x27;,visual:&#x27;time&#x27;,explanation:&#x27;6 的倍數與 8 的倍數第一次相同是 24。&#x27;},
+      {topic:&#x27;最小公倍數&#x27;,prompt:&#x27;兩台機器分別每 4 分鐘與每 10 分鐘運作一次，現在同時運作，幾分鐘後再次同時運作？&#x27;,choices:[10,20,40],answer:20,unit:&#x27;分鐘&#x27;,numbers:[4,10],kind:&#x27;lcm&#x27;,explanation:&#x27;4 的倍數與 10 的倍數第一次相同是 20。&#x27;},
+      {topic:&#x27;最小公倍數&#x27;,prompt:&#x27;兩條路線的接駁車分別每 9 分鐘、每 12 分鐘發車，現在同時發車，幾分鐘後再次同時發車？&#x27;,choices:[18,27,36],answer:36,unit:&#x27;分鐘&#x27;,numbers:[9,12],kind:&#x27;lcm&#x27;,explanation:&#x27;9 的倍數與 12 的倍數第一次相同是 36。&#x27;}
     ],
     [
-      {topic:&#x27;生活應用&#x27;,prompt:&#x27;15 cm × 10 cm 磁磚不切割拼成最小正方形，正方形邊長是多少？&#x27;,choices:[20,30,60],answer:30,unit:&#x27;cm&#x27;,numbers:[15,10],kind:&#x27;lcm&#x27;,explanation:&#x27;LCM(15, 10)＝30。&#x27;},
-      {topic:&#x27;生活應用&#x27;,prompt:&#x27;24 m 與 18 m 兩段道路都要等距插旗，終點也要有旗子。最大旗距是多少？&#x27;,choices:[3,6,8],answer:6,unit:&#x27;m&#x27;,numbers:[24,18],kind:&#x27;gcd&#x27;,explanation:&#x27;GCD(24, 18)＝6。&#x27;},
-      {topic:&#x27;生活應用&#x27;,prompt:&#x27;兩盞燈分別每 4 秒與每 6 秒亮一次，現在同時亮，幾秒後再次同時亮？&#x27;,choices:[6,10,12],answer:12,unit:&#x27;秒&#x27;,numbers:[4,6],kind:&#x27;lcm&#x27;,explanation:&#x27;LCM(4, 6)＝12。&#x27;}
+      {topic:&#x27;生活應用&#x27;,prompt:&#x27;15 cm × 10 cm 磁磚不切割拼成最小正方形，正方形邊長是多少？&#x27;,choices:[20,30,60],answer:30,unit:&#x27;cm&#x27;,numbers:[15,10],kind:&#x27;lcm&#x27;,visual:&#x27;tiles&#x27;,explanation:&#x27;LCM(15, 10)＝30。&#x27;},
+      {topic:&#x27;生活應用&#x27;,prompt:&#x27;24 m 與 18 m 兩段道路都要等距插旗，終點也要有旗子。最大旗距是多少？&#x27;,choices:[3,6,8],answer:6,unit:&#x27;m&#x27;,numbers:[24,18],kind:&#x27;gcd&#x27;,visual:&#x27;road&#x27;,explanation:&#x27;GCD(24, 18)＝6。&#x27;},
+      {topic:&#x27;生活應用&#x27;,prompt:&#x27;兩盞燈分別每 4 秒與每 6 秒亮一次，現在同時亮，幾秒後再次同時亮？&#x27;,choices:[6,10,12],answer:12,unit:&#x27;秒&#x27;,numbers:[4,6],kind:&#x27;lcm&#x27;,visual:&#x27;time&#x27;,explanation:&#x27;LCM(4, 6)＝12。&#x27;}
     ]
   ];
 
@@ -2404,6 +2416,7 @@ html&gt;body{padding:0}&lt;/style&gt;
     if (quizFrame!==null) cancelAnimationFrame(quizFrame);
     quizFrame=null;
     quizNext.hidden=true;
+    quizVisual.hidden=true;
     quizSolution.hidden=true;
     quizStart.hidden=false;
     quizStart.textContent=&#x27;再測一次&#x27;;
@@ -2420,14 +2433,76 @@ html&gt;body{padding:0}&lt;/style&gt;
     return `${method}&lt;p&gt;最小公倍數＝${first} × ${second} ÷ ${gcd(first,second)}＝${current.answer}。&lt;/p&gt;`;
   }
 
+  function quizVisualMarkup(current) {
+    const [first,second]=current.numbers;
+    const answer=current.answer;
+    let drawing=&#x27;&#x27;, caption=&#x27;&#x27;, description=&#x27;&#x27;;
+    if (current.visual===&#x27;cut&#x27; || current.visual===&#x27;tiles&#x27;) {
+      const tileWidth=current.visual===&#x27;cut&#x27;?answer:first;
+      const tileHeight=current.visual===&#x27;cut&#x27;?answer:second;
+      const columns=(current.visual===&#x27;cut&#x27;?first:answer)/tileWidth;
+      const rows=(current.visual===&#x27;cut&#x27;?second:answer)/tileHeight;
+      const scale=Math.min(350/(columns*tileWidth),170/(rows*tileHeight));
+      const cellW=tileWidth*scale, cellH=tileHeight*scale;
+      const x0=320-columns*cellW/2, y0=25;
+      for (let row=0;row&lt;rows;row++) for (let col=0;col&lt;columns;col++) {
+        drawing+=`&lt;rect class=&quot;gcd-visual-mark&quot; style=&quot;--order:${row*columns+col}&quot; x=&quot;${x0+col*cellW}&quot; y=&quot;${y0+row*cellH}&quot; width=&quot;${cellW}&quot; height=&quot;${cellH}&quot; fill=&quot;${(row+col)%2?&#x27;var(--orange)&#x27;:&#x27;var(--blue)&#x27;}&quot; fill-opacity=&quot;.65&quot; stroke=&quot;var(--foreground)&quot; stroke-width=&quot;2&quot;/&gt;`;
+      }
+      caption=current.visual===&#x27;cut&#x27;?`${columns} 列 × ${rows} 排，每個正方形邊長 ${answer} cm`:`${columns} 塊 × ${rows} 排，拼成邊長 ${answer} cm 的正方形`;
+      description=caption;
+    } else if (current.visual===&#x27;posts&#x27;) {
+      const columns=first/answer, rows=second/answer;
+      drawing+=&#x27;&lt;rect x=&quot;190&quot; y=&quot;25&quot; width=&quot;260&quot; height=&quot;150&quot; rx=&quot;4&quot; fill=&quot;var(--blue)&quot; fill-opacity=&quot;.16&quot; stroke=&quot;var(--foreground)&quot; stroke-width=&quot;3&quot;/&gt;&#x27;;
+      let order=0;
+      for (let col=0;col&lt;=columns;col++) for (const y of [25,175]) drawing+=`&lt;circle class=&quot;gcd-visual-mark&quot; style=&quot;--order:${order++}&quot; cx=&quot;${190+col*260/columns}&quot; cy=&quot;${y}&quot; r=&quot;7&quot; fill=&quot;var(--green)&quot;/&gt;`;
+      for (let row=1;row&lt;rows;row++) for (const x of [190,450]) drawing+=`&lt;circle class=&quot;gcd-visual-mark&quot; style=&quot;--order:${order++}&quot; cx=&quot;${x}&quot; cy=&quot;${25+row*150/rows}&quot; r=&quot;7&quot; fill=&quot;var(--green)&quot;/&gt;`;
+      caption=`長邊 ${columns} 段、寬邊 ${rows} 段，每段 ${answer} m`;
+      description=caption;
+    } else if (current.visual===&#x27;road&#x27;) {
+      const max=Math.max(first,second), x0=115, scale=410/max;
+      [first,second].forEach((length,index)=&gt;{
+        const y=index?145:65, color=index?&#x27;var(--orange)&#x27;:&#x27;var(--blue)&#x27;;
+        drawing+=`&lt;text x=&quot;12&quot; y=&quot;${y+6}&quot;&gt;道路${index?&#x27;乙&#x27;:&#x27;甲&#x27;}&lt;/text&gt;&lt;line x1=&quot;${x0}&quot; y1=&quot;${y}&quot; x2=&quot;${x0+length*scale}&quot; y2=&quot;${y}&quot; stroke=&quot;${color}&quot; stroke-width=&quot;7&quot;/&gt;`;
+        for (let mark=0;mark&lt;=length;mark+=answer) {
+          const x=x0+mark*scale;
+          drawing+=`&lt;path class=&quot;gcd-visual-mark&quot; style=&quot;--order:${mark/answer}&quot; d=&quot;M${x} ${y-25} v40 m0 -40 l13 7 -13 7&quot; fill=&quot;${color}&quot; stroke=&quot;var(--foreground)&quot; stroke-width=&quot;2&quot;/&gt;`;
+        }
+      });
+      caption=`兩段道路都每隔 ${answer} m 插旗，終點剛好有旗`;
+      description=caption;
+    } else if (current.visual===&#x27;pack&#x27;) {
+      const x0=110, barWidth=420, count=answer, cellW=barWidth/count;
+      [first,second].forEach((amount,index)=&gt;{
+        const y=index?125:55, color=index?&#x27;var(--orange)&#x27;:&#x27;var(--blue)&#x27;;
+        drawing+=`&lt;text x=&quot;8&quot; y=&quot;${y+24}&quot;&gt;${index?&#x27;餅乾&#x27;:&#x27;糖果&#x27;} ${amount}&lt;/text&gt;`;
+        for (let bag=0;bag&lt;count;bag++) drawing+=`&lt;rect class=&quot;gcd-visual-mark&quot; style=&quot;--order:${bag}&quot; x=&quot;${x0+bag*cellW+1}&quot; y=&quot;${y}&quot; width=&quot;${cellW-2}&quot; height=&quot;35&quot; rx=&quot;3&quot; fill=&quot;${color}&quot; fill-opacity=&quot;.72&quot; stroke=&quot;var(--foreground)&quot;/&gt;`;
+      });
+      caption=`平均分成 ${answer} 包，每包 ${first/answer} 顆糖、${second/answer} 塊餅乾`;
+      description=caption;
+    } else {
+      const x0=105, span=435, labels=current.visual===&#x27;time&#x27;?[&#x27;藍燈&#x27;,&#x27;橘燈&#x27;]:[`${first} 的倍數`,`${second} 的倍數`];
+      drawing+=`&lt;line x1=&quot;${x0+span}&quot; y1=&quot;35&quot; x2=&quot;${x0+span}&quot; y2=&quot;170&quot; stroke=&quot;var(--green)&quot; stroke-width=&quot;3&quot; stroke-dasharray=&quot;6 6&quot;/&gt;`;
+      [first,second].forEach((period,index)=&gt;{
+        const y=index?145:65, color=index?&#x27;var(--orange)&#x27;:&#x27;var(--blue)&#x27;;
+        drawing+=`&lt;text x=&quot;8&quot; y=&quot;${y+5}&quot;&gt;${labels[index]}&lt;/text&gt;&lt;line x1=&quot;${x0}&quot; y1=&quot;${y}&quot; x2=&quot;${x0+span}&quot; y2=&quot;${y}&quot; stroke=&quot;${color}&quot; stroke-width=&quot;4&quot;/&gt;`;
+        for (let mark=0;mark&lt;=answer;mark+=period) drawing+=`&lt;circle class=&quot;gcd-visual-mark${mark===answer?&#x27; gcd-visual-final&#x27;:&#x27;&#x27;}&quot; style=&quot;--order:${mark/period}&quot; cx=&quot;${x0+mark/answer*span}&quot; cy=&quot;${y}&quot; r=&quot;${mark===answer?11:8}&quot; fill=&quot;${color}&quot;/&gt;`;
+      });
+      caption=`兩組第一次再次重合：${answer}${current.unit?` ${current.unit}`:&#x27;&#x27;}`;
+      description=caption;
+    }
+    return `&lt;svg viewBox=&quot;0 0 640 230&quot; role=&quot;img&quot; aria-label=&quot;${description}&quot; preserveAspectRatio=&quot;xMidYMid meet&quot;&gt;&lt;title&gt;答案視覺化&lt;/title&gt;${drawing}&lt;text x=&quot;320&quot; y=&quot;218&quot; text-anchor=&quot;middle&quot;&gt;${caption}&lt;/text&gt;&lt;/svg&gt;`;
+  }
+
   function showQuizQuestion() {
     const current=quizQuestions[quizIndex];
     quizLocked=false;
     quizRoundDeadline=Math.min(performance.now()+35000,quizTotalDeadline);
-    quizTopic.textContent=`第 ${quizIndex+1} 題／3・${current.topic}`;
+    quizTopic.textContent=`第 ${quizIndex+1} 題／3`;
     quizPrompt.textContent=current.prompt;
     quizCount.textContent=`${quizIndex+1} / 3`;
     quizFeedback.textContent=&#x27;請在本題倒數結束前選擇答案。&#x27;;
+    quizVisual.hidden=true;
+    quizVisual.innerHTML=&#x27;&#x27;;
     quizSolution.hidden=true;
     quizSolution.innerHTML=&#x27;&#x27;;
     quizNext.hidden=true;
@@ -2471,6 +2546,8 @@ html&gt;body{padding:0}&lt;/style&gt;
     }
     quizScore.textContent=String(quizPoints);
     quizStreak.textContent=String(quizCombo);
+    quizVisual.innerHTML=quizVisualMarkup(current);
+    quizVisual.hidden=false;
     quizSolution.innerHTML=quizSolutionMarkup(current);
     quizSolution.hidden=false;
     quizNext.textContent=quizIndex===quizQuestions.length-1 || quizTotalRemainingMs===0?&#x27;查看結果&#x27;:&#x27;下一題&#x27;;
@@ -2497,7 +2574,7 @@ html&gt;body{padding:0}&lt;/style&gt;
 
   function startQuiz() {
     if (quizFrame!==null) cancelAnimationFrame(quizFrame);
-    quizQuestions=quizBanks.map(bank=&gt;bank[Math.floor(Math.random()*bank.length)]);
+    quizQuestions=shuffle(quizBanks.map(bank=&gt;bank[Math.floor(Math.random()*bank.length)]));
     quizIndex=0;
     quizPoints=0;
     quizCorrect=0;
