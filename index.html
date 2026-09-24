@@ -1116,7 +1116,7 @@ html&gt;body{padding:0}&lt;/style&gt;
     &lt;/div&gt;
   &lt;/div&gt;
   &lt;div class=&quot;card gcd-feedback&quot; data-feedback aria-live=&quot;polite&quot;&gt;請先從上方選一個數字。&lt;/div&gt;
-  &lt;div class=&quot;card gcd-solution gcd-euclid&quot; data-euclid-cut hidden aria-live=&quot;polite&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;card gcd-solution gcd-method&quot; data-method-cut hidden aria-live=&quot;polite&quot;&gt;&lt;/div&gt;
   &lt;/section&gt;
 
   &lt;section class=&quot;card gcd-application&quot; data-example=&quot;pack&quot; hidden&gt;
@@ -1146,7 +1146,7 @@ html&gt;body{padding:0}&lt;/style&gt;
       &lt;/div&gt;
     &lt;/div&gt;
     &lt;div class=&quot;card gcd-feedback&quot; data-pack-feedback aria-live=&quot;polite&quot;&gt;請先選出最多可以分成幾包。&lt;/div&gt;
-    &lt;div class=&quot;card gcd-solution gcd-euclid&quot; data-euclid-pack hidden aria-live=&quot;polite&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;card gcd-solution gcd-method&quot; data-method-pack hidden aria-live=&quot;polite&quot;&gt;&lt;/div&gt;
   &lt;/section&gt;
 
   &lt;section class=&quot;card gcd-application&quot; data-example=&quot;posts&quot; hidden&gt;
@@ -1199,7 +1199,7 @@ html&gt;body{padding:0}&lt;/style&gt;
       &lt;/div&gt;
     &lt;/div&gt;
     &lt;div class=&quot;card gcd-feedback&quot; data-gcd-road-feedback aria-live=&quot;polite&quot;&gt;選一個旗距後，圖上才會出現旗子的位置。&lt;/div&gt;
-    &lt;div class=&quot;card gcd-solution gcd-euclid&quot; data-euclid-road hidden aria-live=&quot;polite&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;card gcd-solution gcd-method&quot; data-method-road hidden aria-live=&quot;polite&quot;&gt;&lt;/div&gt;
   &lt;/section&gt;
 
   &lt;section class=&quot;card gcd-application gcd-lcm-view&quot; data-topic-view=&quot;lcm&quot; hidden&gt;
@@ -1275,7 +1275,7 @@ html&gt;body{padding:0}&lt;/style&gt;
       &lt;h3 data-quiz-prompt&gt;按「開始測驗」後，從三個答案中選出正確的一個。&lt;/h3&gt;
       &lt;div class=&quot;gcd-quiz-options&quot; data-quiz-options aria-label=&quot;測驗答案選項&quot;&gt;&lt;/div&gt;
       &lt;p class=&quot;gcd-quiz-feedback&quot; data-quiz-feedback role=&quot;status&quot; aria-live=&quot;polite&quot;&gt;準備好再開始計時。&lt;/p&gt;
-      &lt;div class=&quot;card gcd-solution gcd-euclid&quot; data-quiz-solution hidden aria-live=&quot;polite&quot;&gt;&lt;/div&gt;
+      &lt;div class=&quot;card gcd-solution gcd-method&quot; data-quiz-solution hidden aria-live=&quot;polite&quot;&gt;&lt;/div&gt;
       &lt;button class=&quot;btn btn-primary gcd-quiz-next&quot; type=&quot;button&quot; data-quiz-next hidden&gt;下一題&lt;/button&gt;
     &lt;/div&gt;
   &lt;/section&gt;
@@ -1389,8 +1389,8 @@ html&gt;body{padding:0}&lt;/style&gt;
   #gcd-cutting-challenge .gcd-solution strong { display:block; margin-bottom:8px; font-size:1.25rem; font-weight:700; }
   #gcd-cutting-challenge .gcd-solution ol { margin:0; padding-left:1.6em; }
   #gcd-cutting-challenge .gcd-solution li { margin-block:5px; font-weight:700; }
-  #gcd-cutting-challenge .gcd-euclid { height:auto; margin-top:10px; }
-  #gcd-cutting-challenge .gcd-euclid p { margin:8px 0 0; font-weight:700; }
+  #gcd-cutting-challenge .gcd-method { height:auto; margin-top:10px; }
+  #gcd-cutting-challenge .gcd-method p { margin:8px 0 0; font-weight:700; }
   #gcd-cutting-challenge .gcd-ladder { width:max-content; max-width:100%; margin:10px 0 16px; padding:12px 14px; border-radius:12px; background:var(--card); font-variant-numeric:tabular-nums; }
   #gcd-cutting-challenge .gcd-ladder-row { display:flex; align-items:stretch; width:max-content; margin-left:calc(var(--depth) * 9px); font-size:1.4rem; line-height:1.4; }
   #gcd-cutting-challenge .gcd-ladder-divisor { display:grid; place-items:center; width:38px; flex:none; }
@@ -1457,7 +1457,7 @@ html&gt;body{padding:0}&lt;/style&gt;
   const board = root.querySelector(&#x27;[data-board]&#x27;);
   const stage = root.querySelector(&#x27;[data-example=&quot;cut&quot;] .gcd-stage&#x27;);
   const feedback = root.querySelector(&#x27;[data-feedback]&#x27;);
-  const euclidCut = root.querySelector(&#x27;[data-euclid-cut]&#x27;);
+  const methodCut = root.querySelector(&#x27;[data-method-cut]&#x27;);
   const sparkles = root.querySelector(&#x27;[data-sparkles]&#x27;);
   const packSummary = root.querySelector(&#x27;[data-pack-summary]&#x27;);
   const packs = root.querySelector(&#x27;[data-packs]&#x27;);
@@ -1465,7 +1465,7 @@ html&gt;body{padding:0}&lt;/style&gt;
   const packOptions = root.querySelector(&#x27;[data-pack-options]&#x27;);
   const packStage = root.querySelector(&#x27;[data-pack-stage]&#x27;);
   const packFeedback = root.querySelector(&#x27;[data-pack-feedback]&#x27;);
-  const euclidPack = root.querySelector(&#x27;[data-euclid-pack]&#x27;);
+  const methodPack = root.querySelector(&#x27;[data-method-pack]&#x27;);
   const packSparkles = root.querySelector(&#x27;[data-pack-sparkles]&#x27;);
   const packTabs = [...root.querySelectorAll(&#x27;[data-pack-mode]&#x27;)];
   const postSummary = root.querySelector(&#x27;[data-post-summary]&#x27;);
@@ -1481,7 +1481,7 @@ html&gt;body{padding:0}&lt;/style&gt;
   const gcdRoadBoard = root.querySelector(&#x27;[data-gcd-road-board]&#x27;);
   const gcdRoadStage = root.querySelector(&#x27;[data-gcd-road-stage]&#x27;);
   const gcdRoadFeedback = root.querySelector(&#x27;[data-gcd-road-feedback]&#x27;);
-  const euclidRoad = root.querySelector(&#x27;[data-euclid-road]&#x27;);
+  const methodRoad = root.querySelector(&#x27;[data-method-road]&#x27;);
   const gcdRoadSparkles = root.querySelector(&#x27;[data-gcd-road-sparkles]&#x27;);
   const lcmView = root.querySelector(&#x27;[data-topic-view=&quot;lcm&quot;]&#x27;);
   const lcmPrompt = root.querySelector(&#x27;[data-lcm-prompt]&#x27;);
@@ -1556,24 +1556,12 @@ html&gt;body{padding:0}&lt;/style&gt;
     const product=factors.length?`${factors.join(&#x27; × &#x27;)}＝${gcd(first,second)}`:&#x27;沒有大於 1 的共同除數，最大公因數是 1&#x27;;
     return `&lt;strong&gt;短除法圖解&lt;/strong&gt;&lt;div class=&quot;gcd-ladder&quot;&gt;${drawing}&lt;/div&gt;&lt;p&gt;共同除數：${product}。&lt;/p&gt;`;
   }
-  function euclidMarkup(first=question.length,second=question.width) {
-    let a=Math.max(first,second);
-    let b=Math.min(first,second);
-    const steps=[];
-    while (b!==0) {
-      const quotient=Math.floor(a/b), remainder=a%b;
-      steps.push(`&lt;li&gt;${a}＝${b} × ${quotient}＋${remainder}&lt;/li&gt;`);
-      a=b;
-      b=remainder;
-    }
-    return `${ladderMarkup(first,second)}&lt;strong&gt;輾轉相除法&lt;/strong&gt;&lt;ol&gt;${steps.join(&#x27;&#x27;)}&lt;/ol&gt;&lt;p&gt;餘數變成 0 時，除數 ${a} 就是最大公因數。&lt;/p&gt;`;
-  }
-  function showEuclid(target) {
-    target.innerHTML=euclidMarkup();
+  function showGcdMethod(target) {
+    target.innerHTML=ladderMarkup(question.length,question.width);
     target.hidden=false;
   }
-  function hideEuclid() {
-    [euclidCut,euclidPack,euclidRoad].forEach(target=&gt;{
+  function hideGcdMethod() {
+    [methodCut,methodPack,methodRoad].forEach(target=&gt;{
       target.hidden=true;
       target.innerHTML=&#x27;&#x27;;
     });
@@ -2032,7 +2020,7 @@ html&gt;body{padding:0}&lt;/style&gt;
       const first=question.length/question.gcd, second=question.width/question.gcd;
       packSummary.textContent=`${question.length} 個藍色和 ${question.width} 個橘色，最多分成 ${question.gcd} 包。`;
       packFeedback.textContent=`兩關都答對！每包 ${first} 個藍色 × ${second} 個橘色，共 ${question.gcd} 包。`;
-      showEuclid(euclidPack);
+      showGcdMethod(methodPack);
       celebrate(true,packStage,packSparkles);
     } else {
       packFeedback.textContent=&#x27;再算一次：每包數量＝物品總數 ÷ 最多包數，兩種物品都要剛好分完。&#x27;;
@@ -2142,7 +2130,7 @@ html&gt;body{padding:0}&lt;/style&gt;
       const columns=question.length/question.gcd, rows=question.width/question.gcd;
       postSummary.textContent=`最大柱距 ${question.gcd} m；長邊各 ${columns} 段、寬邊各 ${rows} 段。`;
       postFeedback.textContent=`兩關都答對！四周共設 ${postCount()} 根柱。`;
-      postSolution.innerHTML=`${euclidMarkup()}&lt;strong&gt;柱子總數&lt;/strong&gt;&lt;ol&gt;&lt;li&gt;長邊間隔數：${question.length} ÷ ${question.gcd}＝${columns}&lt;/li&gt;&lt;li&gt;寬邊間隔數：${question.width} ÷ ${question.gcd}＝${rows}&lt;/li&gt;&lt;li&gt;兩條長邊：${columns}＋${columns}＝${columns*2}&lt;/li&gt;&lt;li&gt;兩條寬邊：${rows}＋${rows}＝${rows*2}&lt;/li&gt;&lt;li&gt;柱子總數：${columns*2}＋${rows*2}＝${postCount()} 根&lt;/li&gt;&lt;/ol&gt;`;
+      postSolution.innerHTML=`${ladderMarkup(question.length,question.width)}&lt;strong&gt;柱子總數&lt;/strong&gt;&lt;ol&gt;&lt;li&gt;長邊間隔數：${question.length} ÷ ${question.gcd}＝${columns}&lt;/li&gt;&lt;li&gt;寬邊間隔數：${question.width} ÷ ${question.gcd}＝${rows}&lt;/li&gt;&lt;li&gt;兩條長邊：${columns}＋${columns}＝${columns*2}&lt;/li&gt;&lt;li&gt;兩條寬邊：${rows}＋${rows}＝${rows*2}&lt;/li&gt;&lt;li&gt;柱子總數：${columns*2}＋${rows*2}＝${postCount()} 根&lt;/li&gt;&lt;/ol&gt;`;
       postSolution.hidden=false;
       postStage.classList.add(&#x27;has-solution&#x27;);
       celebrate(true,postStage,postSparkles);
@@ -2186,7 +2174,7 @@ html&gt;body{padding:0}&lt;/style&gt;
             ? `${distance} m 能整除兩段道路，但還能把旗距加大。`
             : `${distance} m 不能整除兩段道路，至少有一段的終點無法剛好插旗。`;
         if (right) celebrate(true,gcdRoadStage,gcdRoadSparkles);
-        if (right) showEuclid(euclidRoad);
+        if (right) showGcdMethod(methodRoad);
       });
       gcdRoadOptions.appendChild(button);
     });
@@ -2284,7 +2272,7 @@ html&gt;body{padding:0}&lt;/style&gt;
         celebrate(false);
       } else {
         feedback.textContent=`兩關都答對！GCD(${length}, ${width})＝${question.gcd}；長邊 ${columns} 塊 × 寬邊 ${rows} 塊＝共 ${columns*rows} 塊。`;
-        showEuclid(euclidCut);
+        showGcdMethod(methodCut);
         celebrate(true);
       }
     } else if (complete) {
@@ -2348,7 +2336,7 @@ html&gt;body{padding:0}&lt;/style&gt;
     postSparkles.classList.remove(&#x27;is-visible&#x27;);
     postStage.classList.remove(&#x27;is-celebrating&#x27;);
     hidePostSolution();
-    hideEuclid();
+    hideGcdMethod();
     const levels=[
       {questions:[[4,6],[6,8],[6,9]],label:&#x27;啟蒙&#x27;},
       {questions:[[12,15],[12,16],[14,18]],label:&#x27;入門&#x27;},
@@ -2427,7 +2415,7 @@ html&gt;body{padding:0}&lt;/style&gt;
 
   function quizSolutionMarkup(current) {
     const [first,second]=current.numbers;
-    const method=euclidMarkup(first,second);
+    const method=ladderMarkup(first,second);
     if (current.kind===&#x27;gcd&#x27;) return method;
     return `${method}&lt;p&gt;最小公倍數＝${first} × ${second} ÷ ${gcd(first,second)}＝${current.answer}。&lt;/p&gt;`;
   }
