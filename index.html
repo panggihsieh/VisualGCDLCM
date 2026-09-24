@@ -1259,13 +1259,13 @@ html&gt;body{padding:0}&lt;/style&gt;
     &lt;div class=&quot;gcd-quiz-intro&quot;&gt;
       &lt;div&gt;
         &lt;h2&gt;第二版：限時測驗&lt;/h2&gt;
-        &lt;p&gt;三題數字與生活情境挑戰；每題作答最多 35 秒，整場作答時間 105 秒。解答閱讀時暫停計時。&lt;/p&gt;
+        &lt;p&gt;依序挑戰簡單、中等、困難三級，作答時間分別為 60、90、120 秒；題目數字不超過 100。解答閱讀時暫停計時。&lt;/p&gt;
       &lt;/div&gt;
       &lt;button class=&quot;btn btn-primary&quot; type=&quot;button&quot; data-quiz-start&gt;開始測驗&lt;/button&gt;
     &lt;/div&gt;
     &lt;div class=&quot;gcd-quiz-stats&quot; aria-label=&quot;測驗狀態&quot;&gt;
-      &lt;div class=&quot;card&quot;&gt;&lt;span&gt;剩餘時間&lt;/span&gt;&lt;strong data-quiz-total&gt;105&lt;/strong&gt;&lt;small&gt;秒&lt;/small&gt;&lt;/div&gt;
-      &lt;div class=&quot;card&quot;&gt;&lt;span&gt;本題時間&lt;/span&gt;&lt;strong data-quiz-round&gt;35&lt;/strong&gt;&lt;small&gt;秒&lt;/small&gt;&lt;/div&gt;
+      &lt;div class=&quot;card&quot;&gt;&lt;span&gt;剩餘時間&lt;/span&gt;&lt;strong data-quiz-total&gt;270&lt;/strong&gt;&lt;small&gt;秒&lt;/small&gt;&lt;/div&gt;
+      &lt;div class=&quot;card&quot;&gt;&lt;span&gt;本題時間&lt;/span&gt;&lt;strong data-quiz-round&gt;60&lt;/strong&gt;&lt;small&gt;秒&lt;/small&gt;&lt;/div&gt;
       &lt;div class=&quot;card&quot;&gt;&lt;span&gt;分數&lt;/span&gt;&lt;strong data-quiz-score&gt;0&lt;/strong&gt;&lt;/div&gt;
       &lt;div class=&quot;card&quot;&gt;&lt;span&gt;連擊&lt;/span&gt;&lt;strong data-quiz-streak&gt;0&lt;/strong&gt;&lt;/div&gt;
       &lt;div class=&quot;card&quot;&gt;&lt;span&gt;題數&lt;/span&gt;&lt;strong data-quiz-count&gt;0 / 3&lt;/strong&gt;&lt;/div&gt;
@@ -1546,7 +1546,7 @@ html&gt;body{padding:0}&lt;/style&gt;
   let quizTotalDeadline = 0;
   let quizRoundDeadline = 0;
   let quizFrame = null;
-  let quizTotalRemainingMs = 105000;
+  let quizTotalRemainingMs = 270000;
   let difficulty = 0;
   let lastDimensions = {min:0,max:0};
   let selected = null;
@@ -2387,22 +2387,22 @@ html&gt;body{padding:0}&lt;/style&gt;
     setPostStage(&#x27;distance&#x27;);
   }
 
-  const quizBanks = [
-    [
-      {topic:&#x27;最大公因數&#x27;,prompt:&#x27;長 24 cm、寬 18 cm 的紙要切成最大的正方形，邊長是多少？&#x27;,choices:[3,6,12],answer:6,unit:&#x27;cm&#x27;,numbers:[24,18],kind:&#x27;gcd&#x27;,visual:&#x27;cut&#x27;,explanation:&#x27;GCD(24, 18)＝6。&#x27;},
-      {topic:&#x27;最大公因數&#x27;,prompt:&#x27;30 顆糖與 45 塊餅乾平均分裝成最多包，每包內容相同。最多幾包？&#x27;,choices:[5,10,15],answer:15,unit:&#x27;包&#x27;,numbers:[30,45],kind:&#x27;gcd&#x27;,visual:&#x27;pack&#x27;,explanation:&#x27;GCD(30, 45)＝15。&#x27;},
-      {topic:&#x27;最大公因數&#x27;,prompt:&#x27;長 36 m、寬 48 m 的場地四周等距設柱，最大柱距是多少？&#x27;,choices:[6,8,12],answer:12,unit:&#x27;m&#x27;,numbers:[36,48],kind:&#x27;gcd&#x27;,visual:&#x27;posts&#x27;,explanation:&#x27;GCD(36, 48)＝12。&#x27;}
-    ],
-    [
-      {topic:&#x27;最小公倍數&#x27;,prompt:&#x27;兩盞燈分別每 6 秒與每 8 秒亮一次，現在同時亮，幾秒後再次同時亮？&#x27;,choices:[12,16,24],answer:24,unit:&#x27;秒&#x27;,numbers:[6,8],kind:&#x27;lcm&#x27;,visual:&#x27;time&#x27;,explanation:&#x27;6 的倍數與 8 的倍數第一次相同是 24。&#x27;},
-      {topic:&#x27;最小公倍數&#x27;,prompt:&#x27;兩台機器分別每 4 分鐘與每 10 分鐘運作一次，現在同時運作，幾分鐘後再次同時運作？&#x27;,choices:[10,20,40],answer:20,unit:&#x27;分鐘&#x27;,numbers:[4,10],kind:&#x27;lcm&#x27;,explanation:&#x27;4 的倍數與 10 的倍數第一次相同是 20。&#x27;},
-      {topic:&#x27;最小公倍數&#x27;,prompt:&#x27;兩條路線的接駁車分別每 9 分鐘、每 12 分鐘發車，現在同時發車，幾分鐘後再次同時發車？&#x27;,choices:[18,27,36],answer:36,unit:&#x27;分鐘&#x27;,numbers:[9,12],kind:&#x27;lcm&#x27;,explanation:&#x27;9 的倍數與 12 的倍數第一次相同是 36。&#x27;}
-    ],
-    [
-      {topic:&#x27;生活應用&#x27;,prompt:&#x27;15 cm × 10 cm 磁磚不切割拼成最小正方形，正方形邊長是多少？&#x27;,choices:[20,30,60],answer:30,unit:&#x27;cm&#x27;,numbers:[15,10],kind:&#x27;lcm&#x27;,visual:&#x27;tiles&#x27;,explanation:&#x27;LCM(15, 10)＝30。&#x27;},
-      {topic:&#x27;生活應用&#x27;,prompt:&#x27;24 m 與 18 m 兩段道路都要等距插旗，終點也要有旗子。最大旗距是多少？&#x27;,choices:[3,6,8],answer:6,unit:&#x27;m&#x27;,numbers:[24,18],kind:&#x27;gcd&#x27;,visual:&#x27;road&#x27;,explanation:&#x27;GCD(24, 18)＝6。&#x27;},
-      {topic:&#x27;生活應用&#x27;,prompt:&#x27;兩盞燈分別每 4 秒與每 6 秒亮一次，現在同時亮，幾秒後再次同時亮？&#x27;,choices:[6,10,12],answer:12,unit:&#x27;秒&#x27;,numbers:[4,6],kind:&#x27;lcm&#x27;,visual:&#x27;time&#x27;,explanation:&#x27;LCM(4, 6)＝12。&#x27;}
-    ]
+  const quizLevels = [
+    {label:&#x27;簡單&#x27;,seconds:60,questions:[
+      {prompt:&#x27;長 12 cm、寬 18 cm 的紙要切成最大的正方形，邊長是多少？&#x27;,choices:[3,6,9],answer:6,unit:&#x27;cm&#x27;,numbers:[12,18],kind:&#x27;gcd&#x27;,visual:&#x27;cut&#x27;,explanation:&#x27;GCD(12, 18)＝6。&#x27;},
+      {prompt:&#x27;8 顆糖與 12 塊餅乾平均分裝成最多包，每包內容相同。最多幾包？&#x27;,choices:[2,4,6],answer:4,unit:&#x27;包&#x27;,numbers:[8,12],kind:&#x27;gcd&#x27;,visual:&#x27;pack&#x27;,explanation:&#x27;GCD(8, 12)＝4。&#x27;},
+      {prompt:&#x27;兩盞燈分別每 4 秒與每 6 秒亮一次，現在同時亮，幾秒後再次同時亮？&#x27;,choices:[6,8,12],answer:12,unit:&#x27;秒&#x27;,numbers:[4,6],kind:&#x27;lcm&#x27;,visual:&#x27;time&#x27;,explanation:&#x27;4 的倍數與 6 的倍數第一次相同是 12。&#x27;}
+    ]},
+    {label:&#x27;中等&#x27;,seconds:90,questions:[
+      {prompt:&#x27;長 24 m、寬 36 m 的場地四周等距設柱，最大柱距是多少？&#x27;,choices:[6,9,12],answer:12,unit:&#x27;m&#x27;,numbers:[24,36],kind:&#x27;gcd&#x27;,visual:&#x27;posts&#x27;,explanation:&#x27;GCD(24, 36)＝12。&#x27;},
+      {prompt:&#x27;15 cm × 10 cm 磁磚不切割拼成最小正方形，正方形邊長是多少？&#x27;,choices:[20,30,60],answer:30,unit:&#x27;cm&#x27;,numbers:[15,10],kind:&#x27;lcm&#x27;,visual:&#x27;tiles&#x27;,explanation:&#x27;LCM(15, 10)＝30。&#x27;},
+      {prompt:&#x27;兩盞燈分別每 6 秒與每 8 秒亮一次，現在同時亮，幾秒後再次同時亮？&#x27;,choices:[12,16,24],answer:24,unit:&#x27;秒&#x27;,numbers:[6,8],kind:&#x27;lcm&#x27;,visual:&#x27;time&#x27;,explanation:&#x27;6 的倍數與 8 的倍數第一次相同是 24。&#x27;}
+    ]},
+    {label:&#x27;困難&#x27;,seconds:120,questions:[
+      {prompt:&#x27;84 m 與 96 m 兩段道路都要等距插旗，終點也要有旗子。最大旗距是多少？&#x27;,choices:[6,12,24],answer:12,unit:&#x27;m&#x27;,numbers:[84,96],kind:&#x27;gcd&#x27;,visual:&#x27;road&#x27;,explanation:&#x27;GCD(84, 96)＝12。&#x27;},
+      {prompt:&#x27;長 70 cm、寬 84 cm 的紙要切成最大的正方形，邊長是多少？&#x27;,choices:[7,14,21],answer:14,unit:&#x27;cm&#x27;,numbers:[70,84],kind:&#x27;gcd&#x27;,visual:&#x27;cut&#x27;,explanation:&#x27;GCD(70, 84)＝14。&#x27;},
+      {prompt:&#x27;兩條路線的接駁車分別每 18 分鐘、每 24 分鐘發車，現在同時發車，幾分鐘後再次同時發車？&#x27;,choices:[36,48,72],answer:72,unit:&#x27;分鐘&#x27;,numbers:[18,24],kind:&#x27;lcm&#x27;,explanation:&#x27;18 的倍數與 24 的倍數第一次相同是 72。&#x27;}
+    ]}
   ];
 
   function updateQuizClocks(now) {
@@ -2496,8 +2496,8 @@ html&gt;body{padding:0}&lt;/style&gt;
   function showQuizQuestion() {
     const current=quizQuestions[quizIndex];
     quizLocked=false;
-    quizRoundDeadline=Math.min(performance.now()+35000,quizTotalDeadline);
-    quizTopic.textContent=`第 ${quizIndex+1} 題／3`;
+    quizRoundDeadline=Math.min(performance.now()+current.seconds*1000,quizTotalDeadline);
+    quizTopic.textContent=`第 ${quizIndex+1} 題／3・${current.level}`;
     quizPrompt.textContent=current.prompt;
     quizCount.textContent=`${quizIndex+1} / 3`;
     quizFeedback.textContent=&#x27;請在本題倒數結束前選擇答案。&#x27;;
@@ -2574,7 +2574,7 @@ html&gt;body{padding:0}&lt;/style&gt;
 
   function startQuiz() {
     if (quizFrame!==null) cancelAnimationFrame(quizFrame);
-    quizQuestions=shuffle(quizBanks.map(bank=&gt;bank[Math.floor(Math.random()*bank.length)]));
+    quizQuestions=quizLevels.map(level=&gt;({...level.questions[Math.floor(Math.random()*level.questions.length)],level:level.label,seconds:level.seconds}));
     quizIndex=0;
     quizPoints=0;
     quizCorrect=0;
@@ -2583,7 +2583,7 @@ html&gt;body{padding:0}&lt;/style&gt;
     quizStart.hidden=true;
     quizScore.textContent=&#x27;0&#x27;;
     quizStreak.textContent=&#x27;0&#x27;;
-    quizTotalRemainingMs=105000;
+    quizTotalRemainingMs=270000;
     quizTotalDeadline=performance.now()+quizTotalRemainingMs;
     showQuizQuestion();
     quizFrame=requestAnimationFrame(tickQuiz);
