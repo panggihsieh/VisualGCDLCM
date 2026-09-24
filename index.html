@@ -2467,19 +2467,18 @@ html&gt;body{padding:0}&lt;/style&gt;
       caption=`橫列 ${second} ÷ ${answer}＝${rows} 列 × 直行 ${first} ÷ ${answer}＝${columns} 行，共 ${columns*rows} 塊。`;
       description=`紙張切割圖。${caption}`;
     } else if (current.visual===&#x27;tiles&#x27;) {
-      viewHeight=450;
-      const columns=answer/first, rows=answer/second, side=270, x0=185, y0=140;
+      viewHeight=480;
+      const columns=answer/first, rows=answer/second, side=270, x0=185, y0=160;
       const cellW=side/columns, cellH=side/rows;
       drawing+=&#x27;&lt;circle cx=&quot;320&quot; cy=&quot;45&quot; r=&quot;16&quot; fill=&quot;var(--primary)&quot;/&gt;&lt;path d=&quot;M287 82 Q320 48 353 82&quot; fill=&quot;var(--primary)&quot;/&gt;&#x27;;
       drawing+=&#x27;&lt;rect x=&quot;270&quot; y=&quot;78&quot; width=&quot;100&quot; height=&quot;34&quot; rx=&quot;5&quot; fill=&quot;var(--accent)&quot; stroke=&quot;var(--foreground)&quot; stroke-width=&quot;2&quot;/&gt;&lt;text x=&quot;320&quot; y=&quot;102&quot; text-anchor=&quot;middle&quot;&gt;講台&lt;/text&gt;&lt;text x=&quot;390&quot; y=&quot;102&quot;&gt;老師（北）&lt;/text&gt;&#x27;;
-      drawing+=`&lt;text x=&quot;320&quot; y=&quot;129&quot; text-anchor=&quot;middle&quot;&gt;正方形邊長 ${answer} cm&lt;/text&gt;`;
       for (let col=0;col&lt;columns;col++) drawing+=`&lt;text x=&quot;${x0+(col+.5)*cellW}&quot; y=&quot;${y0-7}&quot; text-anchor=&quot;middle&quot;&gt;第 ${col+1} 行&lt;/text&gt;`;
       for (let row=0;row&lt;rows;row++) for (let col=0;col&lt;columns;col++) {
         drawing+=`&lt;rect class=&quot;gcd-visual-mark&quot; style=&quot;--order:${row*columns+col}&quot; x=&quot;${x0+col*cellW}&quot; y=&quot;${y0+row*cellH}&quot; width=&quot;${cellW}&quot; height=&quot;${cellH}&quot; fill=&quot;${(row+col)%2?&#x27;var(--viz-series-2)&#x27;:&#x27;var(--viz-series-1)&#x27;}&quot; fill-opacity=&quot;.48&quot; stroke=&quot;var(--foreground)&quot; stroke-width=&quot;1.5&quot;/&gt;`;
       }
       for (let row=0;row&lt;rows;row++) drawing+=`&lt;text x=&quot;${x0-12}&quot; y=&quot;${y0+(row+.5)*cellH+6}&quot; text-anchor=&quot;end&quot;&gt;第 ${row+1} 列&lt;/text&gt;`;
       drawing+=`&lt;rect x=&quot;${x0}&quot; y=&quot;${y0}&quot; width=&quot;${side}&quot; height=&quot;${side}&quot; fill=&quot;none&quot; stroke=&quot;var(--foreground)&quot; stroke-width=&quot;3&quot;/&gt;`;
-      caption=`橫列 ${answer} ÷ ${second}＝${rows} 列，直行 ${answer} ÷ ${first}＝${columns} 行，共 ${columns*rows} 塊。`;
+      caption=`正方形邊長 ${answer} cm；橫列 ${answer} ÷ ${second}＝${rows} 列，直行 ${answer} ÷ ${first}＝${columns} 行，共 ${columns*rows} 塊。`;
       description=`磁磚拼正方形圖。${caption}`;
     } else if (current.visual===&#x27;posts&#x27;) {
       const columns=first/answer, rows=second/answer;
