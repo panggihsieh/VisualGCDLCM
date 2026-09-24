@@ -1052,7 +1052,14 @@ html&gt;body{padding:0}&lt;/style&gt;
         &lt;option value=&quot;posts&quot;&gt;場地等距設柱&lt;/option&gt;
       &lt;/select&gt;
     &lt;/label&gt;
-    &lt;div class=&quot;gcd-lcm-header&quot; data-lcm-header hidden&gt;拼成最小正方形&lt;/div&gt;
+    &lt;label class=&quot;gcd-select-field&quot; for=&quot;lcm-example-select&quot; data-lcm-example-control hidden&gt;
+      &lt;span&gt;應用情境&lt;/span&gt;
+      &lt;select class=&quot;form-select&quot; id=&quot;lcm-example-select&quot; data-lcm-example-select&gt;
+        &lt;option value=&quot;tiles&quot;&gt;拼成最小正方形&lt;/option&gt;
+        &lt;option value=&quot;time&quot;&gt;時間週期重合&lt;/option&gt;
+        &lt;option value=&quot;road&quot;&gt;道路標記對齊&lt;/option&gt;
+      &lt;/select&gt;
+    &lt;/label&gt;
   &lt;/div&gt;
   &lt;div class=&quot;gcd-topline&quot;&gt;
     &lt;div class=&quot;gcd-given&quot; aria-label=&quot;本題電腦給定的兩個數字&quot;&gt;
@@ -1185,7 +1192,7 @@ html&gt;body{padding:0}&lt;/style&gt;
         &lt;/div&gt;
       &lt;/div&gt;
       &lt;div class=&quot;gcd-stage&quot; data-lcm-stage&gt;
-        &lt;svg data-lcm-board role=&quot;img&quot; aria-label=&quot;15 公分乘 10 公分的磁磚拼成正方形示意圖&quot; preserveAspectRatio=&quot;xMidYMid meet&quot;&gt;&lt;/svg&gt;
+        &lt;svg data-lcm-board role=&quot;img&quot; aria-label=&quot;講台在北方、每排由前往後排列的磁磚正方形示意圖&quot; preserveAspectRatio=&quot;xMidYMid meet&quot;&gt;&lt;/svg&gt;
         &lt;div class=&quot;gcd-celebration&quot; data-lcm-sparkles aria-hidden=&quot;true&quot;&gt;
           &lt;strong&gt;答對了！&lt;/strong&gt;
           &lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
@@ -1194,6 +1201,30 @@ html&gt;body{padding:0}&lt;/style&gt;
       &lt;/div&gt;
     &lt;/div&gt;
     &lt;div class=&quot;card gcd-feedback&quot; data-lcm-feedback aria-live=&quot;polite&quot;&gt;請先找出 15 和 10 的最小公倍數。&lt;/div&gt;
+  &lt;/section&gt;
+  &lt;section class=&quot;card gcd-application gcd-lcm-view&quot; data-topic-view=&quot;lcm-time&quot; hidden&gt;
+    &lt;h2 data-cycle-title&gt;兩盞燈再次同時亮&lt;/h2&gt;
+    &lt;p class=&quot;gcd-application-summary&quot; data-cycle-summary&gt;藍燈每 6 秒亮一次，橘燈每 8 秒亮一次；兩盞燈現在同時亮。&lt;/p&gt;
+    &lt;div class=&quot;gcd-challenge-grid&quot;&gt;
+      &lt;div class=&quot;gcd-task-panel&quot;&gt;
+        &lt;div class=&quot;gcd-choice-heading&quot;&gt;&lt;span class=&quot;viz-badge&quot;&gt;3&lt;/span&gt;&lt;span data-cycle-prompt&gt;幾秒後會再次同時亮？&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;card gcd-number-options&quot; data-time-options aria-label=&quot;再次同時亮的時間選項&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;gcd-time-controls&quot;&gt;
+          &lt;button class=&quot;btn btn-primary&quot; type=&quot;button&quot; data-time-play&gt;播放時間（4 倍速）&lt;/button&gt;
+          &lt;label for=&quot;lcm-time-slider&quot;&gt;&lt;span data-cycle-position-label&gt;目前時間&lt;/span&gt;：&lt;strong data-time-now&gt;0&lt;/strong&gt; &lt;span data-cycle-unit&gt;秒&lt;/span&gt;&lt;/label&gt;
+          &lt;input id=&quot;lcm-time-slider&quot; data-time-slider type=&quot;range&quot; min=&quot;0&quot; max=&quot;24&quot; step=&quot;0.1&quot; value=&quot;0&quot; aria-label=&quot;時間軸，0 至 24 秒&quot;&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;gcd-stage&quot; data-time-stage&gt;
+        &lt;svg data-time-board role=&quot;img&quot; aria-label=&quot;等比例時間軸：藍燈每 6 秒亮、橘燈每 8 秒亮，首次再次重合於 24 秒&quot; preserveAspectRatio=&quot;xMidYMid meet&quot;&gt;&lt;/svg&gt;
+        &lt;div class=&quot;gcd-celebration&quot; data-time-sparkles aria-hidden=&quot;true&quot;&gt;
+          &lt;strong&gt;答對了！&lt;/strong&gt;
+          &lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
+          &lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;card gcd-feedback&quot; data-time-feedback aria-live=&quot;polite&quot;&gt;0 秒時同時亮；沿時間軸找下一個重合點。&lt;/div&gt;
   &lt;/section&gt;
 &lt;/div&gt;
 
@@ -1235,6 +1266,11 @@ html&gt;body{padding:0}&lt;/style&gt;
   #gcd-cutting-challenge .gcd-stage { position:relative; margin-top:10px; padding:8px; border-radius:18px; background:color-mix(in srgb,var(--card) 88%,var(--blue)); box-shadow:inset 0 0 0 1px var(--border),0 8px 22px color-mix(in srgb,var(--foreground) 8%,transparent); }
   #gcd-cutting-challenge [data-board] { display:block; width:100%; height:auto; min-height:250px; overflow:visible; }
   #gcd-cutting-challenge [data-lcm-board] { display:block; width:100%; height:auto; min-height:300px; overflow:visible; }
+  #gcd-cutting-challenge [data-time-board] { display:block; width:100%; height:auto; min-height:260px; }
+  #gcd-cutting-challenge [data-time-board] text { fill:var(--foreground); font-family:inherit; font-size:17px; font-weight:700; }
+  #gcd-cutting-challenge .gcd-time-controls { display:grid; gap:10px; margin-top:18px; font-weight:700; }
+  #gcd-cutting-challenge .gcd-time-controls [data-time-play] { justify-self:start; min-height:52px; }
+  #gcd-cutting-challenge .gcd-time-controls input { width:100%; accent-color:var(--primary); }
   #gcd-cutting-challenge [data-board] text { fill:var(--foreground); font-family:inherit; font-size:20px; font-weight:700; }
   #gcd-cutting-challenge .gcd-tile { animation:gcd-rise 500ms cubic-bezier(.2,.8,.2,1) both; transform-box:fill-box; transform-origin:center; }
   #gcd-cutting-challenge .gcd-cut-line { stroke:var(--foreground); stroke-width:1.2; vector-effect:non-scaling-stroke; animation:gcd-draw 520ms ease both; }
@@ -1314,7 +1350,8 @@ html&gt;body{padding:0}&lt;/style&gt;
 (() =&gt; {
   const root = document.getElementById(&#x27;gcd-cutting-challenge&#x27;);
   const topicSelect = root.querySelector(&#x27;[data-topic-select]&#x27;);
-  const lcmHeader = root.querySelector(&#x27;[data-lcm-header]&#x27;);
+  const lcmExampleControl = root.querySelector(&#x27;[data-lcm-example-control]&#x27;);
+  const lcmExampleSelect = root.querySelector(&#x27;[data-lcm-example-select]&#x27;);
   const exampleControl = root.querySelector(&#x27;[data-example-control]&#x27;);
   const exampleSelect = root.querySelector(&#x27;[data-example-select]&#x27;);
   const exampleViews = [...root.querySelectorAll(&#x27;[data-example]&#x27;)];
@@ -1357,12 +1394,29 @@ html&gt;body{padding:0}&lt;/style&gt;
   const lcmFeedback = root.querySelector(&#x27;[data-lcm-feedback]&#x27;);
   const lcmSparkles = root.querySelector(&#x27;[data-lcm-sparkles]&#x27;);
   const lcmTabs = [...root.querySelectorAll(&#x27;[data-lcm-mode]&#x27;)];
+  const timeView = root.querySelector(&#x27;[data-topic-view=&quot;lcm-time&quot;]&#x27;);
+  const timeOptions = root.querySelector(&#x27;[data-time-options]&#x27;);
+  const timeBoard = root.querySelector(&#x27;[data-time-board]&#x27;);
+  const timeStage = root.querySelector(&#x27;[data-time-stage]&#x27;);
+  const timeFeedback = root.querySelector(&#x27;[data-time-feedback]&#x27;);
+  const timeSparkles = root.querySelector(&#x27;[data-time-sparkles]&#x27;);
+  const timePlay = root.querySelector(&#x27;[data-time-play]&#x27;);
+  const timeSlider = root.querySelector(&#x27;[data-time-slider]&#x27;);
+  const timeNow = root.querySelector(&#x27;[data-time-now]&#x27;);
+  const cycleTitle = root.querySelector(&#x27;[data-cycle-title]&#x27;);
+  const cycleSummary = root.querySelector(&#x27;[data-cycle-summary]&#x27;);
+  const cyclePrompt = root.querySelector(&#x27;[data-cycle-prompt]&#x27;);
+  const cyclePositionLabel = root.querySelector(&#x27;[data-cycle-position-label]&#x27;);
+  const cycleUnit = root.querySelector(&#x27;[data-cycle-unit]&#x27;);
   const tabs = [...root.querySelectorAll(&#x27;[data-mode]&#x27;)];
   let question = { length:24, width:18, gcd:6 };
   let mode = &#x27;side&#x27;;
   let packMode = &#x27;count&#x27;;
   let postMode = &#x27;distance&#x27;;
   let lcmMode = &#x27;side&#x27;;
+  const timePlaybackRate = 4;
+  let timeSeconds = 0;
+  let timeFrame = null;
   let difficulty = 0;
   let lastDimensions = {min:0,max:0};
   let selected = null;
@@ -1373,6 +1427,7 @@ html&gt;body{padding:0}&lt;/style&gt;
     for (let i=copy.length-1;i&gt;0;i--) { const j=Math.floor(Math.random()*(i+1)); [copy[i],copy[j]]=[copy[j],copy[i]]; }
     return copy;
   };
+  const isRoadExample = () =&gt; lcmExampleSelect.value===&#x27;road&#x27;;
 
   function metricFor(side, kind=mode) {
     if (kind===&#x27;side&#x27;) return side;
@@ -1498,32 +1553,55 @@ html&gt;body{padding:0}&lt;/style&gt;
   function showTopic(topic) {
     const isLcm=topic===&#x27;lcm&#x27;;
     exampleControl.hidden=isLcm;
-    lcmHeader.hidden=!isLcm;
+    lcmExampleControl.hidden=!isLcm;
     exampleViews.forEach(view=&gt;view.hidden=isLcm || view.dataset.example!==exampleSelect.value);
-    lcmView.hidden=!isLcm;
+    lcmView.hidden=true;
+    timeView.hidden=true;
     root.querySelector(&#x27;.gcd-difficulty&#x27;).hidden=isLcm;
     root.querySelector(&#x27;[data-new-question]&#x27;).hidden=isLcm;
     clearCelebration(lcmStage,lcmSparkles);
     if (isLcm) {
-      lengthLabel.textContent=&#x27;磁磚長&#x27;;
-      widthLabel.textContent=&#x27;磁磚寬&#x27;;
-      lengthUnit.textContent=&#x27;cm&#x27;;
-      widthUnit.textContent=&#x27;cm&#x27;;
-      lengthEl.textContent=&#x27;15&#x27;;
-      widthEl.textContent=&#x27;10&#x27;;
-      setLcmStage(&#x27;side&#x27;);
+      showLcmExample(lcmExampleSelect.value);
     } else {
+      stopTimePlayback();
       lengthEl.textContent=question.length;
       widthEl.textContent=question.width;
       showExample(exampleSelect.value);
     }
   }
 
+  function showLcmExample(name) {
+    stopTimePlayback();
+    clearCelebration(lcmStage,lcmSparkles);
+    clearCelebration(timeStage,timeSparkles);
+    lcmView.hidden=name!==&#x27;tiles&#x27;;
+    timeView.hidden=name===&#x27;tiles&#x27;;
+    lengthLabel.textContent=name===&#x27;tiles&#x27;?&#x27;磁磚長&#x27;:name===&#x27;road&#x27;?&#x27;藍旗間距&#x27;:&#x27;藍燈週期&#x27;;
+    widthLabel.textContent=name===&#x27;tiles&#x27;?&#x27;磁磚寬&#x27;:name===&#x27;road&#x27;?&#x27;橘旗間距&#x27;:&#x27;橘燈週期&#x27;;
+    lengthUnit.textContent=name===&#x27;tiles&#x27;?&#x27;cm&#x27;:name===&#x27;road&#x27;?&#x27;m&#x27;:&#x27;秒&#x27;;
+    widthUnit.textContent=name===&#x27;tiles&#x27;?&#x27;cm&#x27;:name===&#x27;road&#x27;?&#x27;m&#x27;:&#x27;秒&#x27;;
+    lengthEl.textContent=name===&#x27;tiles&#x27;?&#x27;15&#x27;:&#x27;6&#x27;;
+    widthEl.textContent=name===&#x27;tiles&#x27;?&#x27;10&#x27;:&#x27;8&#x27;;
+    if (name!==&#x27;tiles&#x27;) {
+      const road=name===&#x27;road&#x27;;
+      cycleTitle.textContent=road?&#x27;兩種道路標記首次對齊&#x27;:&#x27;兩盞燈再次同時亮&#x27;;
+      cycleSummary.textContent=road?&#x27;從同一起點出發，道路兩側分別每 6 m 插一面藍旗、每 8 m 插一面橘旗。&#x27;:&#x27;藍燈每 6 秒亮一次，橘燈每 8 秒亮一次；兩盞燈現在同時亮。&#x27;;
+      cyclePrompt.textContent=road?&#x27;走多遠，兩側旗子第一次在同一里程對齊？&#x27;:&#x27;幾秒後會再次同時亮？&#x27;;
+      cyclePositionLabel.textContent=road?&#x27;目前距離&#x27;:&#x27;目前時間&#x27;;
+      cycleUnit.textContent=road?&#x27;m&#x27;:&#x27;秒&#x27;;
+      timeOptions.setAttribute(&#x27;aria-label&#x27;,road?&#x27;兩側旗子首次在同一里程對齊的距離選項&#x27;:&#x27;再次同時亮的時間選項&#x27;);
+      timeSlider.setAttribute(&#x27;aria-label&#x27;,road?&#x27;道路距離，0 至 24 公尺&#x27;:&#x27;時間軸，0 至 24 秒&#x27;);
+      timeBoard.setAttribute(&#x27;aria-label&#x27;,road?&#x27;等比例道路：兩側藍旗每 6 公尺、橘旗每 8 公尺，首次在同一里程對齊於 24 公尺&#x27;:&#x27;等比例時間軸：藍燈每 6 秒亮、橘燈每 8 秒亮，首次再次重合於 24 秒&#x27;);
+    }
+    if (name===&#x27;tiles&#x27;) setLcmStage(&#x27;side&#x27;);
+    else resetTimeExample();
+  }
+
   function renderLcmOptions({keepBoard=false}={}) {
     const choices=lcmMode===&#x27;side&#x27;
       ? shuffle([{value:30,label:&#x27;30 cm&#x27;},{value:20,label:&#x27;20 cm&#x27;},{value:60,label:&#x27;60 cm&#x27;}])
-      : shuffle([{value:&#x27;2x3&#x27;,label:&#x27;橫向 2 塊 × 直向 3 塊&#x27;},{value:&#x27;3x2&#x27;,label:&#x27;橫向 3 塊 × 直向 2 塊&#x27;},{value:&#x27;3x3&#x27;,label:&#x27;橫向 3 塊 × 直向 3 塊&#x27;}]);
-    lcmPrompt.textContent=lcmMode===&#x27;side&#x27;?&#x27;拼成的最小正方形邊長是多少？&#x27;:&#x27;橫向幾塊 × 直向幾塊？&#x27;;
+      : shuffle([{value:&#x27;2x3&#x27;,label:&#x27;每排 2 塊 × 共 3 排&#x27;},{value:&#x27;3x2&#x27;,label:&#x27;每排 3 塊 × 共 2 排&#x27;},{value:&#x27;3x3&#x27;,label:&#x27;每排 3 塊 × 共 3 排&#x27;}]);
+    lcmPrompt.textContent=lcmMode===&#x27;side&#x27;?&#x27;拼成的最小正方形邊長是多少？&#x27;:&#x27;講台往後每排幾塊？共幾排？&#x27;;
     lcmOptions.innerHTML=&#x27;&#x27;;
     lcmOptions.classList.toggle(&#x27;is-wide-labels&#x27;,lcmMode===&#x27;count&#x27;);
     choices.forEach(choice=&gt;{
@@ -1559,7 +1637,7 @@ html&gt;body{padding:0}&lt;/style&gt;
       item.dataset.state=&#x27;&#x27;;
       item.removeAttribute(&#x27;aria-pressed&#x27;);
     });
-    const correct=lcmMode===&#x27;side&#x27;?30:&#x27;2x3&#x27;;
+    const correct=lcmMode===&#x27;side&#x27;?30:&#x27;3x2&#x27;;
     const right=choice.value===correct;
     button.dataset.state=right?&#x27;right&#x27;:&#x27;wrong&#x27;;
     button.setAttribute(&#x27;aria-pressed&#x27;,&#x27;true&#x27;);
@@ -1579,15 +1657,15 @@ html&gt;body{padding:0}&lt;/style&gt;
     }
     drawLcmBoard(30,right);
     if (right) {
-      lcmFeedback.textContent=&#x27;兩關都答對！橫向 30 ÷ 15＝2 塊，直向 30 ÷ 10＝3 塊，共 2 × 3＝6 塊。&#x27;;
+      lcmFeedback.textContent=&#x27;兩關都答對！從講台往後，每排 30 ÷ 10＝3 塊；橫向 30 ÷ 15＝2 排，總共 3 × 2＝6 塊。&#x27;;
       celebrate(true,lcmStage,lcmSparkles);
     } else {
-      lcmFeedback.textContent=&#x27;再算一次：橫向用正方形邊長除以 15，直向除以 10。&#x27;;
+      lcmFeedback.textContent=&#x27;再算一次：由講台往後，每排塊數用 30 除以 10；橫向排數用 30 除以 15。&#x27;;
     }
   }
 
   function drawLcmBoard(side,reveal=false) {
-    const viewW=700, viewH=400, x0=205, y0=62, target=270;
+    const viewW=600, viewH=500, x0=165, y0=165, target=270;
     const chosen=side || 30;
     let html=&#x27;&lt;title&gt;長方形磁磚拼成最小正方形&lt;/title&gt;&#x27;;
     html+=&#x27;&lt;desc&gt;每塊磁磚長 15 公分、寬 10 公分，拼成邊長 30 公分的最小正方形。&lt;/desc&gt;&#x27;;
@@ -1598,17 +1676,25 @@ html&gt;body{padding:0}&lt;/style&gt;
       html+=`&lt;text x=&quot;${x0+18}&quot; y=&quot;${y0+122}&quot; text-anchor=&quot;middle&quot; transform=&quot;rotate(-90 ${x0+18} ${y0+122})&quot;&gt;寬 10 cm&lt;/text&gt;`;
       html+=`&lt;text x=&quot;${viewW/2}&quot; y=&quot;${viewH-28}&quot; text-anchor=&quot;middle&quot;&gt;先找出 15 和 10 的最小公倍數&lt;/text&gt;`;
     } else if (chosen===30 || chosen===60) {
+      html+=`&lt;circle cx=&quot;300&quot; cy=&quot;61&quot; r=&quot;17&quot; fill=&quot;var(--primary)&quot;/&gt;`;
+      html+=`&lt;path d=&quot;M269 94 Q300 60 331 94&quot; fill=&quot;var(--primary)&quot;/&gt;`;
+      html+=`&lt;rect x=&quot;250&quot; y=&quot;90&quot; width=&quot;100&quot; height=&quot;35&quot; rx=&quot;5&quot; fill=&quot;var(--accent)&quot; stroke=&quot;var(--foreground)&quot; stroke-width=&quot;2&quot;/&gt;`;
+      html+=`&lt;text x=&quot;300&quot; y=&quot;115&quot; text-anchor=&quot;middle&quot; font-size=&quot;23&quot;&gt;講台&lt;/text&gt;`;
+      html+=`&lt;text x=&quot;365&quot; y=&quot;110&quot; font-size=&quot;20&quot;&gt;老師（北）&lt;/text&gt;`;
       const displaySide=chosen===30?target:target;
       const columns=chosen/15, rows=chosen/10;
       const shownColumns=columns, shownRows=rows;
       const cellW=displaySide/shownColumns, cellH=displaySide/shownRows;
+      if (chosen===30) for (let col=0;col&lt;columns;col++) {
+        html+=`&lt;text x=&quot;${x0+(col+.5)*cellW}&quot; y=&quot;${y0-9}&quot; text-anchor=&quot;middle&quot; font-size=&quot;18&quot;&gt;第 ${col+1} 排&lt;/text&gt;`;
+      }
       html+=`&lt;rect x=&quot;${x0}&quot; y=&quot;${y0}&quot; width=&quot;${displaySide}&quot; height=&quot;${displaySide}&quot; fill=&quot;var(--accent)&quot; stroke=&quot;var(--foreground)&quot; stroke-width=&quot;3&quot;/&gt;`;
       for (let row=0;row&lt;shownRows;row++) for (let col=0;col&lt;shownColumns;col++) {
         const fill=reveal ? ((row+col)%2?&#x27;var(--viz-series-2)&#x27;:&#x27;var(--viz-series-1)&#x27;) : &#x27;var(--muted)&#x27;;
         html+=`&lt;rect class=&quot;gcd-tile&quot; x=&quot;${x0+col*cellW}&quot; y=&quot;${y0+row*cellH}&quot; width=&quot;${cellW}&quot; height=&quot;${cellH}&quot; fill=&quot;${fill}&quot; fill-opacity=&quot;.42&quot; stroke=&quot;var(--foreground)&quot; stroke-width=&quot;1.5&quot;/&gt;`;
       }
       const note=chosen===30
-        ? `橫向 30 ÷ 15＝2 塊｜直向 30 ÷ 10＝3 塊${reveal?&#x27;｜共 6 塊&#x27;:&#x27;&#x27;}`
+        ? `從講台往後：每排 3 塊，左右共 2 排${reveal?&#x27;，共 6 塊&#x27;:&#x27;&#x27;}`
         : &#x27;60 cm 雖然可以完整拼成，但還不是最小正方形&#x27;;
       html+=`&lt;text x=&quot;${viewW/2}&quot; y=&quot;${viewH-28}&quot; text-anchor=&quot;middle&quot;&gt;${note}&lt;/text&gt;`;
     } else {
@@ -1618,6 +1704,115 @@ html&gt;body{padding:0}&lt;/style&gt;
     }
     lcmBoard.setAttribute(&#x27;viewBox&#x27;,`0 0 ${viewW} ${viewH}`);
     lcmBoard.innerHTML=html;
+  }
+
+  function drawTimeBoard() {
+    const road=isRoadExample();
+    const x0=82, span=480, x=position=&gt;x0+position/24*span;
+    let html=road
+      ? &#x27;&lt;title&gt;兩種道路旗子的等比例位置&lt;/title&gt;&lt;desc&gt;每 2 公尺一個等距刻度。藍旗在 0、6、12、18、24 公尺；橘旗在 0、8、16、24 公尺。&lt;/desc&gt;&#x27;
+      : &#x27;&lt;title&gt;兩盞燈的等比例時間軸&lt;/title&gt;&lt;desc&gt;每 2 秒一個等距刻度。藍燈在 0、6、12、18、24 秒亮；橘燈在 0、8、16、24 秒亮。&lt;/desc&gt;&#x27;;
+    html+=road
+      ? &#x27;&lt;text x=&quot;320&quot; y=&quot;30&quot; text-anchor=&quot;middle&quot;&gt;道路兩側共用同一條公尺刻度&lt;/text&gt;&lt;rect x=&quot;82&quot; y=&quot;82&quot; width=&quot;480&quot; height=&quot;165&quot; rx=&quot;9&quot; fill=&quot;var(--muted)&quot; fill-opacity=&quot;.35&quot;/&gt;&lt;line x1=&quot;82&quot; y1=&quot;175&quot; x2=&quot;562&quot; y2=&quot;175&quot; stroke=&quot;var(--foreground)&quot; stroke-opacity=&quot;.45&quot; stroke-width=&quot;2&quot; stroke-dasharray=&quot;14 12&quot;/&gt;&#x27;
+      : &#x27;&lt;text x=&quot;320&quot; y=&quot;30&quot; text-anchor=&quot;middle&quot;&gt;兩條燈號共用同一條秒數刻度&lt;/text&gt;&#x27;;
+    for (let position=0;position&lt;=24;position+=2) {
+      const px=x(position);
+      html+=`&lt;line x1=&quot;${px}&quot; y1=&quot;70&quot; x2=&quot;${px}&quot; y2=&quot;265&quot; stroke=&quot;var(--border)&quot; stroke-width=&quot;1&quot;/&gt;`;
+      html+=`&lt;line x1=&quot;${px}&quot; y1=&quot;265&quot; x2=&quot;${px}&quot; y2=&quot;274&quot; stroke=&quot;var(--foreground)&quot; stroke-width=&quot;2&quot;/&gt;`;
+      if (position%4===0) html+=`&lt;text x=&quot;${px}&quot; y=&quot;299&quot; text-anchor=&quot;middle&quot;&gt;${position}&lt;/text&gt;`;
+    }
+    html+=`&lt;line x1=&quot;${x0}&quot; y1=&quot;130&quot; x2=&quot;${x(24)}&quot; y2=&quot;130&quot; stroke=&quot;var(--blue)&quot; stroke-width=&quot;4&quot;/&gt;`;
+    html+=`&lt;line x1=&quot;${x0}&quot; y1=&quot;220&quot; x2=&quot;${x(24)}&quot; y2=&quot;220&quot; stroke=&quot;var(--orange)&quot; stroke-width=&quot;4&quot;/&gt;`;
+    html+=road
+      ? &#x27;&lt;text x=&quot;4&quot; y=&quot;135&quot;&gt;藍 6 m&lt;/text&gt;&lt;text x=&quot;4&quot; y=&quot;225&quot;&gt;橘 8 m&lt;/text&gt;&#x27;
+      : &#x27;&lt;text x=&quot;4&quot; y=&quot;135&quot;&gt;藍 6 秒&lt;/text&gt;&lt;text x=&quot;4&quot; y=&quot;225&quot;&gt;橘 8 秒&lt;/text&gt;&#x27;;
+    for (let position=0;position&lt;=24;position+=6) {
+      const px=x(position);
+      html+=road
+        ? `&lt;line x1=&quot;${px}&quot; y1=&quot;108&quot; x2=&quot;${px}&quot; y2=&quot;148&quot; stroke=&quot;var(--foreground)&quot; stroke-width=&quot;2&quot;/&gt;&lt;path d=&quot;M${px} 108 l15 7 -15 7 Z&quot; fill=&quot;var(--blue)&quot;/&gt;`
+        : `&lt;circle cx=&quot;${px}&quot; cy=&quot;130&quot; r=&quot;10&quot; fill=&quot;var(--blue)&quot; stroke=&quot;var(--foreground)&quot; stroke-width=&quot;1.5&quot;/&gt;`;
+    }
+    for (let position=0;position&lt;=24;position+=8) {
+      const px=x(position);
+      html+=road
+        ? `&lt;line x1=&quot;${px}&quot; y1=&quot;198&quot; x2=&quot;${px}&quot; y2=&quot;238&quot; stroke=&quot;var(--foreground)&quot; stroke-width=&quot;2&quot;/&gt;&lt;path d=&quot;M${px} 198 l15 7 -15 7 Z&quot; fill=&quot;var(--orange)&quot;/&gt;`
+        : `&lt;circle cx=&quot;${px}&quot; cy=&quot;220&quot; r=&quot;10&quot; fill=&quot;var(--orange)&quot; stroke=&quot;var(--foreground)&quot; stroke-width=&quot;1.5&quot;/&gt;`;
+    }
+    html+=`&lt;line data-time-cursor x1=&quot;${x0}&quot; y1=&quot;55&quot; x2=&quot;${x0}&quot; y2=&quot;255&quot; stroke=&quot;var(--green)&quot; stroke-width=&quot;3&quot;/&gt;`;
+    html+=road
+      ? &#x27;&lt;text x=&quot;320&quot; y=&quot;328&quot; text-anchor=&quot;middle&quot;&gt;每 2 m 刻度等距；24 m 在 12 m 的兩倍位置&lt;/text&gt;&#x27;
+      : &#x27;&lt;text x=&quot;320&quot; y=&quot;328&quot; text-anchor=&quot;middle&quot;&gt;每 2 秒刻度等距；24 秒在 12 秒的兩倍位置&lt;/text&gt;&#x27;;
+    timeBoard.setAttribute(&#x27;viewBox&#x27;,&#x27;0 0 640 340&#x27;);
+    timeBoard.innerHTML=html;
+  }
+
+  function setTime(seconds) {
+    timeSeconds=Math.max(0,Math.min(24,seconds));
+    timeSlider.value=String(timeSeconds);
+    timeNow.textContent=String(Math.round(timeSeconds*10)/10);
+    const x=82+timeSeconds/24*480;
+    const cursor=timeBoard.querySelector(&#x27;[data-time-cursor]&#x27;);
+    cursor.setAttribute(&#x27;x1&#x27;,String(x));
+    cursor.setAttribute(&#x27;x2&#x27;,String(x));
+  }
+
+  function stopTimePlayback() {
+    if (timeFrame!==null) cancelAnimationFrame(timeFrame);
+    timeFrame=null;
+    timePlay.textContent=isRoadExample()?`模擬前進（${timePlaybackRate} m/秒）`:`播放時間（${timePlaybackRate} 倍速）`;
+  }
+
+  function playTime() {
+    if (timeFrame!==null) { stopTimePlayback(); return; }
+    if (timeSeconds===24) setTime(0);
+    const started=performance.now()-timeSeconds*1000/timePlaybackRate;
+    timePlay.textContent=&#x27;暫停&#x27;;
+    const frame=now=&gt;{
+      setTime((now-started)/1000*timePlaybackRate);
+      if (timeSeconds===24) stopTimePlayback();
+      else timeFrame=requestAnimationFrame(frame);
+    };
+    timeFrame=requestAnimationFrame(frame);
+  }
+
+  function resetTimeExample() {
+    stopTimePlayback();
+    const road=isRoadExample();
+    timeOptions.innerHTML=&#x27;&#x27;;
+    shuffle([12,16,24]).forEach(second=&gt;{
+      const button=document.createElement(&#x27;button&#x27;);
+      button.type=&#x27;button&#x27;;
+      button.className=&#x27;btn gcd-option&#x27;;
+      button.textContent=`${second} ${road?&#x27;m&#x27;:&#x27;秒&#x27;}`;
+      button.addEventListener(&#x27;click&#x27;,()=&gt;{
+        [...timeOptions.children].forEach(item=&gt;{
+          item.dataset.state=&#x27;&#x27;;
+          item.removeAttribute(&#x27;aria-pressed&#x27;);
+        });
+        const right=second===24;
+        button.dataset.state=right?&#x27;right&#x27;:&#x27;wrong&#x27;;
+        button.setAttribute(&#x27;aria-pressed&#x27;,&#x27;true&#x27;);
+        clearCelebration(timeStage,timeSparkles);
+        if (right) {
+          stopTimePlayback();
+          setTime(24);
+          timeFeedback.textContent=road
+            ? &#x27;答對了！藍旗在 6、12、18、24 m；橘旗在 8、16、24 m，兩側第一次在同一里程對齊是 24 m。&#x27;
+            : &#x27;答對了！藍燈在 6、12、18、24 秒亮；橘燈在 8、16、24 秒亮，首次再次重合是 24 秒。&#x27;;
+          celebrate(true,timeStage,timeSparkles);
+        } else {
+          timeFeedback.textContent=road
+            ? `${second} m 只有一側有旗子；沿相同公尺刻度繼續找兩側旗子對齊的位置。`
+            : `${second} 秒只有一盞燈亮；沿相同刻度繼續找兩種標記再次對齊的位置。`;
+        }
+      });
+      timeOptions.appendChild(button);
+    });
+    timeFeedback.textContent=road
+      ? `0 m 是共同起點；沿道路找下一個重合位置。動畫每秒前進 ${timePlaybackRate} m，圖上距離依公尺等比例排列。`
+      : `0 秒時同時亮；沿時間軸找下一個重合點。動畫以 ${timePlaybackRate} 倍速播放，刻度仍依秒數等比例排列。`;
+    drawTimeBoard();
+    setTime(0);
   }
 
   function packEachKey(first,second) {
@@ -1997,6 +2192,12 @@ html&gt;body{padding:0}&lt;/style&gt;
 
   topicSelect.addEventListener(&#x27;change&#x27;,()=&gt;showTopic(topicSelect.value));
   exampleSelect.addEventListener(&#x27;change&#x27;,()=&gt;showExample(exampleSelect.value));
+  lcmExampleSelect.addEventListener(&#x27;change&#x27;,()=&gt;showLcmExample(lcmExampleSelect.value));
+  timePlay.addEventListener(&#x27;click&#x27;,playTime);
+  timeSlider.addEventListener(&#x27;input&#x27;,()=&gt;{
+    stopTimePlayback();
+    setTime(Number(timeSlider.value));
+  });
   root.querySelector(&#x27;[data-new-question]&#x27;).addEventListener(&#x27;click&#x27;,newQuestion);
   newQuestion();
   showTopic(topicSelect.value);
