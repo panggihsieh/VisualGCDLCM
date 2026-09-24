@@ -1391,6 +1391,11 @@ html&gt;body{padding:0}&lt;/style&gt;
   #gcd-cutting-challenge .gcd-solution li { margin-block:5px; font-weight:700; }
   #gcd-cutting-challenge .gcd-euclid { height:auto; margin-top:10px; }
   #gcd-cutting-challenge .gcd-euclid p { margin:8px 0 0; font-weight:700; }
+  #gcd-cutting-challenge .gcd-ladder { width:max-content; max-width:100%; margin:10px 0 16px; padding:12px 14px; border-radius:12px; background:var(--card); font-variant-numeric:tabular-nums; }
+  #gcd-cutting-challenge .gcd-ladder-row { display:flex; align-items:stretch; width:max-content; margin-left:calc(var(--depth) * 9px); font-size:1.4rem; line-height:1.4; }
+  #gcd-cutting-challenge .gcd-ladder-divisor { display:grid; place-items:center; width:38px; flex:none; }
+  #gcd-cutting-challenge .gcd-ladder-pair { display:grid; grid-template-columns:repeat(2,64px); gap:12px; padding:2px 8px; text-align:center; }
+  #gcd-cutting-challenge .gcd-ladder-row:not(.is-final) .gcd-ladder-pair { border-left:3px solid var(--foreground); border-bottom:3px solid var(--foreground); }
   @keyframes gcd-rise { from { opacity:.25; transform:scale(.94); } to { opacity:1; transform:scale(1); } }
   @keyframes gcd-draw { from { stroke-dasharray:600; stroke-dashoffset:600; } to { stroke-dasharray:600; stroke-dashoffset:0; } }
   @keyframes gcd-cheer { 0% { opacity:0; transform:translate(-50%,-50%) scale(.35); } 35% { opacity:1; transform:translate(-50%,-50%) scale(1.12); } 75% { opacity:1; transform:translate(-50%,-50%) scale(1); } 100% { opacity:0; transform:translate(-50%,-65%) scale(.96); } }
@@ -1535,6 +1540,22 @@ html&gt;body{padding:0}&lt;/style&gt;
   let selected = null;
   const celebrationTimers = new WeakMap();
   const gcd = (a,b) =&gt; b ? gcd(b,a % b) : a;
+  function ladderMarkup(first,second) {
+    let a=first, b=second;
+    const factors=[], rows=[];
+    for (let divisor=2;divisor&lt;=Math.min(a,b);divisor++) {
+      while (a%divisor===0 &amp;&amp; b%divisor===0) {
+        rows.push([divisor,a,b]);
+        factors.push(divisor);
+        a/=divisor;
+        b/=divisor;
+      }
+    }
+    rows.push([&#x27;&#x27;,a,b]);
+    const drawing=rows.map(([divisor,left,right],index)=&gt;`&lt;div class=&quot;gcd-ladder-row${divisor===&#x27;&#x27;?&#x27; is-final&#x27;:&#x27;&#x27;}&quot; style=&quot;--depth:${index}&quot;&gt;&lt;span class=&quot;gcd-ladder-divisor&quot;&gt;${divisor}&lt;/span&gt;&lt;span class=&quot;gcd-ladder-pair&quot;&gt;&lt;span&gt;${left}&lt;/span&gt;&lt;span&gt;${right}&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;`).join(&#x27;&#x27;);
+    const product=factors.length?`${factors.join(&#x27; × &#x27;)}＝${gcd(first,second)}`:&#x27;沒有大於 1 的共同除數，最大公因數是 1&#x27;;
+    return `&lt;strong&gt;短除法圖解&lt;/strong&gt;&lt;div class=&quot;gcd-ladder&quot;&gt;${drawing}&lt;/div&gt;&lt;p&gt;共同除數：${product}。&lt;/p&gt;`;
+  }
   function euclidMarkup(first=question.length,second=question.width) {
     let a=Math.max(first,second);
     let b=Math.min(first,second);
@@ -1545,7 +1566,7 @@ html&gt;body{padding:0}&lt;/style&gt;
       a=b;
       b=remainder;
     }
-    return `&lt;strong&gt;輾轉相除法&lt;/strong&gt;&lt;ol&gt;${steps.join(&#x27;&#x27;)}&lt;/ol&gt;&lt;p&gt;餘數變成 0 時，除數 ${a} 就是最大公因數。&lt;/p&gt;`;
+    return `${ladderMarkup(first,second)}&lt;strong&gt;輾轉相除法&lt;/strong&gt;&lt;ol&gt;${steps.join(&#x27;&#x27;)}&lt;/ol&gt;&lt;p&gt;餘數變成 0 時，除數 ${a} 就是最大公因數。&lt;/p&gt;`;
   }
   function showEuclid(target) {
     target.innerHTML=euclidMarkup();
