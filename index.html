@@ -1036,6 +1036,11 @@ html&gt;body{padding:0}&lt;/style&gt;
 &lt;/head&gt;
 &lt;body&gt;
 &lt;div id=&quot;gcd-cutting-challenge&quot;&gt;
+  &lt;div class=&quot;card gcd-version-switch&quot; role=&quot;group&quot; aria-label=&quot;版本切換&quot;&gt;
+    &lt;button class=&quot;btn gcd-version-btn active&quot; type=&quot;button&quot; data-version=&quot;practice&quot; aria-pressed=&quot;true&quot;&gt;第一版：因數倍數練習&lt;/button&gt;
+    &lt;button class=&quot;btn gcd-version-btn&quot; type=&quot;button&quot; data-version=&quot;quiz&quot; aria-pressed=&quot;false&quot;&gt;第二版：限時測驗&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div data-practice-view&gt;
   &lt;div class=&quot;card gcd-example-picker&quot;&gt;
     &lt;label class=&quot;gcd-select-field&quot; for=&quot;gcd-topic-select&quot;&gt;
       &lt;span&gt;選擇單元&lt;/span&gt;
@@ -1050,6 +1055,7 @@ html&gt;body{padding:0}&lt;/style&gt;
         &lt;option value=&quot;cut&quot;&gt;正方形切割&lt;/option&gt;
         &lt;option value=&quot;pack&quot;&gt;相同物品平均分裝&lt;/option&gt;
         &lt;option value=&quot;posts&quot;&gt;場地等距設柱&lt;/option&gt;
+        &lt;option value=&quot;road&quot;&gt;道路標記對齊&lt;/option&gt;
       &lt;/select&gt;
     &lt;/label&gt;
     &lt;label class=&quot;gcd-select-field&quot; for=&quot;lcm-example-select&quot; data-lcm-example-control hidden&gt;
@@ -1057,7 +1063,6 @@ html&gt;body{padding:0}&lt;/style&gt;
       &lt;select class=&quot;form-select&quot; id=&quot;lcm-example-select&quot; data-lcm-example-select&gt;
         &lt;option value=&quot;tiles&quot;&gt;拼成最小正方形&lt;/option&gt;
         &lt;option value=&quot;time&quot;&gt;時間週期重合&lt;/option&gt;
-        &lt;option value=&quot;road&quot;&gt;道路標記對齊&lt;/option&gt;
       &lt;/select&gt;
     &lt;/label&gt;
   &lt;/div&gt;
@@ -1111,6 +1116,7 @@ html&gt;body{padding:0}&lt;/style&gt;
     &lt;/div&gt;
   &lt;/div&gt;
   &lt;div class=&quot;card gcd-feedback&quot; data-feedback aria-live=&quot;polite&quot;&gt;請先從上方選一個數字。&lt;/div&gt;
+  &lt;div class=&quot;card gcd-solution gcd-euclid&quot; data-euclid-cut hidden aria-live=&quot;polite&quot;&gt;&lt;/div&gt;
   &lt;/section&gt;
 
   &lt;section class=&quot;card gcd-application&quot; data-example=&quot;pack&quot; hidden&gt;
@@ -1140,6 +1146,7 @@ html&gt;body{padding:0}&lt;/style&gt;
       &lt;/div&gt;
     &lt;/div&gt;
     &lt;div class=&quot;card gcd-feedback&quot; data-pack-feedback aria-live=&quot;polite&quot;&gt;請先選出最多可以分成幾包。&lt;/div&gt;
+    &lt;div class=&quot;card gcd-solution gcd-euclid&quot; data-euclid-pack hidden aria-live=&quot;polite&quot;&gt;&lt;/div&gt;
   &lt;/section&gt;
 
   &lt;section class=&quot;card gcd-application&quot; data-example=&quot;posts&quot; hidden&gt;
@@ -1172,6 +1179,27 @@ html&gt;body{padding:0}&lt;/style&gt;
       &lt;/div&gt;
     &lt;/div&gt;
     &lt;div class=&quot;card gcd-feedback&quot; data-post-feedback aria-live=&quot;polite&quot;&gt;請先選出最大的柱距。&lt;/div&gt;
+  &lt;/section&gt;
+
+  &lt;section class=&quot;card gcd-application&quot; data-example=&quot;road&quot; hidden&gt;
+    &lt;h2&gt;道路標記對齊：兩段道路等距插旗&lt;/h2&gt;
+    &lt;p class=&quot;gcd-application-summary&quot;&gt;兩段道路從同一起點出發，各自等距插旗，終點也要有旗子。要用相同且最大的旗距。&lt;/p&gt;
+    &lt;div class=&quot;gcd-challenge-grid&quot;&gt;
+      &lt;div class=&quot;gcd-task-panel&quot;&gt;
+        &lt;div class=&quot;gcd-choice-heading&quot;&gt;&lt;span class=&quot;viz-badge&quot;&gt;3&lt;/span&gt;&lt;span&gt;最大旗距是多少？&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;card gcd-number-options&quot; data-gcd-road-options aria-label=&quot;最大旗距答案選項&quot;&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;gcd-stage&quot; data-gcd-road-stage&gt;
+        &lt;svg data-gcd-road-board role=&quot;img&quot; aria-label=&quot;兩段道路與尚未插旗的位置圖&quot; preserveAspectRatio=&quot;xMidYMid meet&quot;&gt;&lt;/svg&gt;
+        &lt;div class=&quot;gcd-celebration&quot; data-gcd-road-sparkles aria-hidden=&quot;true&quot;&gt;
+          &lt;strong&gt;答對了！&lt;/strong&gt;
+          &lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
+          &lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;card gcd-feedback&quot; data-gcd-road-feedback aria-live=&quot;polite&quot;&gt;選一個旗距後，圖上才會出現旗子的位置。&lt;/div&gt;
+    &lt;div class=&quot;card gcd-solution gcd-euclid&quot; data-euclid-road hidden aria-live=&quot;polite&quot;&gt;&lt;/div&gt;
   &lt;/section&gt;
 
   &lt;section class=&quot;card gcd-application gcd-lcm-view&quot; data-topic-view=&quot;lcm&quot; hidden&gt;
@@ -1226,10 +1254,52 @@ html&gt;body{padding:0}&lt;/style&gt;
     &lt;/div&gt;
     &lt;div class=&quot;card gcd-feedback&quot; data-time-feedback aria-live=&quot;polite&quot;&gt;0 秒時同時亮；沿時間軸找下一個重合點。&lt;/div&gt;
   &lt;/section&gt;
+  &lt;/div&gt;
+  &lt;section class=&quot;gcd-quiz-view&quot; data-quiz-view hidden&gt;
+    &lt;div class=&quot;gcd-quiz-intro&quot;&gt;
+      &lt;div&gt;
+        &lt;h2&gt;第二版：限時測驗&lt;/h2&gt;
+        &lt;p&gt;三題依序練習最大公因數、最小公倍數與生活應用；每題 35 秒，整場最多 105 秒。&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;button class=&quot;btn btn-primary&quot; type=&quot;button&quot; data-quiz-start&gt;開始測驗&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;gcd-quiz-stats&quot; aria-label=&quot;測驗狀態&quot;&gt;
+      &lt;div class=&quot;card&quot;&gt;&lt;span&gt;剩餘時間&lt;/span&gt;&lt;strong data-quiz-total&gt;105&lt;/strong&gt;&lt;small&gt;秒&lt;/small&gt;&lt;/div&gt;
+      &lt;div class=&quot;card&quot;&gt;&lt;span&gt;本題時間&lt;/span&gt;&lt;strong data-quiz-round&gt;35&lt;/strong&gt;&lt;small&gt;秒&lt;/small&gt;&lt;/div&gt;
+      &lt;div class=&quot;card&quot;&gt;&lt;span&gt;分數&lt;/span&gt;&lt;strong data-quiz-score&gt;0&lt;/strong&gt;&lt;/div&gt;
+      &lt;div class=&quot;card&quot;&gt;&lt;span&gt;連擊&lt;/span&gt;&lt;strong data-quiz-streak&gt;0&lt;/strong&gt;&lt;/div&gt;
+      &lt;div class=&quot;card&quot;&gt;&lt;span&gt;題數&lt;/span&gt;&lt;strong data-quiz-count&gt;0 / 3&lt;/strong&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;card gcd-quiz-question&quot;&gt;
+      &lt;span class=&quot;gcd-quiz-topic&quot; data-quiz-topic&gt;準備開始&lt;/span&gt;
+      &lt;h3 data-quiz-prompt&gt;按「開始測驗」後，從三個答案中選出正確的一個。&lt;/h3&gt;
+      &lt;div class=&quot;gcd-quiz-options&quot; data-quiz-options aria-label=&quot;測驗答案選項&quot;&gt;&lt;/div&gt;
+      &lt;p class=&quot;gcd-quiz-feedback&quot; data-quiz-feedback role=&quot;status&quot; aria-live=&quot;polite&quot;&gt;準備好再開始計時。&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
 &lt;/div&gt;
 
 &lt;style&gt;
   #gcd-cutting-challenge { color:var(--foreground); container-type:inline-size; padding:18px; border-radius:20px; background:linear-gradient(135deg,color-mix(in srgb,var(--blue) 10%,var(--background)),color-mix(in srgb,var(--purple) 8%,var(--background))); font-size:calc(var(--font-size-base) + 5px); }
+  #gcd-cutting-challenge .gcd-version-switch { display:flex; gap:10px; margin-bottom:16px; padding:10px; background:color-mix(in srgb,var(--card) 86%,var(--purple)); }
+  #gcd-cutting-challenge .gcd-version-btn { flex:1; min-height:58px; border:2px solid var(--border); border-radius:12px; color:var(--foreground); background:var(--card); font-size:1.18rem; font-weight:800; }
+  #gcd-cutting-challenge .gcd-version-btn.active { border-color:var(--primary); color:var(--primary-foreground); background:var(--primary); }
+  #gcd-cutting-challenge .gcd-version-btn:focus-visible { outline:3px solid var(--primary); outline-offset:2px; }
+  #gcd-cutting-challenge .gcd-quiz-intro { display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:16px; }
+  #gcd-cutting-challenge .gcd-quiz-intro h2 { margin:0 0 6px; font-size:1.55rem; }
+  #gcd-cutting-challenge .gcd-quiz-intro p { margin:0; color:var(--muted-foreground); font-weight:700; }
+  #gcd-cutting-challenge .gcd-quiz-intro button { min-height:58px; white-space:nowrap; font-weight:800; }
+  #gcd-cutting-challenge .gcd-quiz-stats { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:10px; margin-bottom:16px; }
+  #gcd-cutting-challenge .gcd-quiz-stats .card { display:grid; align-content:center; min-height:92px; padding:12px; background:color-mix(in srgb,var(--card) 82%,var(--blue)); }
+  #gcd-cutting-challenge .gcd-quiz-stats span { color:var(--muted-foreground); font-size:.9rem; font-weight:700; }
+  #gcd-cutting-challenge .gcd-quiz-stats strong { font-size:1.9rem; line-height:1.2; font-variant-numeric:tabular-nums; }
+  #gcd-cutting-challenge .gcd-quiz-stats small { font-size:.78rem; }
+  #gcd-cutting-challenge .gcd-quiz-question { min-height:280px; padding:24px; background:color-mix(in srgb,var(--card) 88%,var(--blue)); }
+  #gcd-cutting-challenge .gcd-quiz-topic { display:inline-block; padding:5px 12px; border-radius:999px; background:var(--accent); color:var(--accent-foreground); font-size:.95rem; font-weight:800; }
+  #gcd-cutting-challenge .gcd-quiz-question h3 { margin:16px 0 20px; font-size:1.45rem; line-height:1.4; }
+  #gcd-cutting-challenge .gcd-quiz-options { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+  #gcd-cutting-challenge .gcd-quiz-options .gcd-option { min-width:0; }
+  #gcd-cutting-challenge .gcd-quiz-feedback { min-height:1.5em; margin:18px 0 0; font-weight:700; }
   #gcd-cutting-challenge .gcd-example-picker { display:grid; grid-template-columns:repeat(2,minmax(240px,1fr)); align-items:end; gap:16px; margin-bottom:16px; background:color-mix(in srgb,var(--card) 84%,var(--purple)); box-shadow:0 6px 18px color-mix(in srgb,var(--foreground) 9%,transparent); }
   #gcd-cutting-challenge .gcd-example-picker .form-select { min-height:58px; font-size:1.22rem; font-weight:700; }
   #gcd-cutting-challenge .gcd-select-field { display:grid; gap:4px; }
@@ -1268,6 +1338,8 @@ html&gt;body{padding:0}&lt;/style&gt;
   #gcd-cutting-challenge [data-lcm-board] { display:block; width:100%; height:auto; min-height:300px; overflow:visible; }
   #gcd-cutting-challenge [data-time-board] { display:block; width:100%; height:auto; min-height:260px; }
   #gcd-cutting-challenge [data-time-board] text { fill:var(--foreground); font-family:inherit; font-size:17px; font-weight:700; }
+  #gcd-cutting-challenge [data-gcd-road-board] { display:block; width:100%; height:auto; min-height:260px; }
+  #gcd-cutting-challenge [data-gcd-road-board] text { fill:var(--foreground); font-family:inherit; font-size:18px; font-weight:700; }
   #gcd-cutting-challenge .gcd-time-controls { display:grid; gap:10px; margin-top:18px; font-weight:700; }
   #gcd-cutting-challenge .gcd-time-controls [data-time-play] { justify-self:start; min-height:52px; }
   #gcd-cutting-challenge .gcd-time-controls input { width:100%; accent-color:var(--primary); }
@@ -1313,6 +1385,8 @@ html&gt;body{padding:0}&lt;/style&gt;
   #gcd-cutting-challenge .gcd-solution strong { display:block; margin-bottom:8px; font-size:1.25rem; font-weight:700; }
   #gcd-cutting-challenge .gcd-solution ol { margin:0; padding-left:1.6em; }
   #gcd-cutting-challenge .gcd-solution li { margin-block:5px; font-weight:700; }
+  #gcd-cutting-challenge .gcd-euclid { height:auto; margin-top:10px; }
+  #gcd-cutting-challenge .gcd-euclid p { margin:8px 0 0; font-weight:700; }
   @keyframes gcd-rise { from { opacity:.25; transform:scale(.94); } to { opacity:1; transform:scale(1); } }
   @keyframes gcd-draw { from { stroke-dasharray:600; stroke-dashoffset:600; } to { stroke-dasharray:600; stroke-dashoffset:0; } }
   @keyframes gcd-cheer { 0% { opacity:0; transform:translate(-50%,-50%) scale(.35); } 35% { opacity:1; transform:translate(-50%,-50%) scale(1.12); } 75% { opacity:1; transform:translate(-50%,-50%) scale(1); } 100% { opacity:0; transform:translate(-50%,-65%) scale(.96); } }
@@ -1340,6 +1414,12 @@ html&gt;body{padding:0}&lt;/style&gt;
     #gcd-cutting-challenge .gcd-solution li { margin-block:2px; }
   }
   @container (max-width:560px) {
+    #gcd-cutting-challenge .gcd-version-switch, #gcd-cutting-challenge .gcd-quiz-intro { flex-direction:column; align-items:stretch; }
+    #gcd-cutting-challenge .gcd-quiz-stats { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    #gcd-cutting-challenge .gcd-quiz-stats .card:last-child { grid-column:1 / -1; }
+    #gcd-cutting-challenge .gcd-quiz-question { padding:16px; }
+    #gcd-cutting-challenge .gcd-quiz-options { gap:7px; }
+    #gcd-cutting-challenge .gcd-quiz-options .gcd-option { padding-inline:4px; font-size:1.2rem; }
     #gcd-cutting-challenge .gcd-example-picker { grid-template-columns:1fr; align-items:stretch; }
     #gcd-cutting-challenge .gcd-challenge-grid { grid-template-columns:1fr; }
     #gcd-cutting-challenge [data-post-stage].has-solution .gcd-post-layout { grid-template-columns:1fr; }
@@ -1368,6 +1448,7 @@ html&gt;body{padding:0}&lt;/style&gt;
   const board = root.querySelector(&#x27;[data-board]&#x27;);
   const stage = root.querySelector(&#x27;[data-example=&quot;cut&quot;] .gcd-stage&#x27;);
   const feedback = root.querySelector(&#x27;[data-feedback]&#x27;);
+  const euclidCut = root.querySelector(&#x27;[data-euclid-cut]&#x27;);
   const sparkles = root.querySelector(&#x27;[data-sparkles]&#x27;);
   const packSummary = root.querySelector(&#x27;[data-pack-summary]&#x27;);
   const packs = root.querySelector(&#x27;[data-packs]&#x27;);
@@ -1375,6 +1456,7 @@ html&gt;body{padding:0}&lt;/style&gt;
   const packOptions = root.querySelector(&#x27;[data-pack-options]&#x27;);
   const packStage = root.querySelector(&#x27;[data-pack-stage]&#x27;);
   const packFeedback = root.querySelector(&#x27;[data-pack-feedback]&#x27;);
+  const euclidPack = root.querySelector(&#x27;[data-euclid-pack]&#x27;);
   const packSparkles = root.querySelector(&#x27;[data-pack-sparkles]&#x27;);
   const packTabs = [...root.querySelectorAll(&#x27;[data-pack-mode]&#x27;)];
   const postSummary = root.querySelector(&#x27;[data-post-summary]&#x27;);
@@ -1386,6 +1468,12 @@ html&gt;body{padding:0}&lt;/style&gt;
   const postSolution = root.querySelector(&#x27;[data-post-solution]&#x27;);
   const postSparkles = root.querySelector(&#x27;[data-post-sparkles]&#x27;);
   const postTabs = [...root.querySelectorAll(&#x27;[data-post-mode]&#x27;)];
+  const gcdRoadOptions = root.querySelector(&#x27;[data-gcd-road-options]&#x27;);
+  const gcdRoadBoard = root.querySelector(&#x27;[data-gcd-road-board]&#x27;);
+  const gcdRoadStage = root.querySelector(&#x27;[data-gcd-road-stage]&#x27;);
+  const gcdRoadFeedback = root.querySelector(&#x27;[data-gcd-road-feedback]&#x27;);
+  const euclidRoad = root.querySelector(&#x27;[data-euclid-road]&#x27;);
+  const gcdRoadSparkles = root.querySelector(&#x27;[data-gcd-road-sparkles]&#x27;);
   const lcmView = root.querySelector(&#x27;[data-topic-view=&quot;lcm&quot;]&#x27;);
   const lcmPrompt = root.querySelector(&#x27;[data-lcm-prompt]&#x27;);
   const lcmOptions = root.querySelector(&#x27;[data-lcm-options]&#x27;);
@@ -1403,11 +1491,19 @@ html&gt;body{padding:0}&lt;/style&gt;
   const timePlay = root.querySelector(&#x27;[data-time-play]&#x27;);
   const timeSlider = root.querySelector(&#x27;[data-time-slider]&#x27;);
   const timeNow = root.querySelector(&#x27;[data-time-now]&#x27;);
-  const cycleTitle = root.querySelector(&#x27;[data-cycle-title]&#x27;);
-  const cycleSummary = root.querySelector(&#x27;[data-cycle-summary]&#x27;);
-  const cyclePrompt = root.querySelector(&#x27;[data-cycle-prompt]&#x27;);
-  const cyclePositionLabel = root.querySelector(&#x27;[data-cycle-position-label]&#x27;);
-  const cycleUnit = root.querySelector(&#x27;[data-cycle-unit]&#x27;);
+  const practiceView = root.querySelector(&#x27;[data-practice-view]&#x27;);
+  const quizView = root.querySelector(&#x27;[data-quiz-view]&#x27;);
+  const versionButtons = [...root.querySelectorAll(&#x27;[data-version]&#x27;)];
+  const quizStart = root.querySelector(&#x27;[data-quiz-start]&#x27;);
+  const quizTotal = root.querySelector(&#x27;[data-quiz-total]&#x27;);
+  const quizRound = root.querySelector(&#x27;[data-quiz-round]&#x27;);
+  const quizScore = root.querySelector(&#x27;[data-quiz-score]&#x27;);
+  const quizStreak = root.querySelector(&#x27;[data-quiz-streak]&#x27;);
+  const quizCount = root.querySelector(&#x27;[data-quiz-count]&#x27;);
+  const quizTopic = root.querySelector(&#x27;[data-quiz-topic]&#x27;);
+  const quizPrompt = root.querySelector(&#x27;[data-quiz-prompt]&#x27;);
+  const quizOptions = root.querySelector(&#x27;[data-quiz-options]&#x27;);
+  const quizFeedback = root.querySelector(&#x27;[data-quiz-feedback]&#x27;);
   const tabs = [...root.querySelectorAll(&#x27;[data-mode]&#x27;)];
   let question = { length:24, width:18, gcd:6 };
   let mode = &#x27;side&#x27;;
@@ -1417,17 +1513,49 @@ html&gt;body{padding:0}&lt;/style&gt;
   const timePlaybackRate = 4;
   let timeSeconds = 0;
   let timeFrame = null;
+  let quizQuestions = [];
+  let quizIndex = 0;
+  let quizPoints = 0;
+  let quizCorrect = 0;
+  let quizCombo = 0;
+  let quizActive = false;
+  let quizLocked = false;
+  let quizTotalDeadline = 0;
+  let quizRoundDeadline = 0;
+  let quizFrame = null;
+  let quizAdvanceTimer = null;
   let difficulty = 0;
   let lastDimensions = {min:0,max:0};
   let selected = null;
   const celebrationTimers = new WeakMap();
   const gcd = (a,b) =&gt; b ? gcd(b,a % b) : a;
+  function euclidMarkup() {
+    let a=Math.max(question.length,question.width);
+    let b=Math.min(question.length,question.width);
+    const steps=[];
+    while (b!==0) {
+      const quotient=Math.floor(a/b), remainder=a%b;
+      steps.push(`&lt;li&gt;${a}＝${b} × ${quotient}＋${remainder}&lt;/li&gt;`);
+      a=b;
+      b=remainder;
+    }
+    return `&lt;strong&gt;輾轉相除法&lt;/strong&gt;&lt;ol&gt;${steps.join(&#x27;&#x27;)}&lt;/ol&gt;&lt;p&gt;餘數變成 0 時，除數 ${a} 就是最大公因數。&lt;/p&gt;`;
+  }
+  function showEuclid(target) {
+    target.innerHTML=euclidMarkup();
+    target.hidden=false;
+  }
+  function hideEuclid() {
+    [euclidCut,euclidPack,euclidRoad].forEach(target=&gt;{
+      target.hidden=true;
+      target.innerHTML=&#x27;&#x27;;
+    });
+  }
   const shuffle = values =&gt; {
     const copy = [...values];
     for (let i=copy.length-1;i&gt;0;i--) { const j=Math.floor(Math.random()*(i+1)); [copy[i],copy[j]]=[copy[j],copy[i]]; }
     return copy;
   };
-  const isRoadExample = () =&gt; lcmExampleSelect.value===&#x27;road&#x27;;
 
   function metricFor(side, kind=mode) {
     if (kind===&#x27;side&#x27;) return side;
@@ -1537,11 +1665,13 @@ html&gt;body{padding:0}&lt;/style&gt;
     const labels={
       cut:[&#x27;紙張長&#x27;,&#x27;紙張寬&#x27;,&#x27;cm&#x27;],
       pack:[&#x27;藍色物品&#x27;,&#x27;橘色物品&#x27;,&#x27;個&#x27;],
-      posts:[&#x27;場地長&#x27;,&#x27;場地寬&#x27;,&#x27;m&#x27;]
+      posts:[&#x27;場地長&#x27;,&#x27;場地寬&#x27;,&#x27;m&#x27;],
+      road:[&#x27;道路甲長&#x27;,&#x27;道路乙長&#x27;,&#x27;m&#x27;]
     };
     clearCelebration(stage,sparkles);
     clearCelebration(packStage,packSparkles);
     clearCelebration(postStage,postSparkles);
+    clearCelebration(gcdRoadStage,gcdRoadSparkles);
     exampleViews.forEach(view=&gt;view.hidden=view.dataset.example!==name);
     const [first,second,unit]=labels[name];
     lengthLabel.textContent=first;
@@ -1576,23 +1706,12 @@ html&gt;body{padding:0}&lt;/style&gt;
     clearCelebration(timeStage,timeSparkles);
     lcmView.hidden=name!==&#x27;tiles&#x27;;
     timeView.hidden=name===&#x27;tiles&#x27;;
-    lengthLabel.textContent=name===&#x27;tiles&#x27;?&#x27;磁磚長&#x27;:name===&#x27;road&#x27;?&#x27;藍旗間距&#x27;:&#x27;藍燈週期&#x27;;
-    widthLabel.textContent=name===&#x27;tiles&#x27;?&#x27;磁磚寬&#x27;:name===&#x27;road&#x27;?&#x27;橘旗間距&#x27;:&#x27;橘燈週期&#x27;;
-    lengthUnit.textContent=name===&#x27;tiles&#x27;?&#x27;cm&#x27;:name===&#x27;road&#x27;?&#x27;m&#x27;:&#x27;秒&#x27;;
-    widthUnit.textContent=name===&#x27;tiles&#x27;?&#x27;cm&#x27;:name===&#x27;road&#x27;?&#x27;m&#x27;:&#x27;秒&#x27;;
+    lengthLabel.textContent=name===&#x27;tiles&#x27;?&#x27;磁磚長&#x27;:&#x27;藍燈週期&#x27;;
+    widthLabel.textContent=name===&#x27;tiles&#x27;?&#x27;磁磚寬&#x27;:&#x27;橘燈週期&#x27;;
+    lengthUnit.textContent=name===&#x27;tiles&#x27;?&#x27;cm&#x27;:&#x27;秒&#x27;;
+    widthUnit.textContent=name===&#x27;tiles&#x27;?&#x27;cm&#x27;:&#x27;秒&#x27;;
     lengthEl.textContent=name===&#x27;tiles&#x27;?&#x27;15&#x27;:&#x27;6&#x27;;
     widthEl.textContent=name===&#x27;tiles&#x27;?&#x27;10&#x27;:&#x27;8&#x27;;
-    if (name!==&#x27;tiles&#x27;) {
-      const road=name===&#x27;road&#x27;;
-      cycleTitle.textContent=road?&#x27;兩種道路標記首次對齊&#x27;:&#x27;兩盞燈再次同時亮&#x27;;
-      cycleSummary.textContent=road?&#x27;從同一起點出發，道路兩側分別每 6 m 插一面藍旗、每 8 m 插一面橘旗。&#x27;:&#x27;藍燈每 6 秒亮一次，橘燈每 8 秒亮一次；兩盞燈現在同時亮。&#x27;;
-      cyclePrompt.textContent=road?&#x27;走多遠，兩側旗子第一次在同一里程對齊？&#x27;:&#x27;幾秒後會再次同時亮？&#x27;;
-      cyclePositionLabel.textContent=road?&#x27;目前距離&#x27;:&#x27;目前時間&#x27;;
-      cycleUnit.textContent=road?&#x27;m&#x27;:&#x27;秒&#x27;;
-      timeOptions.setAttribute(&#x27;aria-label&#x27;,road?&#x27;兩側旗子首次在同一里程對齊的距離選項&#x27;:&#x27;再次同時亮的時間選項&#x27;);
-      timeSlider.setAttribute(&#x27;aria-label&#x27;,road?&#x27;道路距離，0 至 24 公尺&#x27;:&#x27;時間軸，0 至 24 秒&#x27;);
-      timeBoard.setAttribute(&#x27;aria-label&#x27;,road?&#x27;等比例道路：兩側藍旗每 6 公尺、橘旗每 8 公尺，首次在同一里程對齊於 24 公尺&#x27;:&#x27;等比例時間軸：藍燈每 6 秒亮、橘燈每 8 秒亮，首次再次重合於 24 秒&#x27;);
-    }
     if (name===&#x27;tiles&#x27;) setLcmStage(&#x27;side&#x27;);
     else resetTimeExample();
   }
@@ -1707,14 +1826,9 @@ html&gt;body{padding:0}&lt;/style&gt;
   }
 
   function drawTimeBoard() {
-    const road=isRoadExample();
     const x0=82, span=480, x=position=&gt;x0+position/24*span;
-    let html=road
-      ? &#x27;&lt;title&gt;兩種道路旗子的等比例位置&lt;/title&gt;&lt;desc&gt;每 2 公尺一個等距刻度。藍旗在 0、6、12、18、24 公尺；橘旗在 0、8、16、24 公尺。&lt;/desc&gt;&#x27;
-      : &#x27;&lt;title&gt;兩盞燈的等比例時間軸&lt;/title&gt;&lt;desc&gt;每 2 秒一個等距刻度。藍燈在 0、6、12、18、24 秒亮；橘燈在 0、8、16、24 秒亮。&lt;/desc&gt;&#x27;;
-    html+=road
-      ? &#x27;&lt;text x=&quot;320&quot; y=&quot;30&quot; text-anchor=&quot;middle&quot;&gt;道路兩側共用同一條公尺刻度&lt;/text&gt;&lt;rect x=&quot;82&quot; y=&quot;82&quot; width=&quot;480&quot; height=&quot;165&quot; rx=&quot;9&quot; fill=&quot;var(--muted)&quot; fill-opacity=&quot;.35&quot;/&gt;&lt;line x1=&quot;82&quot; y1=&quot;175&quot; x2=&quot;562&quot; y2=&quot;175&quot; stroke=&quot;var(--foreground)&quot; stroke-opacity=&quot;.45&quot; stroke-width=&quot;2&quot; stroke-dasharray=&quot;14 12&quot;/&gt;&#x27;
-      : &#x27;&lt;text x=&quot;320&quot; y=&quot;30&quot; text-anchor=&quot;middle&quot;&gt;兩條燈號共用同一條秒數刻度&lt;/text&gt;&#x27;;
+    let html=&#x27;&lt;title&gt;兩盞燈的等比例時間軸&lt;/title&gt;&lt;desc&gt;每 2 秒一個等距刻度。藍燈在 0、6、12、18、24 秒亮；橘燈在 0、8、16、24 秒亮。&lt;/desc&gt;&#x27;;
+    html+=&#x27;&lt;text x=&quot;320&quot; y=&quot;30&quot; text-anchor=&quot;middle&quot;&gt;兩條燈號共用同一條秒數刻度&lt;/text&gt;&#x27;;
     for (let position=0;position&lt;=24;position+=2) {
       const px=x(position);
       html+=`&lt;line x1=&quot;${px}&quot; y1=&quot;70&quot; x2=&quot;${px}&quot; y2=&quot;265&quot; stroke=&quot;var(--border)&quot; stroke-width=&quot;1&quot;/&gt;`;
@@ -1723,25 +1837,17 @@ html&gt;body{padding:0}&lt;/style&gt;
     }
     html+=`&lt;line x1=&quot;${x0}&quot; y1=&quot;130&quot; x2=&quot;${x(24)}&quot; y2=&quot;130&quot; stroke=&quot;var(--blue)&quot; stroke-width=&quot;4&quot;/&gt;`;
     html+=`&lt;line x1=&quot;${x0}&quot; y1=&quot;220&quot; x2=&quot;${x(24)}&quot; y2=&quot;220&quot; stroke=&quot;var(--orange)&quot; stroke-width=&quot;4&quot;/&gt;`;
-    html+=road
-      ? &#x27;&lt;text x=&quot;4&quot; y=&quot;135&quot;&gt;藍 6 m&lt;/text&gt;&lt;text x=&quot;4&quot; y=&quot;225&quot;&gt;橘 8 m&lt;/text&gt;&#x27;
-      : &#x27;&lt;text x=&quot;4&quot; y=&quot;135&quot;&gt;藍 6 秒&lt;/text&gt;&lt;text x=&quot;4&quot; y=&quot;225&quot;&gt;橘 8 秒&lt;/text&gt;&#x27;;
+    html+=&#x27;&lt;text x=&quot;4&quot; y=&quot;135&quot;&gt;藍 6 秒&lt;/text&gt;&lt;text x=&quot;4&quot; y=&quot;225&quot;&gt;橘 8 秒&lt;/text&gt;&#x27;;
     for (let position=0;position&lt;=24;position+=6) {
       const px=x(position);
-      html+=road
-        ? `&lt;line x1=&quot;${px}&quot; y1=&quot;108&quot; x2=&quot;${px}&quot; y2=&quot;148&quot; stroke=&quot;var(--foreground)&quot; stroke-width=&quot;2&quot;/&gt;&lt;path d=&quot;M${px} 108 l15 7 -15 7 Z&quot; fill=&quot;var(--blue)&quot;/&gt;`
-        : `&lt;circle cx=&quot;${px}&quot; cy=&quot;130&quot; r=&quot;10&quot; fill=&quot;var(--blue)&quot; stroke=&quot;var(--foreground)&quot; stroke-width=&quot;1.5&quot;/&gt;`;
+      html+=`&lt;circle cx=&quot;${px}&quot; cy=&quot;130&quot; r=&quot;10&quot; fill=&quot;var(--blue)&quot; stroke=&quot;var(--foreground)&quot; stroke-width=&quot;1.5&quot;/&gt;`;
     }
     for (let position=0;position&lt;=24;position+=8) {
       const px=x(position);
-      html+=road
-        ? `&lt;line x1=&quot;${px}&quot; y1=&quot;198&quot; x2=&quot;${px}&quot; y2=&quot;238&quot; stroke=&quot;var(--foreground)&quot; stroke-width=&quot;2&quot;/&gt;&lt;path d=&quot;M${px} 198 l15 7 -15 7 Z&quot; fill=&quot;var(--orange)&quot;/&gt;`
-        : `&lt;circle cx=&quot;${px}&quot; cy=&quot;220&quot; r=&quot;10&quot; fill=&quot;var(--orange)&quot; stroke=&quot;var(--foreground)&quot; stroke-width=&quot;1.5&quot;/&gt;`;
+      html+=`&lt;circle cx=&quot;${px}&quot; cy=&quot;220&quot; r=&quot;10&quot; fill=&quot;var(--orange)&quot; stroke=&quot;var(--foreground)&quot; stroke-width=&quot;1.5&quot;/&gt;`;
     }
     html+=`&lt;line data-time-cursor x1=&quot;${x0}&quot; y1=&quot;55&quot; x2=&quot;${x0}&quot; y2=&quot;255&quot; stroke=&quot;var(--green)&quot; stroke-width=&quot;3&quot;/&gt;`;
-    html+=road
-      ? &#x27;&lt;text x=&quot;320&quot; y=&quot;328&quot; text-anchor=&quot;middle&quot;&gt;每 2 m 刻度等距；24 m 在 12 m 的兩倍位置&lt;/text&gt;&#x27;
-      : &#x27;&lt;text x=&quot;320&quot; y=&quot;328&quot; text-anchor=&quot;middle&quot;&gt;每 2 秒刻度等距；24 秒在 12 秒的兩倍位置&lt;/text&gt;&#x27;;
+    html+=&#x27;&lt;text x=&quot;320&quot; y=&quot;328&quot; text-anchor=&quot;middle&quot;&gt;每 2 秒刻度等距；24 秒在 12 秒的兩倍位置&lt;/text&gt;&#x27;;
     timeBoard.setAttribute(&#x27;viewBox&#x27;,&#x27;0 0 640 340&#x27;);
     timeBoard.innerHTML=html;
   }
@@ -1759,7 +1865,7 @@ html&gt;body{padding:0}&lt;/style&gt;
   function stopTimePlayback() {
     if (timeFrame!==null) cancelAnimationFrame(timeFrame);
     timeFrame=null;
-    timePlay.textContent=isRoadExample()?`模擬前進（${timePlaybackRate} m/秒）`:`播放時間（${timePlaybackRate} 倍速）`;
+    timePlay.textContent=`播放時間（${timePlaybackRate} 倍速）`;
   }
 
   function playTime() {
@@ -1777,13 +1883,12 @@ html&gt;body{padding:0}&lt;/style&gt;
 
   function resetTimeExample() {
     stopTimePlayback();
-    const road=isRoadExample();
     timeOptions.innerHTML=&#x27;&#x27;;
     shuffle([12,16,24]).forEach(second=&gt;{
       const button=document.createElement(&#x27;button&#x27;);
       button.type=&#x27;button&#x27;;
       button.className=&#x27;btn gcd-option&#x27;;
-      button.textContent=`${second} ${road?&#x27;m&#x27;:&#x27;秒&#x27;}`;
+      button.textContent=`${second} 秒`;
       button.addEventListener(&#x27;click&#x27;,()=&gt;{
         [...timeOptions.children].forEach(item=&gt;{
           item.dataset.state=&#x27;&#x27;;
@@ -1796,21 +1901,15 @@ html&gt;body{padding:0}&lt;/style&gt;
         if (right) {
           stopTimePlayback();
           setTime(24);
-          timeFeedback.textContent=road
-            ? &#x27;答對了！藍旗在 6、12、18、24 m；橘旗在 8、16、24 m，兩側第一次在同一里程對齊是 24 m。&#x27;
-            : &#x27;答對了！藍燈在 6、12、18、24 秒亮；橘燈在 8、16、24 秒亮，首次再次重合是 24 秒。&#x27;;
+          timeFeedback.textContent=&#x27;答對了！藍燈在 6、12、18、24 秒亮；橘燈在 8、16、24 秒亮，首次再次重合是 24 秒。&#x27;;
           celebrate(true,timeStage,timeSparkles);
         } else {
-          timeFeedback.textContent=road
-            ? `${second} m 只有一側有旗子；沿相同公尺刻度繼續找兩側旗子對齊的位置。`
-            : `${second} 秒只有一盞燈亮；沿相同刻度繼續找兩種標記再次對齊的位置。`;
+          timeFeedback.textContent=`${second} 秒只有一盞燈亮；沿相同刻度繼續找兩種標記再次對齊的位置。`;
         }
       });
       timeOptions.appendChild(button);
     });
-    timeFeedback.textContent=road
-      ? `0 m 是共同起點；沿道路找下一個重合位置。動畫每秒前進 ${timePlaybackRate} m，圖上距離依公尺等比例排列。`
-      : `0 秒時同時亮；沿時間軸找下一個重合點。動畫以 ${timePlaybackRate} 倍速播放，刻度仍依秒數等比例排列。`;
+    timeFeedback.textContent=`0 秒時同時亮；沿時間軸找下一個重合點。動畫以 ${timePlaybackRate} 倍速播放，刻度仍依秒數等比例排列。`;
     drawTimeBoard();
     setTime(0);
   }
@@ -1906,6 +2005,7 @@ html&gt;body{padding:0}&lt;/style&gt;
       const first=question.length/question.gcd, second=question.width/question.gcd;
       packSummary.textContent=`${question.length} 個藍色和 ${question.width} 個橘色，最多分成 ${question.gcd} 包。`;
       packFeedback.textContent=`兩關都答對！每包 ${first} 個藍色 × ${second} 個橘色，共 ${question.gcd} 包。`;
+      showEuclid(euclidPack);
       celebrate(true,packStage,packSparkles);
     } else {
       packFeedback.textContent=&#x27;再算一次：每包數量＝物品總數 ÷ 最多包數，兩種物品都要剛好分完。&#x27;;
@@ -2015,7 +2115,7 @@ html&gt;body{padding:0}&lt;/style&gt;
       const columns=question.length/question.gcd, rows=question.width/question.gcd;
       postSummary.textContent=`最大柱距 ${question.gcd} m；長邊各 ${columns} 段、寬邊各 ${rows} 段。`;
       postFeedback.textContent=`兩關都答對！四周共設 ${postCount()} 根柱。`;
-      postSolution.innerHTML=`&lt;strong&gt;解法&lt;/strong&gt;&lt;ol&gt;&lt;li&gt;長邊間隔數：${question.length} ÷ ${question.gcd}＝${columns}&lt;/li&gt;&lt;li&gt;寬邊間隔數：${question.width} ÷ ${question.gcd}＝${rows}&lt;/li&gt;&lt;li&gt;兩條長邊：${columns}＋${columns}＝${columns*2}&lt;/li&gt;&lt;li&gt;兩條寬邊：${rows}＋${rows}＝${rows*2}&lt;/li&gt;&lt;li&gt;柱子總數：${columns*2}＋${rows*2}＝${postCount()} 根&lt;/li&gt;&lt;/ol&gt;`;
+      postSolution.innerHTML=`${euclidMarkup()}&lt;strong&gt;柱子總數&lt;/strong&gt;&lt;ol&gt;&lt;li&gt;長邊間隔數：${question.length} ÷ ${question.gcd}＝${columns}&lt;/li&gt;&lt;li&gt;寬邊間隔數：${question.width} ÷ ${question.gcd}＝${rows}&lt;/li&gt;&lt;li&gt;兩條長邊：${columns}＋${columns}＝${columns*2}&lt;/li&gt;&lt;li&gt;兩條寬邊：${rows}＋${rows}＝${rows*2}&lt;/li&gt;&lt;li&gt;柱子總數：${columns*2}＋${rows*2}＝${postCount()} 根&lt;/li&gt;&lt;/ol&gt;`;
       postSolution.hidden=false;
       postStage.classList.add(&#x27;has-solution&#x27;);
       celebrate(true,postStage,postSparkles);
@@ -2029,6 +2129,74 @@ html&gt;body{padding:0}&lt;/style&gt;
     drawPacks(null);
     postSummary.textContent=&#x27;沿著長方形場地四周，以相同距離設柱，轉角也要有柱子。&#x27;;
     drawPosts(null);
+    renderGcdRoad();
+  }
+
+  function renderGcdRoad() {
+    clearCelebration(gcdRoadStage,gcdRoadSparkles);
+    let smaller=1;
+    for (let value=question.gcd-1;value&gt;=1;value--) {
+      if (question.length%value===0 &amp;&amp; question.width%value===0) { smaller=value; break; }
+    }
+    gcdRoadOptions.innerHTML=&#x27;&#x27;;
+    shuffle([question.gcd,smaller,question.gcd+1]).forEach(distance=&gt;{
+      const button=document.createElement(&#x27;button&#x27;);
+      button.type=&#x27;button&#x27;;
+      button.className=&#x27;btn gcd-option&#x27;;
+      button.textContent=`${distance} m`;
+      button.addEventListener(&#x27;click&#x27;,()=&gt;{
+        [...gcdRoadOptions.children].forEach(item=&gt;{
+          item.dataset.state=&#x27;&#x27;;
+          item.removeAttribute(&#x27;aria-pressed&#x27;);
+        });
+        const right=distance===question.gcd;
+        button.dataset.state=right?&#x27;right&#x27;:&#x27;wrong&#x27;;
+        button.setAttribute(&#x27;aria-pressed&#x27;,&#x27;true&#x27;);
+        drawGcdRoad(distance);
+        gcdRoadFeedback.textContent=right
+          ? `答對了！${question.length} 和 ${question.width} 的最大公因數是 ${distance}，兩段道路都能每隔 ${distance} m 插旗且終點剛好有旗。`
+          : question.length%distance===0 &amp;&amp; question.width%distance===0
+            ? `${distance} m 能整除兩段道路，但還能把旗距加大。`
+            : `${distance} m 不能整除兩段道路，至少有一段的終點無法剛好插旗。`;
+        if (right) celebrate(true,gcdRoadStage,gcdRoadSparkles);
+        if (right) showEuclid(euclidRoad);
+      });
+      gcdRoadOptions.appendChild(button);
+    });
+    gcdRoadFeedback.textContent=&#x27;選一個旗距後，圖上才會出現旗子的位置。&#x27;;
+    drawGcdRoad(null);
+  }
+
+  function drawGcdRoad(distance) {
+    const {length,width}=question;
+    const max=Math.max(length,width);
+    const x0=110, span=440, x=value=&gt;x0+value/max*span;
+    let html=`&lt;title&gt;道路等距插旗&lt;/title&gt;&lt;desc&gt;道路甲長 ${length} 公尺、道路乙長 ${width} 公尺；${distance?`試用 ${distance} 公尺旗距`:&#x27;尚未插旗&#x27;}。&lt;/desc&gt;`;
+    html+=&#x27;&lt;text x=&quot;320&quot; y=&quot;35&quot; text-anchor=&quot;middle&quot;&gt;兩段道路使用相同距離比例&lt;/text&gt;&#x27;;
+    for (const [roadLength,y,color,label] of [[length,130,&#x27;var(--blue)&#x27;,&#x27;甲&#x27;],[width,220,&#x27;var(--orange)&#x27;,&#x27;乙&#x27;]]) {
+      html+=`&lt;text x=&quot;12&quot; y=&quot;${y+6}&quot;&gt;道路${label}&lt;/text&gt;`;
+      html+=`&lt;line x1=&quot;${x0}&quot; y1=&quot;${y}&quot; x2=&quot;${x(roadLength)}&quot; y2=&quot;${y}&quot; stroke=&quot;${color}&quot; stroke-width=&quot;8&quot; stroke-linecap=&quot;round&quot;/&gt;`;
+      html+=`&lt;text x=&quot;${x(roadLength)}&quot; y=&quot;${y-20}&quot; text-anchor=&quot;end&quot;&gt;${roadLength} m&lt;/text&gt;`;
+      if (distance!==null) {
+        for (let mark=0;mark&lt;=roadLength;mark+=distance) {
+          const px=x(mark);
+          html+=`&lt;line x1=&quot;${px}&quot; y1=&quot;${y-18}&quot; x2=&quot;${px}&quot; y2=&quot;${y+16}&quot; stroke=&quot;var(--foreground)&quot; stroke-width=&quot;2&quot;/&gt;`;
+          html+=`&lt;path d=&quot;M${px} ${y-18} l13 6 -13 6 Z&quot; fill=&quot;${color}&quot;/&gt;`;
+        }
+        if (roadLength%distance!==0) {
+          const last=Math.floor(roadLength/distance)*distance;
+          html+=`&lt;line x1=&quot;${x(last)}&quot; y1=&quot;${y+12}&quot; x2=&quot;${x(roadLength)}&quot; y2=&quot;${y+12}&quot; stroke=&quot;var(--destructive)&quot; stroke-width=&quot;5&quot;/&gt;`;
+        }
+      }
+    }
+    for (const tick of [...new Set([0,Math.min(length,width),max])]) {
+      html+=`&lt;line x1=&quot;${x(tick)}&quot; y1=&quot;270&quot; x2=&quot;${x(tick)}&quot; y2=&quot;280&quot; stroke=&quot;var(--foreground)&quot; stroke-width=&quot;2&quot;/&gt;`;
+      html+=`&lt;text x=&quot;${x(tick)}&quot; y=&quot;303&quot; text-anchor=&quot;middle&quot;&gt;${tick}&lt;/text&gt;`;
+    }
+    html+=`&lt;text x=&quot;320&quot; y=&quot;340&quot; text-anchor=&quot;middle&quot;&gt;${distance===null?&#x27;選旗距後顯示旗子&#x27;:`試插旗距 ${distance} m`}&lt;/text&gt;`;
+    gcdRoadBoard.setAttribute(&#x27;viewBox&#x27;,&#x27;0 0 640 360&#x27;);
+    gcdRoadBoard.setAttribute(&#x27;aria-label&#x27;,`道路甲 ${length} 公尺、道路乙 ${width} 公尺，${distance===null?&#x27;尚未顯示旗子&#x27;:`每隔 ${distance} 公尺顯示旗子`}`);
+    gcdRoadBoard.innerHTML=html;
   }
 
   function drawPosts(distance=null,showCount=false) {
@@ -2089,6 +2257,7 @@ html&gt;body{padding:0}&lt;/style&gt;
         celebrate(false);
       } else {
         feedback.textContent=`兩關都答對！GCD(${length}, ${width})＝${question.gcd}；長邊 ${columns} 塊 × 寬邊 ${rows} 塊＝共 ${columns*rows} 塊。`;
+        showEuclid(euclidCut);
         celebrate(true);
       }
     } else if (complete) {
@@ -2152,6 +2321,7 @@ html&gt;body{padding:0}&lt;/style&gt;
     postSparkles.classList.remove(&#x27;is-visible&#x27;);
     postStage.classList.remove(&#x27;is-celebrating&#x27;);
     hidePostSolution();
+    hideEuclid();
     const levels=[
       {questions:[[4,6],[6,8],[6,9]],label:&#x27;啟蒙&#x27;},
       {questions:[[12,15],[12,16],[14,18]],label:&#x27;入門&#x27;},
@@ -2190,6 +2360,138 @@ html&gt;body{padding:0}&lt;/style&gt;
     setPostStage(&#x27;distance&#x27;);
   }
 
+  const quizBanks = [
+    [
+      {topic:&#x27;最大公因數&#x27;,prompt:&#x27;長 24 cm、寬 18 cm 的紙要切成最大的正方形，邊長是多少？&#x27;,choices:[3,6,12],answer:6,unit:&#x27;cm&#x27;,explanation:&#x27;GCD(24, 18)＝6。&#x27;},
+      {topic:&#x27;最大公因數&#x27;,prompt:&#x27;30 顆糖與 45 塊餅乾平均分裝成最多包，每包內容相同。最多幾包？&#x27;,choices:[5,10,15],answer:15,unit:&#x27;包&#x27;,explanation:&#x27;GCD(30, 45)＝15。&#x27;},
+      {topic:&#x27;最大公因數&#x27;,prompt:&#x27;長 36 m、寬 48 m 的場地四周等距設柱，最大柱距是多少？&#x27;,choices:[6,8,12],answer:12,unit:&#x27;m&#x27;,explanation:&#x27;GCD(36, 48)＝12。&#x27;}
+    ],
+    [
+      {topic:&#x27;最小公倍數&#x27;,prompt:&#x27;6 和 8 的最小公倍數是多少？&#x27;,choices:[12,16,24],answer:24,unit:&#x27;&#x27;,explanation:&#x27;6 的倍數與 8 的倍數第一次相同是 24。&#x27;},
+      {topic:&#x27;最小公倍數&#x27;,prompt:&#x27;4 和 10 的最小公倍數是多少？&#x27;,choices:[10,20,40],answer:20,unit:&#x27;&#x27;,explanation:&#x27;4 的倍數與 10 的倍數第一次相同是 20。&#x27;},
+      {topic:&#x27;最小公倍數&#x27;,prompt:&#x27;9 和 12 的最小公倍數是多少？&#x27;,choices:[18,27,36],answer:36,unit:&#x27;&#x27;,explanation:&#x27;9 的倍數與 12 的倍數第一次相同是 36。&#x27;}
+    ],
+    [
+      {topic:&#x27;生活應用&#x27;,prompt:&#x27;15 cm × 10 cm 磁磚不切割拼成最小正方形，正方形邊長是多少？&#x27;,choices:[20,30,60],answer:30,unit:&#x27;cm&#x27;,explanation:&#x27;LCM(15, 10)＝30。&#x27;},
+      {topic:&#x27;生活應用&#x27;,prompt:&#x27;24 m 與 18 m 兩段道路都要等距插旗，終點也要有旗子。最大旗距是多少？&#x27;,choices:[3,6,8],answer:6,unit:&#x27;m&#x27;,explanation:&#x27;GCD(24, 18)＝6。&#x27;},
+      {topic:&#x27;生活應用&#x27;,prompt:&#x27;兩盞燈分別每 4 秒與每 6 秒亮一次，現在同時亮，幾秒後再次同時亮？&#x27;,choices:[6,10,12],answer:12,unit:&#x27;秒&#x27;,explanation:&#x27;LCM(4, 6)＝12。&#x27;}
+    ]
+  ];
+
+  function updateQuizClocks(now) {
+    quizTotal.textContent=String(Math.max(0,Math.ceil((quizTotalDeadline-now)/1000)));
+    quizRound.textContent=String(Math.max(0,Math.ceil((quizRoundDeadline-now)/1000)));
+  }
+
+  function finishQuiz(reason) {
+    quizActive=false;
+    quizLocked=true;
+    if (quizFrame!==null) cancelAnimationFrame(quizFrame);
+    if (quizAdvanceTimer!==null) clearTimeout(quizAdvanceTimer);
+    quizFrame=null;
+    quizAdvanceTimer=null;
+    quizStart.hidden=false;
+    quizStart.textContent=&#x27;再測一次&#x27;;
+    quizTopic.textContent=&#x27;測驗結果&#x27;;
+    quizPrompt.textContent=`${reason} 得分 ${quizPoints} / 30，答對 ${quizCorrect} / 3 題。`;
+    quizOptions.innerHTML=&#x27;&#x27;;
+    quizFeedback.textContent=&#x27;可以再測一次，或切回第一版繼續練習。&#x27;;
+  }
+
+  function showQuizQuestion() {
+    const current=quizQuestions[quizIndex];
+    quizLocked=false;
+    quizRoundDeadline=Math.min(performance.now()+35000,quizTotalDeadline);
+    quizTopic.textContent=`第 ${quizIndex+1} 題／3・${current.topic}`;
+    quizPrompt.textContent=current.prompt;
+    quizCount.textContent=`${quizIndex+1} / 3`;
+    quizFeedback.textContent=&#x27;請在本題倒數結束前選擇答案。&#x27;;
+    quizOptions.innerHTML=&#x27;&#x27;;
+    shuffle(current.choices).forEach(value=&gt;{
+      const button=document.createElement(&#x27;button&#x27;);
+      button.type=&#x27;button&#x27;;
+      button.className=&#x27;btn gcd-option&#x27;;
+      button.textContent=`${value}${current.unit?` ${current.unit}`:&#x27;&#x27;}`;
+      button.addEventListener(&#x27;click&#x27;,()=&gt;answerQuiz(value));
+      quizOptions.appendChild(button);
+    });
+    updateQuizClocks(performance.now());
+  }
+
+  function answerQuiz(value) {
+    if (!quizActive || quizLocked) return;
+    const current=quizQuestions[quizIndex];
+    const right=value===current.answer;
+    quizLocked=true;
+    if (quizFrame!==null) cancelAnimationFrame(quizFrame);
+    quizFrame=null;
+    quizOptions.querySelectorAll(&#x27;button&#x27;).forEach(button=&gt;{
+      button.disabled=true;
+      const answer=Number.parseInt(button.textContent,10);
+      if (answer===current.answer) button.dataset.state=&#x27;right&#x27;;
+      else if (answer===value) button.dataset.state=&#x27;wrong&#x27;;
+    });
+    if (right) {
+      quizPoints+=10;
+      quizCorrect++;
+      quizCombo++;
+      quizFeedback.textContent=`答對了！${current.explanation}`;
+      playSuccessSound(false);
+    } else {
+      quizCombo=0;
+      quizFeedback.textContent=value===null?`時間到！${current.explanation}`:`再加油！${current.explanation}`;
+    }
+    quizScore.textContent=String(quizPoints);
+    quizStreak.textContent=String(quizCombo);
+    quizAdvanceTimer=setTimeout(()=&gt;{
+      quizAdvanceTimer=null;
+      if (!quizActive) return;
+      if (performance.now()&gt;=quizTotalDeadline) { finishQuiz(&#x27;總時間到！&#x27;); return; }
+      quizIndex++;
+      if (quizIndex===quizQuestions.length) { finishQuiz(&#x27;測驗完成！&#x27;); return; }
+      showQuizQuestion();
+      quizFrame=requestAnimationFrame(tickQuiz);
+    },1200);
+  }
+
+  function tickQuiz(now) {
+    if (!quizActive || quizLocked) return;
+    updateQuizClocks(now);
+    if (now&gt;=quizTotalDeadline) { finishQuiz(&#x27;總時間到！&#x27;); return; }
+    if (now&gt;=quizRoundDeadline) { answerQuiz(null); return; }
+    quizFrame=requestAnimationFrame(tickQuiz);
+  }
+
+  function startQuiz() {
+    if (quizFrame!==null) cancelAnimationFrame(quizFrame);
+    if (quizAdvanceTimer!==null) clearTimeout(quizAdvanceTimer);
+    quizQuestions=quizBanks.map(bank=&gt;bank[Math.floor(Math.random()*bank.length)]);
+    quizIndex=0;
+    quizPoints=0;
+    quizCorrect=0;
+    quizCombo=0;
+    quizActive=true;
+    quizStart.hidden=true;
+    quizScore.textContent=&#x27;0&#x27;;
+    quizStreak.textContent=&#x27;0&#x27;;
+    quizTotalDeadline=performance.now()+105000;
+    showQuizQuestion();
+    quizFrame=requestAnimationFrame(tickQuiz);
+  }
+
+  function setVersion(version) {
+    const practice=version===&#x27;practice&#x27;;
+    if (practice &amp;&amp; quizActive) finishQuiz(&#x27;測驗已中止。&#x27;);
+    if (!practice) stopTimePlayback();
+    practiceView.hidden=!practice;
+    quizView.hidden=practice;
+    versionButtons.forEach(button=&gt;{
+      const active=button.dataset.version===version;
+      button.classList.toggle(&#x27;active&#x27;,active);
+      button.setAttribute(&#x27;aria-pressed&#x27;,String(active));
+    });
+  }
+
   topicSelect.addEventListener(&#x27;change&#x27;,()=&gt;showTopic(topicSelect.value));
   exampleSelect.addEventListener(&#x27;change&#x27;,()=&gt;showExample(exampleSelect.value));
   lcmExampleSelect.addEventListener(&#x27;change&#x27;,()=&gt;showLcmExample(lcmExampleSelect.value));
@@ -2198,9 +2500,12 @@ html&gt;body{padding:0}&lt;/style&gt;
     stopTimePlayback();
     setTime(Number(timeSlider.value));
   });
+  versionButtons.forEach(button=&gt;button.addEventListener(&#x27;click&#x27;,()=&gt;setVersion(button.dataset.version)));
+  quizStart.addEventListener(&#x27;click&#x27;,startQuiz);
   root.querySelector(&#x27;[data-new-question]&#x27;).addEventListener(&#x27;click&#x27;,newQuestion);
   newQuestion();
   showTopic(topicSelect.value);
+  setVersion(&#x27;practice&#x27;);
 })();
 &lt;/script&gt;
 
