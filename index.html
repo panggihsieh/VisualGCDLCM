@@ -1303,9 +1303,11 @@ html&gt;body{padding:0}&lt;/style&gt;
   #gcd-cutting-challenge .gcd-quiz-options { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
   #gcd-cutting-challenge .gcd-quiz-options .gcd-option { min-width:0; }
   #gcd-cutting-challenge .gcd-quiz-feedback { min-height:1.5em; margin:18px 0 0; font-weight:700; }
-  #gcd-cutting-challenge .gcd-quiz-visual { margin-top:12px; padding:12px; background:var(--card); animation:gcd-visual-reveal .4s ease-out both; }
-  #gcd-cutting-challenge .gcd-quiz-visual svg { display:block; width:100%; height:auto; max-height:270px; }
-  #gcd-cutting-challenge .gcd-quiz-visual text { fill:var(--foreground); font:700 16px sans-serif; }
+  #gcd-cutting-challenge .gcd-quiz-visual { margin-top:12px; padding:12px; background:color-mix(in srgb,var(--card) 88%,var(--blue)); animation:gcd-visual-reveal .4s ease-out both; }
+  #gcd-cutting-challenge .gcd-quiz-visual svg { display:block; width:100%; max-width:760px; height:auto; margin:auto; }
+  #gcd-cutting-challenge .gcd-quiz-visual text { fill:var(--foreground); font-family:inherit; font-size:17px; font-weight:700; }
+  #gcd-cutting-challenge .gcd-quiz-visual-caption { margin:10px 0 0; text-align:center; font-size:1.1rem; font-weight:700; }
+  #gcd-cutting-challenge .gcd-quiz-visual .gcd-packs { margin:8px auto; max-width:760px; }
   #gcd-cutting-challenge .gcd-quiz-visual .gcd-visual-mark { transform-box:fill-box; transform-origin:center; animation:gcd-visual-pop .4s ease-out both; animation-delay:calc(var(--order) * 60ms); }
   #gcd-cutting-challenge .gcd-quiz-visual .gcd-visual-final { stroke:var(--green); stroke-width:4; }
   @keyframes gcd-visual-reveal { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
@@ -1435,6 +1437,8 @@ html&gt;body{padding:0}&lt;/style&gt;
   }
   @container (max-width:560px) {
     #gcd-cutting-challenge .gcd-version-switch, #gcd-cutting-challenge .gcd-quiz-intro { flex-direction:column; align-items:stretch; }
+    #gcd-cutting-challenge .gcd-quiz-visual { overflow-x:auto; }
+    #gcd-cutting-challenge .gcd-quiz-visual svg { width:560px; max-width:none; }
     #gcd-cutting-challenge .gcd-quiz-stats { grid-template-columns:repeat(2,minmax(0,1fr)); }
     #gcd-cutting-challenge .gcd-quiz-stats .card:last-child { grid-column:1 / -1; }
     #gcd-cutting-challenge .gcd-quiz-question { padding:16px; }
@@ -2436,61 +2440,91 @@ html&gt;body{padding:0}&lt;/style&gt;
   function quizVisualMarkup(current) {
     const [first,second]=current.numbers;
     const answer=current.answer;
-    let drawing=&#x27;&#x27;, caption=&#x27;&#x27;, description=&#x27;&#x27;;
-    if (current.visual===&#x27;cut&#x27; || current.visual===&#x27;tiles&#x27;) {
-      const tileWidth=current.visual===&#x27;cut&#x27;?answer:first;
-      const tileHeight=current.visual===&#x27;cut&#x27;?answer:second;
-      const columns=(current.visual===&#x27;cut&#x27;?first:answer)/tileWidth;
-      const rows=(current.visual===&#x27;cut&#x27;?second:answer)/tileHeight;
-      const scale=Math.min(350/(columns*tileWidth),170/(rows*tileHeight));
-      const cellW=tileWidth*scale, cellH=tileHeight*scale;
-      const x0=320-columns*cellW/2, y0=25;
+    let drawing=&#x27;&#x27;, caption=&#x27;&#x27;, description=&#x27;&#x27;, viewHeight=360;
+    if (current.visual===&#x27;pack&#x27;) {
+      const bags=Array.from({length:answer},(_,index)=&gt;{
+        const dots=`&lt;span class=&quot;gcd-dot&quot;&gt;&lt;/span&gt;`.repeat(first/answer)+`&lt;span class=&quot;gcd-dot is-second&quot;&gt;&lt;/span&gt;`.repeat(second/answer);
+        return `&lt;div class=&quot;gcd-pack&quot; role=&quot;img&quot; aria-label=&quot;第 ${index+1} 包：${first/answer} 顆糖、${second/answer} 塊餅乾&quot;&gt;&lt;strong&gt;第 ${index+1} 包&lt;/strong&gt;&lt;div class=&quot;gcd-pack-dots&quot;&gt;${dots}&lt;/div&gt;&lt;/div&gt;`;
+      }).join(&#x27;&#x27;);
+      return `&lt;div class=&quot;gcd-packs&quot;&gt;${bags}&lt;/div&gt;&lt;p class=&quot;gcd-quiz-visual-caption&quot;&gt;${first} 顆糖和 ${second} 塊餅乾，平均分成 ${answer} 包；每包 ${first/answer} 顆糖、${second/answer} 塊餅乾。&lt;/p&gt;`;
+    }
+    if (current.visual===&#x27;cut&#x27;) {
+      const columns=first/answer, rows=second/answer;
+      const scale=Math.min(420/first,205/second), w=first*scale, h=second*scale;
+      const x0=(640-w)/2, y0=70, cell=answer*scale;
+      drawing+=`&lt;text x=&quot;320&quot; y=&quot;30&quot; text-anchor=&quot;middle&quot;&gt;長 ${first} cm、寬 ${second} cm 的紙&lt;/text&gt;`;
+      drawing+=`&lt;text x=&quot;320&quot; y=&quot;${y0-12}&quot; text-anchor=&quot;middle&quot;&gt;長 ${first} cm&lt;/text&gt;`;
+      drawing+=`&lt;text x=&quot;${x0-28}&quot; y=&quot;${y0+h/2}&quot; text-anchor=&quot;middle&quot; transform=&quot;rotate(-90 ${x0-28} ${y0+h/2})&quot;&gt;寬 ${second} cm&lt;/text&gt;`;
       for (let row=0;row&lt;rows;row++) for (let col=0;col&lt;columns;col++) {
-        drawing+=`&lt;rect class=&quot;gcd-visual-mark&quot; style=&quot;--order:${row*columns+col}&quot; x=&quot;${x0+col*cellW}&quot; y=&quot;${y0+row*cellH}&quot; width=&quot;${cellW}&quot; height=&quot;${cellH}&quot; fill=&quot;${(row+col)%2?&#x27;var(--orange)&#x27;:&#x27;var(--blue)&#x27;}&quot; fill-opacity=&quot;.65&quot; stroke=&quot;var(--foreground)&quot; stroke-width=&quot;2&quot;/&gt;`;
+        const index=row*columns+col;
+        drawing+=`&lt;rect class=&quot;gcd-visual-mark&quot; style=&quot;--order:${index}&quot; x=&quot;${x0+col*cell}&quot; y=&quot;${y0+row*cell}&quot; width=&quot;${cell}&quot; height=&quot;${cell}&quot; fill=&quot;var(--viz-series-1)&quot; fill-opacity=&quot;.3&quot; stroke=&quot;var(--foreground)&quot; stroke-width=&quot;1.5&quot;/&gt;`;
+        if (columns*rows&lt;=36 &amp;&amp; cell&gt;=26) drawing+=`&lt;text x=&quot;${x0+(col+.5)*cell}&quot; y=&quot;${y0+(row+.5)*cell+6}&quot; text-anchor=&quot;middle&quot;&gt;${index+1}&lt;/text&gt;`;
       }
-      caption=current.visual===&#x27;cut&#x27;?`${columns} 列 × ${rows} 排，每個正方形邊長 ${answer} cm`:`${columns} 塊 × ${rows} 排，拼成邊長 ${answer} cm 的正方形`;
-      description=caption;
+      drawing+=`&lt;rect x=&quot;${x0}&quot; y=&quot;${y0}&quot; width=&quot;${w}&quot; height=&quot;${h}&quot; fill=&quot;none&quot; stroke=&quot;var(--foreground)&quot; stroke-width=&quot;3&quot;/&gt;`;
+      caption=`長邊 ${first} ÷ ${answer}＝${columns} 塊，寬邊 ${second} ÷ ${answer}＝${rows} 塊，共 ${columns*rows} 塊。`;
+      description=`紙張切割圖。${caption}`;
+    } else if (current.visual===&#x27;tiles&#x27;) {
+      viewHeight=450;
+      const columns=answer/first, rows=answer/second, side=270, x0=185, y0=140;
+      const cellW=side/columns, cellH=side/rows;
+      drawing+=&#x27;&lt;circle cx=&quot;320&quot; cy=&quot;45&quot; r=&quot;16&quot; fill=&quot;var(--primary)&quot;/&gt;&lt;path d=&quot;M287 82 Q320 48 353 82&quot; fill=&quot;var(--primary)&quot;/&gt;&#x27;;
+      drawing+=&#x27;&lt;rect x=&quot;270&quot; y=&quot;78&quot; width=&quot;100&quot; height=&quot;34&quot; rx=&quot;5&quot; fill=&quot;var(--accent)&quot; stroke=&quot;var(--foreground)&quot; stroke-width=&quot;2&quot;/&gt;&lt;text x=&quot;320&quot; y=&quot;102&quot; text-anchor=&quot;middle&quot;&gt;講台&lt;/text&gt;&lt;text x=&quot;390&quot; y=&quot;102&quot;&gt;老師（北）&lt;/text&gt;&#x27;;
+      drawing+=`&lt;text x=&quot;320&quot; y=&quot;129&quot; text-anchor=&quot;middle&quot;&gt;正方形邊長 ${answer} cm&lt;/text&gt;`;
+      for (let col=0;col&lt;columns;col++) drawing+=`&lt;text x=&quot;${x0+(col+.5)*cellW}&quot; y=&quot;${y0-7}&quot; text-anchor=&quot;middle&quot;&gt;第 ${col+1} 排&lt;/text&gt;`;
+      for (let row=0;row&lt;rows;row++) for (let col=0;col&lt;columns;col++) {
+        drawing+=`&lt;rect class=&quot;gcd-visual-mark&quot; style=&quot;--order:${row*columns+col}&quot; x=&quot;${x0+col*cellW}&quot; y=&quot;${y0+row*cellH}&quot; width=&quot;${cellW}&quot; height=&quot;${cellH}&quot; fill=&quot;${(row+col)%2?&#x27;var(--viz-series-2)&#x27;:&#x27;var(--viz-series-1)&#x27;}&quot; fill-opacity=&quot;.48&quot; stroke=&quot;var(--foreground)&quot; stroke-width=&quot;1.5&quot;/&gt;`;
+      }
+      drawing+=`&lt;rect x=&quot;${x0}&quot; y=&quot;${y0}&quot; width=&quot;${side}&quot; height=&quot;${side}&quot; fill=&quot;none&quot; stroke=&quot;var(--foreground)&quot; stroke-width=&quot;3&quot;/&gt;`;
+      caption=`橫向 ${answer} ÷ ${first}＝${columns} 排，從講台往後每排 ${answer} ÷ ${second}＝${rows} 塊，共 ${columns*rows} 塊。`;
+      description=`磁磚拼正方形圖。${caption}`;
     } else if (current.visual===&#x27;posts&#x27;) {
       const columns=first/answer, rows=second/answer;
-      drawing+=&#x27;&lt;rect x=&quot;190&quot; y=&quot;25&quot; width=&quot;260&quot; height=&quot;150&quot; rx=&quot;4&quot; fill=&quot;var(--blue)&quot; fill-opacity=&quot;.16&quot; stroke=&quot;var(--foreground)&quot; stroke-width=&quot;3&quot;/&gt;&#x27;;
+      const scale=Math.min(390/first,175/second), w=first*scale, h=second*scale, x0=(640-w)/2, y0=75;
+      drawing+=`&lt;text x=&quot;320&quot; y=&quot;34&quot; text-anchor=&quot;middle&quot;&gt;場地四周等距設柱&lt;/text&gt;&lt;text x=&quot;320&quot; y=&quot;${y0-13}&quot; text-anchor=&quot;middle&quot;&gt;長 ${first} m&lt;/text&gt;`;
+      drawing+=`&lt;text x=&quot;${x0-27}&quot; y=&quot;${y0+h/2}&quot; text-anchor=&quot;middle&quot; transform=&quot;rotate(-90 ${x0-27} ${y0+h/2})&quot;&gt;寬 ${second} m&lt;/text&gt;`;
+      drawing+=`&lt;rect x=&quot;${x0}&quot; y=&quot;${y0}&quot; width=&quot;${w}&quot; height=&quot;${h}&quot; rx=&quot;4&quot; fill=&quot;var(--accent)&quot; stroke=&quot;var(--foreground)&quot; stroke-width=&quot;3&quot;/&gt;`;
       let order=0;
-      for (let col=0;col&lt;=columns;col++) for (const y of [25,175]) drawing+=`&lt;circle class=&quot;gcd-visual-mark&quot; style=&quot;--order:${order++}&quot; cx=&quot;${190+col*260/columns}&quot; cy=&quot;${y}&quot; r=&quot;7&quot; fill=&quot;var(--green)&quot;/&gt;`;
-      for (let row=1;row&lt;rows;row++) for (const x of [190,450]) drawing+=`&lt;circle class=&quot;gcd-visual-mark&quot; style=&quot;--order:${order++}&quot; cx=&quot;${x}&quot; cy=&quot;${25+row*150/rows}&quot; r=&quot;7&quot; fill=&quot;var(--green)&quot;/&gt;`;
-      caption=`長邊 ${columns} 段、寬邊 ${rows} 段，每段 ${answer} m`;
-      description=caption;
+      for (let col=0;col&lt;=columns;col++) for (const y of [y0,y0+h]) drawing+=`&lt;circle class=&quot;gcd-visual-mark&quot; style=&quot;--order:${order++}&quot; cx=&quot;${x0+col*w/columns}&quot; cy=&quot;${y}&quot; r=&quot;7&quot; fill=&quot;var(--green)&quot;/&gt;`;
+      for (let row=1;row&lt;rows;row++) for (const x of [x0,x0+w]) drawing+=`&lt;circle class=&quot;gcd-visual-mark&quot; style=&quot;--order:${order++}&quot; cx=&quot;${x}&quot; cy=&quot;${y0+row*h/rows}&quot; r=&quot;7&quot; fill=&quot;var(--green)&quot;/&gt;`;
+      caption=`長邊 ${columns} 段、寬邊 ${rows} 段，每段 ${answer} m；四周共 ${2*(columns+rows)} 根柱。`;
+      description=`場地四周柱子位置圖。${caption}`;
     } else if (current.visual===&#x27;road&#x27;) {
-      const max=Math.max(first,second), x0=115, scale=410/max;
-      [first,second].forEach((length,index)=&gt;{
-        const y=index?145:65, color=index?&#x27;var(--orange)&#x27;:&#x27;var(--blue)&#x27;;
-        drawing+=`&lt;text x=&quot;12&quot; y=&quot;${y+6}&quot;&gt;道路${index?&#x27;乙&#x27;:&#x27;甲&#x27;}&lt;/text&gt;&lt;line x1=&quot;${x0}&quot; y1=&quot;${y}&quot; x2=&quot;${x0+length*scale}&quot; y2=&quot;${y}&quot; stroke=&quot;${color}&quot; stroke-width=&quot;7&quot;/&gt;`;
+      const max=Math.max(first,second), x0=110, span=440, x=value=&gt;x0+value/max*span;
+      drawing+=&#x27;&lt;text x=&quot;320&quot; y=&quot;34&quot; text-anchor=&quot;middle&quot;&gt;兩段道路使用相同距離比例&lt;/text&gt;&#x27;;
+      [[first,130,&#x27;var(--blue)&#x27;,&#x27;甲&#x27;],[second,220,&#x27;var(--orange)&#x27;,&#x27;乙&#x27;]].forEach(([length,y,color,label])=&gt;{
+        drawing+=`&lt;text x=&quot;12&quot; y=&quot;${y+6}&quot;&gt;道路${label}&lt;/text&gt;&lt;line x1=&quot;${x0}&quot; y1=&quot;${y}&quot; x2=&quot;${x(length)}&quot; y2=&quot;${y}&quot; stroke=&quot;${color}&quot; stroke-width=&quot;8&quot; stroke-linecap=&quot;round&quot;/&gt;`;
+        drawing+=`&lt;text x=&quot;${x(length)}&quot; y=&quot;${y-20}&quot; text-anchor=&quot;end&quot;&gt;${length} m&lt;/text&gt;`;
         for (let mark=0;mark&lt;=length;mark+=answer) {
-          const x=x0+mark*scale;
-          drawing+=`&lt;path class=&quot;gcd-visual-mark&quot; style=&quot;--order:${mark/answer}&quot; d=&quot;M${x} ${y-25} v40 m0 -40 l13 7 -13 7&quot; fill=&quot;${color}&quot; stroke=&quot;var(--foreground)&quot; stroke-width=&quot;2&quot;/&gt;`;
+          const px=x(mark);
+          drawing+=`&lt;line x1=&quot;${px}&quot; y1=&quot;${y-18}&quot; x2=&quot;${px}&quot; y2=&quot;${y+16}&quot; stroke=&quot;var(--foreground)&quot; stroke-width=&quot;2&quot;/&gt;&lt;path class=&quot;gcd-visual-mark&quot; style=&quot;--order:${mark/answer}&quot; d=&quot;M${px} ${y-18} l13 6 -13 6 Z&quot; fill=&quot;${color}&quot;/&gt;`;
         }
       });
-      caption=`兩段道路都每隔 ${answer} m 插旗，終點剛好有旗`;
-      description=caption;
-    } else if (current.visual===&#x27;pack&#x27;) {
-      const x0=110, barWidth=420, count=answer, cellW=barWidth/count;
-      [first,second].forEach((amount,index)=&gt;{
-        const y=index?125:55, color=index?&#x27;var(--orange)&#x27;:&#x27;var(--blue)&#x27;;
-        drawing+=`&lt;text x=&quot;8&quot; y=&quot;${y+24}&quot;&gt;${index?&#x27;餅乾&#x27;:&#x27;糖果&#x27;} ${amount}&lt;/text&gt;`;
-        for (let bag=0;bag&lt;count;bag++) drawing+=`&lt;rect class=&quot;gcd-visual-mark&quot; style=&quot;--order:${bag}&quot; x=&quot;${x0+bag*cellW+1}&quot; y=&quot;${y}&quot; width=&quot;${cellW-2}&quot; height=&quot;35&quot; rx=&quot;3&quot; fill=&quot;${color}&quot; fill-opacity=&quot;.72&quot; stroke=&quot;var(--foreground)&quot;/&gt;`;
-      });
-      caption=`平均分成 ${answer} 包，每包 ${first/answer} 顆糖、${second/answer} 塊餅乾`;
-      description=caption;
+      for (const tick of [...new Set([0,Math.min(first,second),max])]) drawing+=`&lt;line x1=&quot;${x(tick)}&quot; y1=&quot;270&quot; x2=&quot;${x(tick)}&quot; y2=&quot;280&quot; stroke=&quot;var(--foreground)&quot; stroke-width=&quot;2&quot;/&gt;&lt;text x=&quot;${x(tick)}&quot; y=&quot;303&quot; text-anchor=&quot;middle&quot;&gt;${tick}&lt;/text&gt;`;
+      caption=`道路甲 ${first} ÷ ${answer}＝${first/answer} 段，道路乙 ${second} ÷ ${answer}＝${second/answer} 段；終點都有旗。`;
+      description=`道路等距插旗圖。${caption}`;
     } else {
-      const x0=105, span=435, labels=current.visual===&#x27;time&#x27;?[&#x27;藍燈&#x27;,&#x27;橘燈&#x27;]:[`${first} 的倍數`,`${second} 的倍數`];
-      drawing+=`&lt;line x1=&quot;${x0+span}&quot; y1=&quot;35&quot; x2=&quot;${x0+span}&quot; y2=&quot;170&quot; stroke=&quot;var(--green)&quot; stroke-width=&quot;3&quot; stroke-dasharray=&quot;6 6&quot;/&gt;`;
+      const x0=155, span=405, x=value=&gt;x0+value/answer*span;
+      const bus=current.unit===&#x27;分鐘&#x27;;
+      const labels=bus?[`甲線 ${first} 分鐘`,`乙線 ${second} 分鐘`]:[`藍燈 ${first} 秒`,`橘燈 ${second} 秒`];
+      const unit=current.unit;
+      const common=gcd(first,second);
+      const step=answer/common&gt;18?common*2:common;
+      drawing+=`&lt;text x=&quot;320&quot; y=&quot;30&quot; text-anchor=&quot;middle&quot;&gt;${bus?&#x27;兩條路線&#x27;:&#x27;兩盞燈&#x27;}共用同一條等比例時間軸&lt;/text&gt;`;
+      for (let tick=0;tick&lt;=answer;tick+=step) {
+        const px=x(tick);
+        drawing+=`&lt;line x1=&quot;${px}&quot; y1=&quot;70&quot; x2=&quot;${px}&quot; y2=&quot;265&quot; stroke=&quot;var(--border)&quot; stroke-width=&quot;1&quot;/&gt;&lt;line x1=&quot;${px}&quot; y1=&quot;265&quot; x2=&quot;${px}&quot; y2=&quot;274&quot; stroke=&quot;var(--foreground)&quot; stroke-width=&quot;2&quot;/&gt;`;
+        if (tick===0 || tick===answer || tick%(step*2)===0) drawing+=`&lt;text x=&quot;${px}&quot; y=&quot;300&quot; text-anchor=&quot;middle&quot;&gt;${tick}&lt;/text&gt;`;
+      }
       [first,second].forEach((period,index)=&gt;{
-        const y=index?145:65, color=index?&#x27;var(--orange)&#x27;:&#x27;var(--blue)&#x27;;
-        drawing+=`&lt;text x=&quot;8&quot; y=&quot;${y+5}&quot;&gt;${labels[index]}&lt;/text&gt;&lt;line x1=&quot;${x0}&quot; y1=&quot;${y}&quot; x2=&quot;${x0+span}&quot; y2=&quot;${y}&quot; stroke=&quot;${color}&quot; stroke-width=&quot;4&quot;/&gt;`;
-        for (let mark=0;mark&lt;=answer;mark+=period) drawing+=`&lt;circle class=&quot;gcd-visual-mark${mark===answer?&#x27; gcd-visual-final&#x27;:&#x27;&#x27;}&quot; style=&quot;--order:${mark/period}&quot; cx=&quot;${x0+mark/answer*span}&quot; cy=&quot;${y}&quot; r=&quot;${mark===answer?11:8}&quot; fill=&quot;${color}&quot;/&gt;`;
+        const y=index?220:130, color=index?&#x27;var(--orange)&#x27;:&#x27;var(--blue)&#x27;;
+        drawing+=`&lt;text x=&quot;2&quot; y=&quot;${y+5}&quot;&gt;${labels[index]}&lt;/text&gt;&lt;line x1=&quot;${x0}&quot; y1=&quot;${y}&quot; x2=&quot;${x(answer)}&quot; y2=&quot;${y}&quot; stroke=&quot;${color}&quot; stroke-width=&quot;4&quot;/&gt;`;
+        for (let mark=0;mark&lt;=answer;mark+=period) drawing+=`&lt;circle class=&quot;gcd-visual-mark${mark===answer?&#x27; gcd-visual-final&#x27;:&#x27;&#x27;}&quot; style=&quot;--order:${mark/period}&quot; cx=&quot;${x(mark)}&quot; cy=&quot;${y}&quot; r=&quot;${mark===answer?11:9}&quot; fill=&quot;${color}&quot;/&gt;`;
       });
-      caption=`兩組第一次再次重合：${answer}${current.unit?` ${current.unit}`:&#x27;&#x27;}`;
-      description=caption;
+      drawing+=`&lt;line x1=&quot;${x(answer)}&quot; y1=&quot;55&quot; x2=&quot;${x(answer)}&quot; y2=&quot;255&quot; stroke=&quot;var(--green)&quot; stroke-width=&quot;3&quot; stroke-dasharray=&quot;6 6&quot;/&gt;`;
+      caption=`${first} 的倍數與 ${second} 的倍數第一次再次重合：${answer} ${unit}。`;
+      description=`等比例時間軸。${caption}`;
     }
-    return `&lt;svg viewBox=&quot;0 0 640 230&quot; role=&quot;img&quot; aria-label=&quot;${description}&quot; preserveAspectRatio=&quot;xMidYMid meet&quot;&gt;&lt;title&gt;答案視覺化&lt;/title&gt;${drawing}&lt;text x=&quot;320&quot; y=&quot;218&quot; text-anchor=&quot;middle&quot;&gt;${caption}&lt;/text&gt;&lt;/svg&gt;`;
+    return `&lt;svg viewBox=&quot;0 0 640 ${viewHeight}&quot; role=&quot;img&quot; aria-label=&quot;${description}&quot; preserveAspectRatio=&quot;xMidYMid meet&quot;&gt;&lt;title&gt;答案視覺化&lt;/title&gt;${drawing}&lt;/svg&gt;&lt;p class=&quot;gcd-quiz-visual-caption&quot;&gt;${caption}&lt;/p&gt;`;
   }
 
   function showQuizQuestion() {
