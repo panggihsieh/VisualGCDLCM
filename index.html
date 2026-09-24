@@ -1220,7 +1220,7 @@ html&gt;body{padding:0}&lt;/style&gt;
         &lt;/div&gt;
       &lt;/div&gt;
       &lt;div class=&quot;gcd-stage&quot; data-lcm-stage&gt;
-        &lt;svg data-lcm-board role=&quot;img&quot; aria-label=&quot;講台在北方、每排由前往後排列的磁磚正方形示意圖&quot; preserveAspectRatio=&quot;xMidYMid meet&quot;&gt;&lt;/svg&gt;
+        &lt;svg data-lcm-board role=&quot;img&quot; aria-label=&quot;講台在北方、左右為列、上下為行的磁磚正方形示意圖&quot; preserveAspectRatio=&quot;xMidYMid meet&quot;&gt;&lt;/svg&gt;
         &lt;div class=&quot;gcd-celebration&quot; data-lcm-sparkles aria-hidden=&quot;true&quot;&gt;
           &lt;strong&gt;答對了！&lt;/strong&gt;
           &lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
@@ -1750,8 +1750,8 @@ html&gt;body{padding:0}&lt;/style&gt;
   function renderLcmOptions({keepBoard=false}={}) {
     const choices=lcmMode===&#x27;side&#x27;
       ? shuffle([{value:30,label:&#x27;30 cm&#x27;},{value:20,label:&#x27;20 cm&#x27;},{value:60,label:&#x27;60 cm&#x27;}])
-      : shuffle([{value:&#x27;2x3&#x27;,label:&#x27;每排 2 塊 × 共 3 排&#x27;},{value:&#x27;3x2&#x27;,label:&#x27;每排 3 塊 × 共 2 排&#x27;},{value:&#x27;3x3&#x27;,label:&#x27;每排 3 塊 × 共 3 排&#x27;}]);
-    lcmPrompt.textContent=lcmMode===&#x27;side&#x27;?&#x27;拼成的最小正方形邊長是多少？&#x27;:&#x27;講台往後每排幾塊？共幾排？&#x27;;
+      : shuffle([{value:&#x27;2x3&#x27;,label:&#x27;左右 3 列 × 上下 2 行&#x27;},{value:&#x27;3x2&#x27;,label:&#x27;左右 2 列 × 上下 3 行&#x27;},{value:&#x27;3x3&#x27;,label:&#x27;左右 3 列 × 上下 3 行&#x27;}]);
+    lcmPrompt.textContent=lcmMode===&#x27;side&#x27;?&#x27;拼成的最小正方形邊長是多少？&#x27;:&#x27;左右有幾列？從講台往後有幾行？&#x27;;
     lcmOptions.innerHTML=&#x27;&#x27;;
     lcmOptions.classList.toggle(&#x27;is-wide-labels&#x27;,lcmMode===&#x27;count&#x27;);
     choices.forEach(choice=&gt;{
@@ -1807,10 +1807,10 @@ html&gt;body{padding:0}&lt;/style&gt;
     }
     drawLcmBoard(30,right);
     if (right) {
-      lcmFeedback.textContent=&#x27;兩關都答對！從講台往後，每排 30 ÷ 10＝3 塊；橫向 30 ÷ 15＝2 排，總共 3 × 2＝6 塊。&#x27;;
+      lcmFeedback.textContent=&#x27;兩關都答對！左右 30 ÷ 15＝2 列；從講台往後 30 ÷ 10＝3 行，總共 2 × 3＝6 塊。&#x27;;
       celebrate(true,lcmStage,lcmSparkles);
     } else {
-      lcmFeedback.textContent=&#x27;再算一次：由講台往後，每排塊數用 30 除以 10；橫向排數用 30 除以 15。&#x27;;
+      lcmFeedback.textContent=&#x27;再算一次：左右列數用 30 除以 15；從講台往後的行數用 30 除以 10。&#x27;;
     }
   }
 
@@ -1836,7 +1836,7 @@ html&gt;body{padding:0}&lt;/style&gt;
       const shownColumns=columns, shownRows=rows;
       const cellW=displaySide/shownColumns, cellH=displaySide/shownRows;
       if (chosen===30) for (let col=0;col&lt;columns;col++) {
-        html+=`&lt;text x=&quot;${x0+(col+.5)*cellW}&quot; y=&quot;${y0-9}&quot; text-anchor=&quot;middle&quot; font-size=&quot;18&quot;&gt;第 ${col+1} 排&lt;/text&gt;`;
+        html+=`&lt;text x=&quot;${x0+(col+.5)*cellW}&quot; y=&quot;${y0-9}&quot; text-anchor=&quot;middle&quot; font-size=&quot;18&quot;&gt;第 ${col+1} 列&lt;/text&gt;`;
       }
       html+=`&lt;rect x=&quot;${x0}&quot; y=&quot;${y0}&quot; width=&quot;${displaySide}&quot; height=&quot;${displaySide}&quot; fill=&quot;var(--accent)&quot; stroke=&quot;var(--foreground)&quot; stroke-width=&quot;3&quot;/&gt;`;
       for (let row=0;row&lt;shownRows;row++) for (let col=0;col&lt;shownColumns;col++) {
@@ -1844,7 +1844,7 @@ html&gt;body{padding:0}&lt;/style&gt;
         html+=`&lt;rect class=&quot;gcd-tile&quot; x=&quot;${x0+col*cellW}&quot; y=&quot;${y0+row*cellH}&quot; width=&quot;${cellW}&quot; height=&quot;${cellH}&quot; fill=&quot;${fill}&quot; fill-opacity=&quot;.42&quot; stroke=&quot;var(--foreground)&quot; stroke-width=&quot;1.5&quot;/&gt;`;
       }
       const note=chosen===30
-        ? `從講台往後：每排 3 塊，左右共 2 排${reveal?&#x27;，共 6 塊&#x27;:&#x27;&#x27;}`
+        ? `左右 2 列、從講台往後 3 行${reveal?&#x27;，共 6 塊&#x27;:&#x27;&#x27;}`
         : &#x27;60 cm 雖然可以完整拼成，但還不是最小正方形&#x27;;
       html+=`&lt;text x=&quot;${viewW/2}&quot; y=&quot;${viewH-28}&quot; text-anchor=&quot;middle&quot;&gt;${note}&lt;/text&gt;`;
     } else {
@@ -2287,7 +2287,7 @@ html&gt;body{padding:0}&lt;/style&gt;
         feedback.textContent=&#x27;第一關答對！請觀察切割結果，完成正方形總數。&#x27;;
         celebrate(false);
       } else {
-        feedback.textContent=`兩關都答對！GCD(${length}, ${width})＝${question.gcd}；長邊 ${columns} 塊 × 寬邊 ${rows} 塊＝共 ${columns*rows} 塊。`;
+        feedback.textContent=`兩關都答對！GCD(${length}, ${width})＝${question.gcd}；左右 ${columns} 列 × 上下 ${rows} 行＝共 ${columns*rows} 塊。`;
         showGcdMethod(methodCut);
         celebrate(true);
       }
@@ -2461,7 +2461,7 @@ html&gt;body{padding:0}&lt;/style&gt;
         if (columns*rows&lt;=36 &amp;&amp; cell&gt;=26) drawing+=`&lt;text x=&quot;${x0+(col+.5)*cell}&quot; y=&quot;${y0+(row+.5)*cell+6}&quot; text-anchor=&quot;middle&quot;&gt;${index+1}&lt;/text&gt;`;
       }
       drawing+=`&lt;rect x=&quot;${x0}&quot; y=&quot;${y0}&quot; width=&quot;${w}&quot; height=&quot;${h}&quot; fill=&quot;none&quot; stroke=&quot;var(--foreground)&quot; stroke-width=&quot;3&quot;/&gt;`;
-      caption=`長邊 ${first} ÷ ${answer}＝${columns} 塊，寬邊 ${second} ÷ ${answer}＝${rows} 塊，共 ${columns*rows} 塊。`;
+      caption=`左右 ${first} ÷ ${answer}＝${columns} 列 × 上下 ${second} ÷ ${answer}＝${rows} 行，共 ${columns*rows} 塊。`;
       description=`紙張切割圖。${caption}`;
     } else if (current.visual===&#x27;tiles&#x27;) {
       viewHeight=450;
@@ -2470,12 +2470,12 @@ html&gt;body{padding:0}&lt;/style&gt;
       drawing+=&#x27;&lt;circle cx=&quot;320&quot; cy=&quot;45&quot; r=&quot;16&quot; fill=&quot;var(--primary)&quot;/&gt;&lt;path d=&quot;M287 82 Q320 48 353 82&quot; fill=&quot;var(--primary)&quot;/&gt;&#x27;;
       drawing+=&#x27;&lt;rect x=&quot;270&quot; y=&quot;78&quot; width=&quot;100&quot; height=&quot;34&quot; rx=&quot;5&quot; fill=&quot;var(--accent)&quot; stroke=&quot;var(--foreground)&quot; stroke-width=&quot;2&quot;/&gt;&lt;text x=&quot;320&quot; y=&quot;102&quot; text-anchor=&quot;middle&quot;&gt;講台&lt;/text&gt;&lt;text x=&quot;390&quot; y=&quot;102&quot;&gt;老師（北）&lt;/text&gt;&#x27;;
       drawing+=`&lt;text x=&quot;320&quot; y=&quot;129&quot; text-anchor=&quot;middle&quot;&gt;正方形邊長 ${answer} cm&lt;/text&gt;`;
-      for (let col=0;col&lt;columns;col++) drawing+=`&lt;text x=&quot;${x0+(col+.5)*cellW}&quot; y=&quot;${y0-7}&quot; text-anchor=&quot;middle&quot;&gt;第 ${col+1} 排&lt;/text&gt;`;
+      for (let col=0;col&lt;columns;col++) drawing+=`&lt;text x=&quot;${x0+(col+.5)*cellW}&quot; y=&quot;${y0-7}&quot; text-anchor=&quot;middle&quot;&gt;第 ${col+1} 列&lt;/text&gt;`;
       for (let row=0;row&lt;rows;row++) for (let col=0;col&lt;columns;col++) {
         drawing+=`&lt;rect class=&quot;gcd-visual-mark&quot; style=&quot;--order:${row*columns+col}&quot; x=&quot;${x0+col*cellW}&quot; y=&quot;${y0+row*cellH}&quot; width=&quot;${cellW}&quot; height=&quot;${cellH}&quot; fill=&quot;${(row+col)%2?&#x27;var(--viz-series-2)&#x27;:&#x27;var(--viz-series-1)&#x27;}&quot; fill-opacity=&quot;.48&quot; stroke=&quot;var(--foreground)&quot; stroke-width=&quot;1.5&quot;/&gt;`;
       }
       drawing+=`&lt;rect x=&quot;${x0}&quot; y=&quot;${y0}&quot; width=&quot;${side}&quot; height=&quot;${side}&quot; fill=&quot;none&quot; stroke=&quot;var(--foreground)&quot; stroke-width=&quot;3&quot;/&gt;`;
-      caption=`橫向 ${answer} ÷ ${first}＝${columns} 排，從講台往後每排 ${answer} ÷ ${second}＝${rows} 塊，共 ${columns*rows} 塊。`;
+      caption=`左右 ${answer} ÷ ${first}＝${columns} 列，從講台往後 ${answer} ÷ ${second}＝${rows} 行，共 ${columns*rows} 塊。`;
       description=`磁磚拼正方形圖。${caption}`;
     } else if (current.visual===&#x27;posts&#x27;) {
       const columns=first/answer, rows=second/answer;
