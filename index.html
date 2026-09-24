@@ -1259,7 +1259,7 @@ html&gt;body{padding:0}&lt;/style&gt;
     &lt;div class=&quot;gcd-quiz-intro&quot;&gt;
       &lt;div&gt;
         &lt;h2&gt;第二版：限時測驗&lt;/h2&gt;
-        &lt;p&gt;三題依序練習最大公因數、最小公倍數與生活應用；每題 35 秒，整場最多 105 秒。&lt;/p&gt;
+        &lt;p&gt;三題依序練習最大公因數、最小公倍數與生活應用；每題作答最多 35 秒，整場作答時間 105 秒。解答閱讀時暫停計時。&lt;/p&gt;
       &lt;/div&gt;
       &lt;button class=&quot;btn btn-primary&quot; type=&quot;button&quot; data-quiz-start&gt;開始測驗&lt;/button&gt;
     &lt;/div&gt;
@@ -1275,6 +1275,8 @@ html&gt;body{padding:0}&lt;/style&gt;
       &lt;h3 data-quiz-prompt&gt;按「開始測驗」後，從三個答案中選出正確的一個。&lt;/h3&gt;
       &lt;div class=&quot;gcd-quiz-options&quot; data-quiz-options aria-label=&quot;測驗答案選項&quot;&gt;&lt;/div&gt;
       &lt;p class=&quot;gcd-quiz-feedback&quot; data-quiz-feedback role=&quot;status&quot; aria-live=&quot;polite&quot;&gt;準備好再開始計時。&lt;/p&gt;
+      &lt;div class=&quot;card gcd-solution gcd-euclid&quot; data-quiz-solution hidden aria-live=&quot;polite&quot;&gt;&lt;/div&gt;
+      &lt;button class=&quot;btn btn-primary gcd-quiz-next&quot; type=&quot;button&quot; data-quiz-next hidden&gt;下一題&lt;/button&gt;
     &lt;/div&gt;
   &lt;/section&gt;
 &lt;/div&gt;
@@ -1300,6 +1302,8 @@ html&gt;body{padding:0}&lt;/style&gt;
   #gcd-cutting-challenge .gcd-quiz-options { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
   #gcd-cutting-challenge .gcd-quiz-options .gcd-option { min-width:0; }
   #gcd-cutting-challenge .gcd-quiz-feedback { min-height:1.5em; margin:18px 0 0; font-weight:700; }
+  #gcd-cutting-challenge .gcd-quiz-next { display:block; margin-top:14px; min-height:48px; font-weight:800; }
+  #gcd-cutting-challenge .gcd-quiz-next[hidden] { display:none; }
   #gcd-cutting-challenge .gcd-example-picker { display:grid; grid-template-columns:repeat(2,minmax(240px,1fr)); align-items:end; gap:16px; margin-bottom:16px; background:color-mix(in srgb,var(--card) 84%,var(--purple)); box-shadow:0 6px 18px color-mix(in srgb,var(--foreground) 9%,transparent); }
   #gcd-cutting-challenge .gcd-example-picker .form-select { min-height:58px; font-size:1.22rem; font-weight:700; }
   #gcd-cutting-challenge .gcd-select-field { display:grid; gap:4px; }
@@ -1504,6 +1508,8 @@ html&gt;body{padding:0}&lt;/style&gt;
   const quizPrompt = root.querySelector(&#x27;[data-quiz-prompt]&#x27;);
   const quizOptions = root.querySelector(&#x27;[data-quiz-options]&#x27;);
   const quizFeedback = root.querySelector(&#x27;[data-quiz-feedback]&#x27;);
+  const quizSolution = root.querySelector(&#x27;[data-quiz-solution]&#x27;);
+  const quizNext = root.querySelector(&#x27;[data-quiz-next]&#x27;);
   const tabs = [...root.querySelectorAll(&#x27;[data-mode]&#x27;)];
   let question = { length:24, width:18, gcd:6 };
   let mode = &#x27;side&#x27;;
@@ -1523,15 +1529,15 @@ html&gt;body{padding:0}&lt;/style&gt;
   let quizTotalDeadline = 0;
   let quizRoundDeadline = 0;
   let quizFrame = null;
-  let quizAdvanceTimer = null;
+  let quizTotalRemainingMs = 105000;
   let difficulty = 0;
   let lastDimensions = {min:0,max:0};
   let selected = null;
   const celebrationTimers = new WeakMap();
   const gcd = (a,b) =&gt; b ? gcd(b,a % b) : a;
-  function euclidMarkup() {
-    let a=Math.max(question.length,question.width);
-    let b=Math.min(question.length,question.width);
+  function euclidMarkup(first=question.length,second=question.width) {
+    let a=Math.max(first,second);
+    let b=Math.min(first,second);
     const steps=[];
     while (b!==0) {
       const quotient=Math.floor(a/b), remainder=a%b;
@@ -2362,19 +2368,19 @@ html&gt;body{padding:0}&lt;/style&gt;
 
   const quizBanks = [
     [
-      {topic:&#x27;最大公因數&#x27;,prompt:&#x27;長 24 cm、寬 18 cm 的紙要切成最大的正方形，邊長是多少？&#x27;,choices:[3,6,12],answer:6,unit:&#x27;cm&#x27;,explanation:&#x27;GCD(24, 18)＝6。&#x27;},
-      {topic:&#x27;最大公因數&#x27;,prompt:&#x27;30 顆糖與 45 塊餅乾平均分裝成最多包，每包內容相同。最多幾包？&#x27;,choices:[5,10,15],answer:15,unit:&#x27;包&#x27;,explanation:&#x27;GCD(30, 45)＝15。&#x27;},
-      {topic:&#x27;最大公因數&#x27;,prompt:&#x27;長 36 m、寬 48 m 的場地四周等距設柱，最大柱距是多少？&#x27;,choices:[6,8,12],answer:12,unit:&#x27;m&#x27;,explanation:&#x27;GCD(36, 48)＝12。&#x27;}
+      {topic:&#x27;最大公因數&#x27;,prompt:&#x27;長 24 cm、寬 18 cm 的紙要切成最大的正方形，邊長是多少？&#x27;,choices:[3,6,12],answer:6,unit:&#x27;cm&#x27;,numbers:[24,18],kind:&#x27;gcd&#x27;,explanation:&#x27;GCD(24, 18)＝6。&#x27;},
+      {topic:&#x27;最大公因數&#x27;,prompt:&#x27;30 顆糖與 45 塊餅乾平均分裝成最多包，每包內容相同。最多幾包？&#x27;,choices:[5,10,15],answer:15,unit:&#x27;包&#x27;,numbers:[30,45],kind:&#x27;gcd&#x27;,explanation:&#x27;GCD(30, 45)＝15。&#x27;},
+      {topic:&#x27;最大公因數&#x27;,prompt:&#x27;長 36 m、寬 48 m 的場地四周等距設柱，最大柱距是多少？&#x27;,choices:[6,8,12],answer:12,unit:&#x27;m&#x27;,numbers:[36,48],kind:&#x27;gcd&#x27;,explanation:&#x27;GCD(36, 48)＝12。&#x27;}
     ],
     [
-      {topic:&#x27;最小公倍數&#x27;,prompt:&#x27;6 和 8 的最小公倍數是多少？&#x27;,choices:[12,16,24],answer:24,unit:&#x27;&#x27;,explanation:&#x27;6 的倍數與 8 的倍數第一次相同是 24。&#x27;},
-      {topic:&#x27;最小公倍數&#x27;,prompt:&#x27;4 和 10 的最小公倍數是多少？&#x27;,choices:[10,20,40],answer:20,unit:&#x27;&#x27;,explanation:&#x27;4 的倍數與 10 的倍數第一次相同是 20。&#x27;},
-      {topic:&#x27;最小公倍數&#x27;,prompt:&#x27;9 和 12 的最小公倍數是多少？&#x27;,choices:[18,27,36],answer:36,unit:&#x27;&#x27;,explanation:&#x27;9 的倍數與 12 的倍數第一次相同是 36。&#x27;}
+      {topic:&#x27;最小公倍數&#x27;,prompt:&#x27;6 和 8 的最小公倍數是多少？&#x27;,choices:[12,16,24],answer:24,unit:&#x27;&#x27;,numbers:[6,8],kind:&#x27;lcm&#x27;,explanation:&#x27;6 的倍數與 8 的倍數第一次相同是 24。&#x27;},
+      {topic:&#x27;最小公倍數&#x27;,prompt:&#x27;4 和 10 的最小公倍數是多少？&#x27;,choices:[10,20,40],answer:20,unit:&#x27;&#x27;,numbers:[4,10],kind:&#x27;lcm&#x27;,explanation:&#x27;4 的倍數與 10 的倍數第一次相同是 20。&#x27;},
+      {topic:&#x27;最小公倍數&#x27;,prompt:&#x27;9 和 12 的最小公倍數是多少？&#x27;,choices:[18,27,36],answer:36,unit:&#x27;&#x27;,numbers:[9,12],kind:&#x27;lcm&#x27;,explanation:&#x27;9 的倍數與 12 的倍數第一次相同是 36。&#x27;}
     ],
     [
-      {topic:&#x27;生活應用&#x27;,prompt:&#x27;15 cm × 10 cm 磁磚不切割拼成最小正方形，正方形邊長是多少？&#x27;,choices:[20,30,60],answer:30,unit:&#x27;cm&#x27;,explanation:&#x27;LCM(15, 10)＝30。&#x27;},
-      {topic:&#x27;生活應用&#x27;,prompt:&#x27;24 m 與 18 m 兩段道路都要等距插旗，終點也要有旗子。最大旗距是多少？&#x27;,choices:[3,6,8],answer:6,unit:&#x27;m&#x27;,explanation:&#x27;GCD(24, 18)＝6。&#x27;},
-      {topic:&#x27;生活應用&#x27;,prompt:&#x27;兩盞燈分別每 4 秒與每 6 秒亮一次，現在同時亮，幾秒後再次同時亮？&#x27;,choices:[6,10,12],answer:12,unit:&#x27;秒&#x27;,explanation:&#x27;LCM(4, 6)＝12。&#x27;}
+      {topic:&#x27;生活應用&#x27;,prompt:&#x27;15 cm × 10 cm 磁磚不切割拼成最小正方形，正方形邊長是多少？&#x27;,choices:[20,30,60],answer:30,unit:&#x27;cm&#x27;,numbers:[15,10],kind:&#x27;lcm&#x27;,explanation:&#x27;LCM(15, 10)＝30。&#x27;},
+      {topic:&#x27;生活應用&#x27;,prompt:&#x27;24 m 與 18 m 兩段道路都要等距插旗，終點也要有旗子。最大旗距是多少？&#x27;,choices:[3,6,8],answer:6,unit:&#x27;m&#x27;,numbers:[24,18],kind:&#x27;gcd&#x27;,explanation:&#x27;GCD(24, 18)＝6。&#x27;},
+      {topic:&#x27;生活應用&#x27;,prompt:&#x27;兩盞燈分別每 4 秒與每 6 秒亮一次，現在同時亮，幾秒後再次同時亮？&#x27;,choices:[6,10,12],answer:12,unit:&#x27;秒&#x27;,numbers:[4,6],kind:&#x27;lcm&#x27;,explanation:&#x27;LCM(4, 6)＝12。&#x27;}
     ]
   ];
 
@@ -2387,15 +2393,22 @@ html&gt;body{padding:0}&lt;/style&gt;
     quizActive=false;
     quizLocked=true;
     if (quizFrame!==null) cancelAnimationFrame(quizFrame);
-    if (quizAdvanceTimer!==null) clearTimeout(quizAdvanceTimer);
     quizFrame=null;
-    quizAdvanceTimer=null;
+    quizNext.hidden=true;
+    quizSolution.hidden=true;
     quizStart.hidden=false;
     quizStart.textContent=&#x27;再測一次&#x27;;
     quizTopic.textContent=&#x27;測驗結果&#x27;;
     quizPrompt.textContent=`${reason} 得分 ${quizPoints} / 30，答對 ${quizCorrect} / 3 題。`;
     quizOptions.innerHTML=&#x27;&#x27;;
     quizFeedback.textContent=&#x27;可以再測一次，或切回第一版繼續練習。&#x27;;
+  }
+
+  function quizSolutionMarkup(current) {
+    const [first,second]=current.numbers;
+    const method=euclidMarkup(first,second);
+    if (current.kind===&#x27;gcd&#x27;) return method;
+    return `${method}&lt;p&gt;最小公倍數＝${first} × ${second} ÷ ${gcd(first,second)}＝${current.answer}。&lt;/p&gt;`;
   }
 
   function showQuizQuestion() {
@@ -2406,6 +2419,9 @@ html&gt;body{padding:0}&lt;/style&gt;
     quizPrompt.textContent=current.prompt;
     quizCount.textContent=`${quizIndex+1} / 3`;
     quizFeedback.textContent=&#x27;請在本題倒數結束前選擇答案。&#x27;;
+    quizSolution.hidden=true;
+    quizSolution.innerHTML=&#x27;&#x27;;
+    quizNext.hidden=true;
     quizOptions.innerHTML=&#x27;&#x27;;
     shuffle(current.choices).forEach(value=&gt;{
       const button=document.createElement(&#x27;button&#x27;);
@@ -2423,6 +2439,9 @@ html&gt;body{padding:0}&lt;/style&gt;
     const current=quizQuestions[quizIndex];
     const right=value===current.answer;
     quizLocked=true;
+    const now=performance.now();
+    quizTotalRemainingMs=Math.max(0,quizTotalDeadline-now);
+    updateQuizClocks(now);
     if (quizFrame!==null) cancelAnimationFrame(quizFrame);
     quizFrame=null;
     quizOptions.querySelectorAll(&#x27;button&#x27;).forEach(button=&gt;{
@@ -2443,15 +2462,20 @@ html&gt;body{padding:0}&lt;/style&gt;
     }
     quizScore.textContent=String(quizPoints);
     quizStreak.textContent=String(quizCombo);
-    quizAdvanceTimer=setTimeout(()=&gt;{
-      quizAdvanceTimer=null;
-      if (!quizActive) return;
-      if (performance.now()&gt;=quizTotalDeadline) { finishQuiz(&#x27;總時間到！&#x27;); return; }
-      quizIndex++;
-      if (quizIndex===quizQuestions.length) { finishQuiz(&#x27;測驗完成！&#x27;); return; }
-      showQuizQuestion();
-      quizFrame=requestAnimationFrame(tickQuiz);
-    },1200);
+    quizSolution.innerHTML=quizSolutionMarkup(current);
+    quizSolution.hidden=false;
+    quizNext.textContent=quizIndex===quizQuestions.length-1 || quizTotalRemainingMs===0?&#x27;查看結果&#x27;:&#x27;下一題&#x27;;
+    quizNext.hidden=false;
+  }
+
+  function advanceQuiz() {
+    if (!quizActive || !quizLocked) return;
+    if (quizTotalRemainingMs===0) { finishQuiz(&#x27;總時間到！&#x27;); return; }
+    quizIndex++;
+    if (quizIndex===quizQuestions.length) { finishQuiz(&#x27;測驗完成！&#x27;); return; }
+    quizTotalDeadline=performance.now()+quizTotalRemainingMs;
+    showQuizQuestion();
+    quizFrame=requestAnimationFrame(tickQuiz);
   }
 
   function tickQuiz(now) {
@@ -2464,7 +2488,6 @@ html&gt;body{padding:0}&lt;/style&gt;
 
   function startQuiz() {
     if (quizFrame!==null) cancelAnimationFrame(quizFrame);
-    if (quizAdvanceTimer!==null) clearTimeout(quizAdvanceTimer);
     quizQuestions=quizBanks.map(bank=&gt;bank[Math.floor(Math.random()*bank.length)]);
     quizIndex=0;
     quizPoints=0;
@@ -2474,7 +2497,8 @@ html&gt;body{padding:0}&lt;/style&gt;
     quizStart.hidden=true;
     quizScore.textContent=&#x27;0&#x27;;
     quizStreak.textContent=&#x27;0&#x27;;
-    quizTotalDeadline=performance.now()+105000;
+    quizTotalRemainingMs=105000;
+    quizTotalDeadline=performance.now()+quizTotalRemainingMs;
     showQuizQuestion();
     quizFrame=requestAnimationFrame(tickQuiz);
   }
@@ -2502,6 +2526,7 @@ html&gt;body{padding:0}&lt;/style&gt;
   });
   versionButtons.forEach(button=&gt;button.addEventListener(&#x27;click&#x27;,()=&gt;setVersion(button.dataset.version)));
   quizStart.addEventListener(&#x27;click&#x27;,startQuiz);
+  quizNext.addEventListener(&#x27;click&#x27;,advanceQuiz);
   root.querySelector(&#x27;[data-new-question]&#x27;).addEventListener(&#x27;click&#x27;,newQuestion);
   newQuestion();
   showTopic(topicSelect.value);
